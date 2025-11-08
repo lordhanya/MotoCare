@@ -1,0 +1,1186 @@
+html,
+body {
+  border: none;
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  font-family: "Noto Sans", sans-serif;
+  scroll-behavior: smooth;
+}
+
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #f82900;
+  border: none;
+  border-radius: 2em;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #a91d01;
+}
+
+/* INDEX NAVBAR */
+header .navbar {
+  background-color: transparent;
+  margin: 0.8em 2em;
+  z-index: 1000;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+
+.navbar .navbar-brand {
+  font-size: 2em;
+  font-family: "BBH Sans Bogle", sans-serif;
+  font-weight: 700;
+  color: #fff;
+  margin-right: 7em;
+}
+
+.navbar span {
+  color: #f82900;
+}
+
+header .nav-box {
+  border: 2px solid #fff;
+  border-radius: 5em;
+  max-width: 70vw;
+}
+
+.navbar .nav-item {
+  margin-left: 1em;
+}
+
+.navbar .nav-item .nav-link.active {
+  color: #f82900;
+}
+
+.navbar .nav-item .nav-link {
+  color: #fff;
+  font-size: 1em;
+  font-weight: 400;
+}
+
+.navbar .nav-item .nav-link:hover {
+  color: #f82900;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+header nav .auth-btn {
+  font-size: 1em;
+  font-weight: 600;
+  margin-left: 7em;
+  margin-right: 4em;
+  display: flex;
+  gap: 1em;
+}
+
+header nav .auth-btn .login-btn {
+  background-color: transparent;
+  color: #fff;
+  border: 1px solid #fff;
+  border-radius: 2em;
+  padding: 0.5em 1.5em;
+}
+
+header nav .auth-btn .signup-btn {
+  background-color: #f82900;
+  color: #fff;
+  border: none;
+  border-radius: 2em;
+  padding: 0.5em 1.5em;
+}
+
+header nav .auth-btn .login-btn:hover {
+  background-color: #fff;
+  color: #000;
+  border: none;
+  transition: all 0.3s ease;
+}
+
+header nav .auth-btn .signup-btn:hover {
+  background-color: #fff;
+  color: #000;
+  border: none;
+  transition: all 0.3s ease;
+}
+
+/* DASHBOARD NAVBAR */
+.dashNav {
+  z-index: 1000;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+
+.dashNav a.navbar-brand {
+  font-size: 2em;
+  font-family: "BBH Sans Bogle", sans-serif;
+  font-weight: 700;
+  color: #fff;
+  margin-right: 7em;
+}
+
+.dashNav span {
+  color: #f82900;
+}
+
+.dashNav .nav-item {
+  margin-left: 1em;
+}
+
+.dashNav .nav-item .nav-link.active {
+  color: #f82900;
+}
+
+.dashNav .nav-item .nav-link {
+  color: #fff;
+  font-size: 1em;
+  font-weight: 400;
+}
+
+.dashNav .nav-item .nav-link:hover {
+  color: #f82900;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+/* .dashNav .user-name{
+  padding: 1em 0;
+} */
+
+.dashNav .logout-btn {
+  background-color: #f82900;
+  color: #fff;
+  border: none;
+  border-radius: 2em;
+  padding: 0.5em 1.5em;
+}
+
+.dashNav .logout-btn:hover {
+  background-color: #fff;
+  color: #000;
+  border: none;
+  transition: all 0.3s ease;
+}
+
+/* Hero Section */
+
+.home {
+  background: url("./images/wp12487135-black-and-white-car-desktop-wallpapers.jpg")
+    no-repeat center center/cover;
+  width: 100%;
+  height: 100%;
+  position: relative;
+  border: none;
+}
+
+.home .container h1 {
+  font-family: "BBH Sans Bogle", sans-serif;
+  font-weight: 700;
+  font-size: 3em;
+  color: #fff;
+}
+
+.home .container span {
+  color: #f82900;
+  font-weight: 700;
+}
+
+.home .container p {
+  color: #fff;
+  font-size: 1.2em;
+}
+
+.home .content {
+  display: grid;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+}
+
+.home .container .register-btn {
+  background-color: #f82900;
+  color: #fff;
+  padding: 0.8em 2em;
+  border-radius: 2em;
+  font-size: 1.2em;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.home .container a.learn-btn {
+  background-color: transparent;
+  color: #fff;
+  padding: 1em 2em;
+  border: 1px solid #fff;
+  border-radius: 2em;
+  font-size: 1.1em;
+  font-weight: 400;
+  text-decoration: none;
+}
+
+.home .container a i {
+  font-size: 1em;
+  transition: transform 0.3s ease;
+}
+
+.home .container .register-btn:hover,
+.home .container a.learn-btn:hover {
+  background-color: #fff;
+  color: #000;
+  transition: all 0.3s ease;
+}
+
+.home .container a.learn-btn:hover i {
+  transform: rotate(135deg);
+}
+
+.features {
+  position: relative;
+  overflow: hidden;
+  background: #000;
+}
+
+.features .feature-content h1 {
+  font-weight: 700;
+  font-family: "BBH Sans Bogle", sans-serif;
+  color: #f82900;
+  font-size: 3em;
+}
+
+.features .feature-content .card {
+  border: 1.6px solid #f82900;
+  background: #585757;
+  font-weight: 400;
+  border-radius: 2em;
+  transition: 300ms ease;
+  cursor: pointer;
+  transform-origin: center;
+  position: relative;
+  z-index: 0;
+}
+
+.feature-content img {
+  padding: 1em;
+  border-bottom: 2px solid #000;
+  width: 20em;
+  height: 12em;
+  object-fit: contain;
+}
+.features .feature-content .card p {
+  color: #fff;
+  font-weight: 600;
+  font-size: 1.3em;
+  transition: all 0.3s ease;
+}
+
+.features .feature-content .cards .card:hover {
+  transform: scale(1.1, 1.1);
+  background: #f82900;
+  border: none;
+}
+
+.features .feature-content .cards .card p:hover {
+  color: #000;
+}
+
+.features .feature-content .cards:hover .card:not(:hover) {
+  filter: blur(10px);
+  transform: scale(0.9, 0.9);
+}
+
+.about .about-content h1 {
+  font-weight: 700;
+  font-family: "BBH Sans Bogle", sans-serif;
+  color: #fff;
+  font-size: 3em;
+}
+
+.about .about-content span {
+  color: #f82900;
+}
+
+.about-content .info {
+  gap: 4em;
+}
+
+.about-content .info h4 {
+  font-size: 1.6em;
+  font-family: "BBH Sans Bogle", sans-serif;
+  font-weight: 600;
+  margin: 0.6em 0;
+}
+
+.about .about-content .our-mission,
+.about .about-content .our-vision {
+  background: #000;
+  border: none;
+  border-radius: 2em;
+  padding: 0.6em 2em;
+  display: inline-block;
+  width: 40%;
+  color: #fff;
+  font-size: 1.2em;
+  margin-top: 1em;
+  line-height: 1.6em;
+  cursor: pointer;
+  box-shadow: 15px 15px 30px rgb(25, 25, 25), -15px -15px 30px rgb(60, 60, 60);
+}
+
+.commitment h4 {
+  font-size: 1.6em;
+  font-family: "BBH Sans Bogle", sans-serif;
+  font-weight: 600;
+  margin: 0.6em 0;
+}
+
+.about .about-content .our-commitment {
+  background: #000;
+  border: none;
+  border-radius: 2em;
+  padding: 0.6em 2em;
+  display: inline-block;
+  width: 83%;
+  color: #fff;
+  font-size: 1.2em;
+  margin-top: 1em;
+  line-height: 1.6em;
+  cursor: pointer;
+  box-shadow: 15px 15px 30px rgb(25, 25, 25), -15px -15px 30px rgb(60, 60, 60);
+}
+.about-content .our-mission::before,
+.about-content .our-vision::before,
+.about-content .our-commitment::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  right: 100%;
+  left: 0;
+  border-radius: 2em;
+  background: #f82900;
+  opacity: 0;
+  z-index: -1;
+  transition: all 0.5s;
+}
+
+.about-content .our-mission:hover,
+.about-content .our-vision:hover,
+.about-content .our-commitment:hover {
+  color: #fff;
+}
+
+.about-content .our-mission:hover::before,
+.about-content .our-vision:hover::before,
+.about-content .our-commitment:hover::before {
+  left: 0;
+  right: 0;
+  opacity: 1;
+}
+
+.contact {
+  background: #000;
+  padding: 4em 2em;
+}
+
+.contact h1 {
+  font-weight: 700;
+  font-family: "BBH Sans Bogle", sans-serif;
+  color: #fff;
+  font-size: 3em;
+}
+
+.contact span {
+  color: #f82900;
+}
+
+.contact .appreciation {
+  width: 40%;
+  border: none;
+  border-radius: 2em;
+  background: #f82900;
+}
+
+.contact .appreciation p {
+  color: #fff;
+  font-size: 1.2em;
+}
+
+.container .appreciation a {
+  background: #fff;
+  border: none;
+  padding: 10px 10px;
+  display: inline-block;
+  font-size: 15px;
+  font-weight: 600;
+  width: 50%;
+  text-transform: uppercase;
+  transform: skew(-21deg);
+}
+
+.container .appreciation span {
+  display: inline-block;
+  transform: skew(21deg);
+}
+
+.container .appreciation a::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  right: 100%;
+  left: 0;
+  background: rgb(20, 20, 20);
+  opacity: 0;
+  z-index: -1;
+  transition: all 0.5s;
+}
+
+.container .appreciation a:hover {
+  color: #fff;
+}
+
+.container .appreciation a:hover::before {
+  left: 0;
+  right: 0;
+  opacity: 1;
+}
+
+.form-container {
+  padding: 1.3em 2em;
+  background: #181717;
+  border-radius: 2em;
+  width: 40%;
+  border: 2px solid #f82900;
+}
+.contact-form form {
+  color: #fff;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: left;
+  gap: 1em;
+}
+
+.contact-form form input,
+.contact-form form textarea {
+  width: 100%;
+  padding: 10px 15px;
+  border-radius: 2em;
+  border: 1px solid #a91d01;
+  background: #2c2b2b;
+  color: #fff;
+  font-size: 1em;
+}
+
+.contact-form form .submit-btn {
+  background: #f82900;
+  border: none;
+  padding: 0.8em 2em;
+  border-radius: 2em;
+  color: #fff;
+  font-size: 1em;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.contact-form form .submit-btn:hover {
+  background: #a91d01;
+  transition: all 0.3s ease;
+}
+
+.registerForm-section {
+  width: 100%;
+  height: 100vh;
+  background: #1a1919;
+}
+
+.registerForm {
+  display: flex;
+  flex-direction: column;
+  gap: 1em;
+  max-width: 50vh;
+  padding: 2em;
+  border-radius: 20px;
+  position: relative;
+  background-color: #090909;
+  color: #fff;
+  border: none;
+  box-shadow: 15px 15px 30px rgb(25, 25, 25), -15px -15px 30px rgb(60, 60, 60);
+}
+
+.registerForm .title {
+  font-size: 28px;
+  font-weight: 600;
+  letter-spacing: -1px;
+  position: relative;
+  display: flex;
+  align-items: center;
+  padding-left: 30px;
+  color: #f82900;
+}
+
+.registerForm .title::before {
+  width: 18px;
+  height: 18px;
+}
+
+.registerForm .title::after {
+  width: 18px;
+  height: 18px;
+  animation: pulse 1s linear infinite;
+}
+
+.registerForm .title::before,
+.registerForm .title::after {
+  position: absolute;
+  content: "";
+  height: 16px;
+  width: 16px;
+  border-radius: 50%;
+  left: 0px;
+  background-color: #f82900;
+}
+
+.registerForm .message,
+.registerForm .signin {
+  font-size: 14.5px;
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.registerForm .signin {
+  text-align: center;
+}
+
+.registerForm .signin a:hover {
+  text-decoration: underline rgb(183, 31, 5);
+  color: rgb(183, 31, 5);
+}
+
+.registerForm .signin a {
+  color: #f82900;
+}
+
+.registerForm .flex {
+  display: flex;
+  width: 100%;
+  gap: 6px;
+}
+
+.registerForm label {
+  position: relative;
+}
+
+.registerForm label .input {
+  background-color: #333;
+  color: #fff;
+  width: 100%;
+  padding: 20px 05px 05px 10px;
+  outline: 0;
+  border: 1px solid rgba(105, 105, 105, 0.397);
+  border-radius: 10px;
+}
+
+.registerForm label .input + span {
+  color: rgba(255, 255, 255, 0.5);
+  position: absolute;
+  left: 10px;
+  top: 0px;
+  font-size: 0.9em;
+  cursor: text;
+  transition: 0.3s ease;
+}
+
+.registerForm label .input:placeholder-shown + span {
+  top: 12.5px;
+  font-size: 0.9em;
+}
+
+.registerForm label .input:focus + span,
+.registerForm label .input:valid + span {
+  color: #f82900;
+  top: 0px;
+  font-size: 0.7em;
+  font-weight: 600;
+}
+
+.registerForm .input {
+  font-size: medium;
+}
+
+.registerForm .submit {
+  border: none;
+  outline: none;
+  padding: 10px;
+  border-radius: 10px;
+  color: #fff;
+  font-size: 16px;
+  transform: 0.3s ease;
+  background-color: #f82900;
+}
+
+.registerForm .submit:hover {
+  background: #cf2503;
+}
+
+@keyframes pulse {
+  from {
+    transform: scale(0.9);
+    opacity: 1;
+  }
+
+  to {
+    transform: scale(1.8);
+    opacity: 0;
+  }
+}
+
+.loginForm-section {
+  width: 100%;
+  height: 100vh;
+  background: #1a1919;
+}
+
+.loginForm {
+  display: flex;
+  flex-direction: column;
+  gap: 1em;
+  max-width: 50vh;
+  padding: 2em;
+  border-radius: 20px;
+  position: relative;
+  background-color: #090909;
+  color: #fff;
+  border: none;
+  box-shadow: 15px 15px 30px rgb(25, 25, 25), -15px -15px 30px rgb(60, 60, 60);
+}
+
+.loginForm .title {
+  font-size: 28px;
+  font-weight: 600;
+  letter-spacing: -1px;
+  position: relative;
+  display: flex;
+  align-items: center;
+  padding-left: 30px;
+  color: #f82900;
+}
+
+.loginForm .title::before {
+  width: 18px;
+  height: 18px;
+}
+
+.loginForm .title::after {
+  width: 18px;
+  height: 18px;
+  animation: pulse 1s linear infinite;
+}
+
+.loginForm .title::before,
+.loginForm .title::after {
+  position: absolute;
+  content: "";
+  height: 16px;
+  width: 16px;
+  border-radius: 50%;
+  left: 0px;
+  background-color: #f82900;
+}
+
+.loginForm .message,
+.loginForm .signup {
+  font-size: 14.5px;
+  color: rgba(255, 255, 255, 0.7);
+}
+.loginForm-section {
+  width: 100%;
+  height: 100vh;
+  background: #1a1919;
+}
+
+.loginForm {
+  display: flex;
+  flex-direction: column;
+  gap: 1em;
+  max-width: 50vh;
+  padding: 2em;
+  border-radius: 20px;
+  position: relative;
+  background-color: #090909;
+  color: #fff;
+  border: none;
+  box-shadow: 15px 15px 30px rgb(25, 25, 25), -15px -15px 30px rgb(60, 60, 60);
+}
+
+.loginForm .title {
+  font-size: 28px;
+  font-weight: 600;
+  letter-spacing: -1px;
+  position: relative;
+  display: flex;
+  align-items: center;
+  padding-left: 30px;
+  color: #f82900;
+}
+
+.loginForm .title::before {
+  width: 18px;
+  height: 18px;
+}
+
+.loginForm .title::after {
+  width: 18px;
+  height: 18px;
+  animation: pulse 1s linear infinite;
+}
+
+.loginForm .title::before,
+.loginForm .title::after {
+  position: absolute;
+  content: "";
+  height: 16px;
+  width: 16px;
+  border-radius: 50%;
+  left: 0px;
+  background-color: #f82900;
+}
+
+.loginForm .message,
+.loginForm .signup {
+  font-size: 14.5px;
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.loginForm .signup {
+  text-align: center;
+}
+
+.loginForm .signup a:hover {
+  text-decoration: underline rgb(183, 31, 5);
+  color: rgb(183, 31, 5);
+}
+
+.loginForm .signup a {
+  color: #f82900;
+}
+
+.loginForm label {
+  position: relative;
+}
+
+.loginForm label .input {
+  background-color: #333;
+  color: #fff;
+  width: 100%;
+  padding: 20px 05px 05px 10px;
+  outline: 0;
+  border: 1px solid rgba(105, 105, 105, 0.397);
+  border-radius: 10px;
+}
+
+.loginForm label .input + span {
+  color: rgba(255, 255, 255, 0.5);
+  position: absolute;
+  left: 10px;
+  top: 0px;
+  font-size: 0.9em;
+  cursor: text;
+  transition: 0.3s ease;
+}
+
+.loginForm label .input:placeholder-shown + span {
+  top: 12.5px;
+  font-size: 0.9em;
+}
+
+.loginForm label .input:focus + span,
+.loginForm label .input:valid + span {
+  color: #f82900;
+  top: 0px;
+  font-size: 0.7em;
+  font-weight: 600;
+}
+
+.loginForm .input {
+  font-size: medium;
+}
+
+.loginForm .submit {
+  border: none;
+  outline: none;
+  padding: 10px;
+  border-radius: 10px;
+  color: #fff;
+  font-size: 16px;
+  transform: 0.3s ease;
+  background-color: #f82900;
+}
+
+.loginForm .submit:hover {
+  background: #cf2503;
+}
+
+@keyframes pulse {
+  from {
+    transform: scale(0.9);
+    opacity: 1;
+  }
+
+  to {
+    transform: scale(1.8);
+    opacity: 0;
+  }
+}
+
+/* add_vehicle */
+
+.add_vehicle {
+  background: #000;
+  width: 100%;
+  height: 110vh;
+}
+
+.add_vehicle .row {
+  margin-top: 10em;
+}
+
+.add_vehicle .heading h2 {
+  font-family: "BBH Sans Bogle", sans-serif;
+  font-size: 2em;
+  font-weight: 600;
+  color: #fff;
+  border-bottom: 2px solid #f82900;
+}
+
+.add_vehicle .heading span {
+  color: #f82900;
+}
+
+.add_vehicle .vehicleForm {
+  display: grid;
+  grid-template-columns: auto auto;
+  justify-content: center;
+  column-gap: 2.4em;
+  row-gap: 2em;
+  max-width: 50vh;
+  position: relative;
+  color: #fff;
+  border: none;
+}
+
+.vehicleForm .submitBtn {
+  grid-column: 1 / span 2;
+  justify-content: center;
+  display: flex;
+}
+
+.add_vehicle .card-title {
+  color: #fff;
+  font-size: 2em;
+  font-size: 600;
+  font-family: "BBH Sans Bogle", sans-serif;
+}
+.vehicleForm label {
+  position: relative;
+}
+
+.vehicleForm p {
+  color: rgba(255, 255, 255, 0.5);
+  font-size: 0.7em;
+  cursor: text;
+  transition: 0.3s ease;
+}
+
+.vehicleForm label .input {
+  background-color: #333;
+  color: #fff;
+  width: 40vh;
+  padding: 20px 05px 05px 10px;
+  outline: 0;
+  border: 1px solid rgba(105, 105, 105, 0.397);
+  border-radius: 10px;
+}
+
+.vehicleForm label .input + span {
+  color: rgba(255, 255, 255, 0.5);
+  position: absolute;
+  left: 10px;
+  top: 15px;
+  font-size: 0.9em;
+  cursor: text;
+  transition: 0.3s ease;
+}
+
+.vehicleForm label #purchaseDate + span,
+.vehicleForm label #nextServiceDate + span {
+  color: rgba(255, 255, 255, 0.5);
+  position: absolute;
+  left: 10px;
+  top: 3px;
+  font-size: 0.9em;
+  cursor: text;
+  transition: 0.3s ease;
+}
+
+.vehicleForm label .input:placeholder-shown + span,
+.vehicleForm label #purchaseDate:placeholder-shown + span,
+.vehicleForm label #nextServiceDate:placeholder-shown + span {
+  top: 12.5px;
+  font-size: 0.9em;
+}
+
+.vehicleForm label .input:focus + span,
+.vehicleForm label .input:valid + span,
+.vehicleForm label #purchaseDate:focus + span,
+.vehicleForm label #purchaseDate:valid + span,
+.vehicleForm label #nextServiceDate:focus + span,
+.vehicleForm label #nextServiceDate:valid + span{
+  color: #f82900;
+  top: 3px;
+  font-size: 0.7em;
+  font-weight: 600;
+}
+
+.vehicleForm .input {
+  font-size: medium;
+}
+
+.vehicleForm .submit {
+  border: none;
+  outline: none;
+  padding: 10px;
+  border-radius: 10px;
+  color: #fff;
+  font-size: 16px;
+  font-weight: 700;
+  transform: 0.3s ease;
+  background-color: #f82900;
+}
+
+.add_vehicle .submit {
+  border: none;
+  outline: none;
+  padding: 10px;
+  border-radius: 10px;
+  color: #fff;
+  font-size: 16px;
+  transform: 0.3s ease;
+  background-color: #f82900;
+}
+
+.add_vehicle .submit:hover {
+  background: #cf2503;
+}
+
+/* dashboard */
+.dashboard-section {
+  width: 100%;
+  height: 100vh;
+  background: #000;
+}
+
+.dashboard-section .welcome-container {
+  border: none;
+  padding: 3em;
+  border-radius: 2em;
+  line-height: 1em;
+  margin-top: 13vh;
+}
+
+.dashboard-section .welcome-container i.user {
+  font-size: 7em;
+}
+
+.dashboard-section h2 {
+  font-weight: 600;
+  font-size: 3em;
+}
+
+.dashboard-section .user-name {
+  color: #f82900;
+  font-size: 2em;
+  font-weight: 600;
+}
+
+.dashboard-section .email {
+  color: #a3a2a2;
+  font-size: 1em;
+  font-weight: 400;
+}
+
+.dashboard-section .welcome-container .addNewCar-btn a {
+  border: none;
+  outline: none;
+  padding: 0.8em 1.3em;
+  border-radius: 1em;
+  color: #fff;
+  font-size: 16px;
+  font-weight: 600;
+  transform: all 0.3s ease;
+  background-color: #f82900;
+}
+
+.dashboard-section .welcome-container .addNewCar-btn a:hover {
+  background: #fff;
+  color: #f82900;
+}
+
+.dashboard-section .welcome-container a.viewEditProfile {
+  text-decoration: none;
+  color: #ccc;
+}
+
+.dashNav .sidebarToggle-btn {
+  color: #f82900;
+  border: 1px solid #f82900;
+  font-size: 1.3em;
+  transition: all 0.3s ease;
+}
+
+.dashNav .sidebarToggle-btn:hover {
+  color: #fff;
+  border: 1px solid #fff;
+}
+
+.offcanvas.offcanvas-start {
+  background: #000;
+}
+
+.offcanvas-header {
+  border-bottom: 1px solid #f82900;
+}
+
+.offcanvas h5.offcanvas-title {
+  font-family: "BBH Sans Bogle", sans-serif;
+  font-size: 2em;
+  font-weight: 600;
+  color: #fff;
+}
+
+.offcanvas span {
+  color: #f82900;
+}
+
+.offcanvas-body .sidebarItems li {
+  list-style: none;
+  cursor: pointer;
+}
+
+.offcanvas-body .sidebarItems .sidebarLink {
+  display: block;
+  color: #fff;
+  text-decoration: none;
+  font-size: 1.3em;
+  font-weight: 400;
+  border-radius: 2em;
+  padding: 0.5em 1em;
+  transition: all 0.3s ease;
+}
+
+.listItems.active {
+  background: #f82900;
+  border-radius: 2em;
+  transition: all 0.3s ease;
+}
+
+.offcanvas-body .sidebarItems .sidebarLink:hover {
+  background-color: #f82900;
+  color: #fff;
+  border: none;
+}
+
+.offcanvas-body p {
+  color: #919191;
+}
+
+.offcanvas-body hr {
+  color: #fff;
+}
+
+/* footer */
+.footer {
+  color: #fff;
+  padding: 3em 2em 2em;
+  font-family: "Noto Sans", sans-serif;
+  border-top: 3px solid #f82900;
+}
+
+.footer-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  max-width: 1200px;
+  margin: 0 auto;
+  gap: 2em;
+}
+
+.footer-col {
+  flex: 1 1 220px;
+  min-width: 200px;
+}
+
+.footer-col h4 {
+  font-family: "BBH Sans Bogle", sans-serif;
+  font-weight: 700;
+  color: #fff;
+  margin-bottom: 1em;
+  font-size: 1.8em;
+}
+
+.footer-col span {
+  color: #f82900;
+}
+
+.footer-col p {
+  font-weight: 400;
+  font-size: 1em;
+  color: #ccc;
+}
+
+.social-links a {
+  display: inline-block;
+  color: #ccc;
+  margin-right: 1em;
+  font-size: 1.2em;
+  transition: all 0.3s ease;
+}
+
+.social-links a:hover {
+  color: #f82900;
+  transform: scale3d(1.2, 1.2, 1);
+  cursor: pointer;
+}
+
+.footer-bottom {
+  text-align: center;
+  margin-top: 2em;
+  font-size: 0.9em;
+  color: #666;
+  font-weight: 400;
+}
+
+.footer-bottom a {
+  color: #f82900;
+  text-decoration: none;
+  font-family: "Nato Sans", sans-serif;
+}
+
+@media (max-width: 768px) {
+  .footer-container {
+    flex-direction: column;
+    gap: 3em;
+  }
+}
