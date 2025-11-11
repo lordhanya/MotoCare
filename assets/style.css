@@ -887,6 +887,7 @@ header nav .auth-btn .signup-btn:hover {
   display: flex;
 }
 
+
 .add_vehicle .card-title {
   color: #fff;
   font-size: 2em;
@@ -977,12 +978,14 @@ header nav .auth-btn .signup-btn:hover {
   border-radius: 10px;
   color: #fff;
   font-size: 16px;
-  transform: 0.3s ease;
   background-color: #f82900;
 }
 
 .add_vehicle .submit:hover {
-  background: #cf2503;
+  background: #fff;
+  color: #f82900;
+  transform: scale(1.02);
+  transform: all 0.3s ease;
 }
 
 /* dashboard */
