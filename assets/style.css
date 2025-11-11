@@ -1321,6 +1321,28 @@ form.editForm {
   gap: 1em;
 }
 
+form.editForm label{
+  font-weight: 600;
+}
+
+form.editForm input{
+  width: 100%;
+  padding: 10px 15px;
+  border-radius: 1em;
+  border: 1px solid rgba(105, 105, 105, 0.397);
+  background: #2c2b2b;
+  color: #fff;
+  font-size: 1em;
+  border: 1px solid #777575;
+}
+
+form.editForm input:focus,
+form.editForm input:hover{
+  border: 1px solid #f82900;
+  background: #2c2b2b;
+  color: #f82900;
+}
+
 .btnGroup{
   border-top: 1.4px solid #fff; 
   padding: 1.2em 0;
