@@ -1086,12 +1086,13 @@ header nav .auth-btn .signup-btn:hover {
   font-size: 1.3em;
   font-weight: 400;
   border-radius: 2em;
-  padding: 0.5em 1em;
+  padding: 0.3em 1em;
   transition: all 0.3s ease;
 }
 
 .listItems.active {
   background: #f82900;
+  border: none;
   border-radius: 2em;
   transition: all 0.3s ease;
 }
@@ -1099,6 +1100,7 @@ header nav .auth-btn .signup-btn:hover {
 .offcanvas-body .sidebarItems .sidebarLink:hover {
   background-color: #f82900;
   color: #fff;
+  border-radius: 2em;
   border: none;
 }
 
