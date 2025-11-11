@@ -66,62 +66,62 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                 <div class="vehicleForm-container">
                     <form action="" method="POST" class="vehicleForm">
                         <!-- Vehicle Name -->
-                        <label>
+                        <label for="vehicleName">
                             <input class="input" name="vehicle_name" type="text" required>
                             <span>Vehicle Name</span>
                         </label>
 
                         <!-- Model -->
-                        <label>
-                            <input class="input" name="model" type="text" required>
+                        <label for="model">
+                            <input class="input" id="model" name="model" type="text" required>
                             <span>Model</span>
                         </label>
 
                         <!-- Vehicle Type -->
-                        <label>
-                            <input class="input" name="vehicle_type" type="text" required>
+                        <label for="vehicle_type">
+                            <input class="input" id="vehicle_type" name="vehicle_type" type="text" required>
                             <span>Vehicle Type (Car, Bike, Scooter, etc.)</span>
                         </label>
 
                         <!-- Registration Number -->
-                        <label>
-                            <input class="input" name="registration_no" type="text" required>
+                        <label for="registration_no">
+                            <input class="input" id="registration_no" name="registration_no" type="text" required>
                             <span>Registration Number</span>
                         </label>
 
                         <!-- Purchase Date -->
-                        <label>
+                        <label for="purchaseDate">
                             <input class="input" id="purchaseDate" name="purchase_date" type="date" required>
                             <span>Purchase Date</span>
                         </label>
 
                         <!-- Current KM -->
-                        <label>
-                            <input class="input" name="current_km" type="number" min="0" required>
+                        <label for="current_km">
+                            <input class="input" id="current_km" name="current_km" type="number" min="0" required>
                             <span>Current Odometer Reading (KM)</span>
                         </label>
 
                         <!-- Last Service Date (Optional) -->
-                        <label>
-                            <input class="input" name="last_service_date" type="date">
+                        <label for="last_service_date">
+                            <input class="input" id="last_service_date" name="last_service_date" type="date">
                             <span>Last Service Date (if any)</span>
                         </label>
 
                         <!-- Last Service KM (Optional) -->
-                        <label>
-                            <input class="input" name="last_service_km" type="number" min="0">
+                        <label for="last_service_km">
+                            <input class="input" id="last_service_km" name="last_service_km" type="number" min="0">
                             <span>Odometer at Last Service, if any (KM)</span>
                         </label>
 
                         <!-- Next Service Date -->
-                        <label>
+                        <label for="nextServiceDate">
                             <input class="input" id="nextServiceDate" name="next_service_date" type="date" required>
                             <span>Next Service Date</span>
                         </label>
 
                         <!-- Next Service KM -->
-                        <label>
-                            <input class="input" name="next_service_km" type="number" min="0" required>
+                        <label for="next_service_km">
+                            <input class="input" id="next_service_km" name="next_service_km" type="number" min="0" required>
                             <span>Next Service Odometer (KM)</span>
                         </label>
 

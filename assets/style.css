@@ -887,7 +887,6 @@ header nav .auth-btn .signup-btn:hover {
   display: flex;
 }
 
-
 .add_vehicle .card-title {
   color: #fff;
   font-size: 2em;
@@ -948,7 +947,7 @@ header nav .auth-btn .signup-btn:hover {
 .vehicleForm label #purchaseDate:focus + span,
 .vehicleForm label #purchaseDate:valid + span,
 .vehicleForm label #nextServiceDate:focus + span,
-.vehicleForm label #nextServiceDate:valid + span{
+.vehicleForm label #nextServiceDate:valid + span {
   color: #f82900;
   top: 3px;
   font-size: 0.7em;
@@ -1113,6 +1112,219 @@ header nav .auth-btn .signup-btn:hover {
 
 .offcanvas-body hr {
   color: #fff;
+}
+
+/* vehicles */
+section.vehicles {
+  background: #000;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  min-height: 100vh;
+  padding: 4em 2em;
+}
+
+section.vehicles .container {
+  margin: 10vh auto;
+}
+
+section.vehicles h2 {
+  font-family: "BBH Sans Bogle", sans-serif;
+  font-weight: 700;
+  text-align: center;
+  font-size: 3em;
+  color: #fff;
+}
+
+section.vehicles span {
+  color: #f82900;
+}
+
+section.vehicles .row {
+  flex-wrap: wrap;
+  align-items: stretch;
+}
+
+.vehicle-card {
+  border: 2px solid #f82900;
+  border-radius: 2em;
+  padding: 3em;
+  margin-top: 2em;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-height: 70vh;
+  box-sizing: border-box;
+  box-shadow: 0 0 12px 2px rgba(248, 41, 0, 0.4);
+}
+
+.vehicle-card hr {
+  border: 1px solid #f82900;
+  margin: 1em 0;
+}
+
+.vehicle-card img {
+  object-fit: contain;
+  display: block;
+  transition: transform 0.4s ease;
+  max-width: 100%;
+}
+
+.vehicle-card img:hover {
+  cursor: pointer;
+  transform: scale(1.3) rotate(-8deg);
+}
+
+.vehicle-card .card-body {
+  text-align: center;
+}
+
+.vehicle-card .card-body h4 {
+  font-family: "BBH Sans Bogle", sans-serif;
+  font-weight: 700;
+  font-size: 2em;
+  color: #fff;
+}
+
+.card-body .detailsBtn {
+  background: #f82900;
+  color: #fff;
+  border: none;
+  border-radius: 1em;
+  padding: 0.7em 1em;
+  font-size: 1em;
+  font-weight: 400;
+  transition: all 0.3s ease;
+}
+
+.card-body .detailsBtn:hover {
+  background: #fff;
+  color: #f82900;
+}
+
+.card-body .deleteBtn {
+  background: transparent;
+  color: red;
+  border: 1px solid red;
+  border-radius: 1em;
+  padding: 0.7em 1.5em;
+  font-size: 1em;
+  font-weight: 400;
+  transition: all 0.3s ease;
+}
+
+.card-body .deleteBtn:hover {
+  background: red;
+  color: #000;
+}
+
+.vehicles .modal {
+  background: rgba(2, 2, 2, 0.397);
+}
+
+.vehicles .modal-content {
+  background: #000;
+  color: #fff;
+  border: 2px solid #f82900;
+  border-radius: 2em;
+  padding: 2em;
+}
+
+.vehicles .modal-content button.closeBtn {
+  background-color: #f82900;
+  color: #000;
+  font-size: 1em;
+  font-weight: 600;
+  cursor: pointer;
+  border: none;
+  border-radius: 1.3em;
+}
+
+.vehicles .modal-content button.editBtn {
+  background-color: #f82900;
+  color: #fff;
+  cursor: pointer;
+  border: none;
+}
+
+.vehicles .modal-content button.btn-secondary:hover {
+  background-color: red;
+  color: #fff;
+  cursor: pointer;
+  border: 1px solid red;
+  transition: all 0.3s ease;
+}
+
+.vehicles .modal-content button.editBtn:hover {
+  background-color: #fff;
+  color: #000;
+  transition: all 0.3s ease;
+}
+
+.vehicles .modal-content button.closeBtn:hover {
+  background-color: #f82900;
+  color: #000;
+  transition: all 0.3s ease;
+}
+
+.vehicles .modal-body {
+  text-align: left;
+}
+
+.vehicles .modal-header h1 {
+  font-family: "Noto Sans", sans-serif;
+  font-weight: 700;
+  font-size: 2em;
+}
+
+section.vehicles .alert {
+  width: 40vw;
+  border: 1px solid #f82900;
+  background-color: #141313;
+  color: red;
+  padding: 0.7em 2em;
+  border-radius: 1em;
+  font-size: 1.2em;
+  font-weight: 500;
+}
+
+section.vehicles .vehicleNull {
+  border: 1px solid #f82900;
+  min-height: 20vh;
+  background: #141313;
+  text-align: center;
+  color: #fff;
+  font-size: 1.5em;
+  font-weight: 600;
+  margin-top: 5em;
+}
+
+section.vehicles button.saveBtn {
+  background-color: #f82900;
+  color: #fff;
+  cursor: pointer;
+  border: none;
+  font-size: 1em;
+  font-weight: 400;
+  transition: all 0.3s ease;
+}
+
+section.vehicles .saveBtn:hover {
+  color: #fff;
+  background: green;
+}
+
+form.editForm {
+  display: grid;
+  grid-template-columns: auto auto auto;
+  gap: 1em;
+}
+
+.btnGroup{
+  border-top: 1.4px solid #fff; 
+  padding: 1.2em 0;
+  grid-column: 1 / span 3;
 }
 
 /* footer */
