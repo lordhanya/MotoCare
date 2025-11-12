@@ -46,8 +46,8 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     $insert->bindParam(':next_service_km', $next_service_km, PDO::PARAM_INT);
 
     if ($insert->execute()) {
-        echo "<script>alert('Vehicle added successfully! Redirecting to your dashboard...'); 
-        window.location.href='dashboard.php';</script>";
+        echo "<script>alert('Vehicle added successfully! Redirecting to your vehicles page...'); 
+        window.location.href='vehicles.php';</script>";
         exit();
     } else {
         echo "<script>alert('Vehicle addition failed. Please try again.');</script>";
