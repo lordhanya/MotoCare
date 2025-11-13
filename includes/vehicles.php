@@ -1,7 +1,7 @@
 <?php
 session_start();
-include "header.php";
-include "../db/connection.php";
+include __DIR__ . "/header.php";
+include __DIR__ . "/../db/connection.php";
 
 if (!isset($_SESSION['user_id'])) {
     header("Location: login.php");
@@ -11,7 +11,10 @@ if (!isset($_SESSION['user_id'])) {
 $user_id = $_SESSION['user_id'];
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['vehicle_id'])) {
+    error_log("Delete request received for vehicle_id: {$_POST['vehicle_id']}");
+
     $vehicle_id = (int)$_POST['vehicle_id'];
+    $action = $_POST['action'] ?? 'update';
 
     if (isset($_POST['vehicle_id']) && isset($_POST['vehicle_name']) && !empty($_POST['vehicle_name'])) {
 
@@ -60,16 +63,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['vehicle_id'])) {
 
         header("Location: vehicles.php");
         exit();
-    } elseif (isset($_POST['vehicle_id'])) {
-    } else {
+    } elseif ($action === "delete") {
         $check = $conn->prepare("SELECT id FROM vehicles WHERE id = :vehicle_id AND user_id = :user_id");
         $check->bindParam(':vehicle_id', $vehicle_id, PDO::PARAM_INT);
         $check->bindParam(':user_id', $user_id, PDO::PARAM_INT);
         $check->execute();
 
         if ($check->rowCount() > 0) {
-            $delete = $conn->prepare("DELETE FROM vehicles WHERE id = :vehicle_id");
+            $delete = $conn->prepare("DELETE FROM vehicles WHERE id = :vehicle_id AND user_id = :user_id");
             $delete->bindParam(':vehicle_id', $vehicle_id, PDO::PARAM_INT);
+            $delete->bindParam(':user_id', $user_id, PDO::PARAM_INT);
             if ($delete->execute()) {
                 $_SESSION['message'] = "Vehicle deleted successfully!";
             } else {
@@ -143,6 +146,7 @@ include __DIR__ . "/dashNav.php";
 
                                     <form method="POST" action="" onsubmit="return confirm('Are you sure you want to delete this vehicle?');">
                                         <input type="hidden" name="vehicle_id" value="<?php echo $vehicle['id']; ?>">
+                                        <input type="hidden" name="action" value="delete">
                                         <button type="submit" class="btn deleteBtn d-flex align-items-center justify-content-center gap-2">
                                             <i class="bi bi-trash"></i> Delete
                                         </button>
@@ -269,4 +273,4 @@ include __DIR__ . "/dashNav.php";
     </div>
 </section>
 
-<?php include "footer.php"; ?>
+<?php include __DIR__ . "/footer.php"; ?>
