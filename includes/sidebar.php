@@ -10,7 +10,7 @@
             <p><i class="bi bi-menu-button-wide me-2"></i> Menu</p>
             <hr class="mb-4">
             <div class="menuContainer bg-dark mt-2 p-3 rounded-4">
-                <ul class="me-auto mb-3 mb-lg-0 d-grid gap-3">
+                <ul class="me-auto mb-3 mb-lg-0 d-grid gap-3 mt-3">
                     <li class="listItems active">
                         <a class="sidebarLink" href="dashboard.php"><i class="bi bi-grid"></i> Dashboard</a>
                     </li>
