@@ -1,5 +1,5 @@
 <!-- Dashboard Navbar -->
-<nav class="navbar navbar-expand-lg border-body fixed-top px-4 py-2 dashNav">
+<nav class="navbar navbar-expand-lg border-body fixed-top px-4 py-3 dashNav">
     <div class="container-fluid">
         <!-- Left Section: Sidebar Toggle + Logo -->
         <div class="d-flex align-items-center gap-3">
@@ -11,7 +11,7 @@
 
         <!-- Right Section: Profile + Logout -->
         <div class="d-flex align-items-center gap-3 ms-auto">
-            <div class="profile-section">
+            <div class="dashNavProfile-section">
                 <div class="profile-icon">
                     <i class="bi bi-person-fill"></i>
                 </div>
