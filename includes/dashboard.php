@@ -24,6 +24,41 @@ if ($user) {
     $_SESSION['email'] = $user['email'];
 }
 
+// Fetch vehicles data
+$stmt = $conn->prepare("SELECT * FROM vehicles WHERE user_id = :user_id");
+$stmt->bindParam(':user_id', $user_id, PDO::PARAM_INT);
+$stmt->execute();
+$vehicles = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+$today = date('Y-m-d');
+$upcoming_services = 0;
+$total_health = 0;
+$total_vehicles = count($vehicles);
+
+// Calculate stats
+foreach ($vehicles as $vehicle) {
+    $current_km = (int)$vehicle['current_km'] ?? 0;
+    $last_service_km = (int)$vehicle['last_service_km'] ?? 0;
+    $next_service_km = (int)$vehicle['next_service_km'] ?? 0;
+    $health = 100;
+    $km_gap = max(1, $next_service_km - $last_service_km);
+    if ($next_service_km > 0 && $current_km >= $last_service_km) {
+        $distance_progress = (($current_km - $last_service_km) / $km_gap) * 100;
+        $health = max(0, 100 - $distance_progress);
+    }
+    if (!empty($vehicle['next_service_date']) && $vehicle['next_service_date'] < $today) {
+        $health -= 10;
+    }
+    $health = max(0, $health);
+    $total_health += $health;
+
+    if (!empty($vehicle['next_service_date']) && $vehicle['next_service_date'] <= $today) {
+        $upcoming_services++;
+    }
+}
+
+$average_health = $total_vehicles > 0 ? round($total_health / $total_vehicles) : 0;
+
 include __DIR__ . "/header.php";
 include __DIR__ . "/dashNav.php";
 include __DIR__ . "/sidebar.php";
@@ -31,77 +66,179 @@ include __DIR__ . "/sidebar.php";
 
 <!-- Dashboard Content -->
 <section class="dashboard-section">
-    <div class="container pt-5">
-        <div class="row">
-            <div class="col">
-                <div class="welcome-container d-flex bg-dark align-items-center gap-4">
-                    <i class="bi bi-person-circle text-white user"></i>
-                    <div class="d-grid">
-                        <h2 class="text-white">Welcome,</h2>
-                        <p class='user-name'><?php
-                                                echo isset($_SESSION['first_name']) ? $_SESSION['first_name'] : '';
-                                                echo " ";
-                                                echo isset($_SESSION['last_name']) ? $_SESSION['last_name'] : '';
-                                                ?> </p>
-                        <p class="email">
+    <div class="container">
+        <!-- Welcome Banner -->
+        <div class="welcome-banner">
+            <div class="row align-items-center">
+                <div class="col-auto">
+                    <div class="user-avatar">
+                        <i class="bi bi-person-fill"></i>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="welcome-content">
+                        <h2>Welcome back,</h2>
+                        <div class="user-name">
+                            <?php
+                            echo isset($_SESSION['first_name']) ? htmlspecialchars($_SESSION['first_name']) : '';
+                            echo " ";
+                            echo isset($_SESSION['last_name']) ? htmlspecialchars($_SESSION['last_name']) : '';
+                            ?>
+                        </div>
+                        <div class="user-email">
                             <?= isset($_SESSION['email']) ? htmlspecialchars($_SESSION['email']) : 'Guest'; ?>
-                        </p>
-                        <a class="viewEditProfile" href="profile.php">View | Edit Profile</a>
-                    </div>
-                    <div class="addNewCar-btn d-flex ms-auto">
-                        <a href="add_vehicle.php" class="btn d-flex align-items-center justify-content-center gap-3"><i class="bi bi-plus-square-fill fs-3"></i>Add new car</a>
-                    </div>
-                </div>
-
-            </div>
-            <div class="row g-4">
-                <div class="col">
-                    <div class="card shadow-sm bg-dark">
-                        <div class="card-body text-white">
-                            <h5 class="card-title">Total Vehicles Added</h5>
-                            <p class="card-text">1</p>
-                            <div class="btn-container d-flex align-items-left gap-5">
-                                <a href="add_vehicles.php" class="btn btn-success">Add More</a>
-                                <a href="vehicles.php" class="btn btn-warning">Manage Vehicles</a>
-                            </div>
                         </div>
+                        <a class="profile-link" href="profile.php">
+                            View Profile <i class="bi bi-arrow-right"></i>
+                        </a>
                     </div>
                 </div>
-                <div class="col">
-                    <div class="card shadow-sm bg-dark">
-                        <div class="card-body text-white">
-                            <h5 class="card-title">Upcoming Services</h5>
-                            <p class="card-text">NULL</p>
-                            <a href="add_vehicle.php" class="btn btn-warning">Go</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="col">
-                    <div class="card shadow-sm bg-dark">
-                        <div class="card-body text-white">
-                            <h5 class="card-title">Past Services</h5>
-                            <p class="card-text">NULL</p>
-                            <a href="settings.php" class="btn btn-secondary">Go</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="col">
-                    <div class="card shadow-sm bg-dark">
-                        <div class="card-body text-white">
-                            <h5 class="card-title">Next Service Due</h5>
-                            <p class="card-text">NULL</p>
-                            <a href="settings.php" class="btn btn-secondary">Go</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-sm-12">
-                    <!-- vehicle lsit -->
+                <div class="col-auto">
+                    <a href="add_vehicle.php" class="add-vehicle-btn">
+                        <i class="bi bi-plus-circle-fill fs-4"></i>
+                        Add New Vehicle
+                    </a>
                 </div>
             </div>
         </div>
+
+        <!-- Stats Grid -->
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-icon">
+                    <i class="bi bi-car-front-fill"></i>
+                </div>
+                <div class="stat-label">Total Vehicles</div>
+                <div class="stat-value"><?= $total_vehicles ?></div>
+                <div class="stat-footer">
+                    <span style="color: var(--text-secondary); font-size: 0.875rem;">Active fleet</span>
+                    <a href="vehicles.php" class="stat-action">Manage <i class="bi bi-arrow-right"></i></a>
+                </div>
+            </div>
+
+            <div class="stat-card">
+                <div class="stat-icon">
+                    <i class="bi bi-tools"></i>
+                </div>
+                <div class="stat-label">Service Due</div>
+                <div class="stat-value"><?= $upcoming_services ?></div>
+                <div class="stat-footer">
+                    <span style="color: var(--text-secondary); font-size: 0.875rem;">Requires attention</span>
+                    <a href="maintenance.php" class="stat-action">View <i class="bi bi-arrow-right"></i></a>
+                </div>
+            </div>
+
+            <div class="stat-card">
+                <div class="stat-icon">
+                    <i class="bi bi-heart-pulse-fill"></i>
+                </div>
+                <div class="stat-label">Fleet Health</div>
+                <div class="stat-value"><?= $average_health ?>%</div>
+                <div class="stat-footer">
+                    <span style="color: var(--text-secondary); font-size: 0.875rem;">Average condition</span>
+                    <a href="reports.php" class="stat-action">Details <i class="bi bi-arrow-right"></i></a>
+                </div>
+            </div>
+
+            <div class="stat-card">
+                <div class="stat-icon">
+                    <i class="bi bi-clipboard-data-fill"></i>
+                </div>
+                <div class="stat-label">Reports</div>
+                <div class="stat-value">
+                    <i class="bi bi-file-earmark-text" style="font-size: 2rem;"></i>
+                </div>
+                <div class="stat-footer">
+                    <span style="color: var(--text-secondary); font-size: 0.875rem;">View analytics</span>
+                    <a href="reports.php" class="stat-action">Open <i class="bi bi-arrow-right"></i></a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Vehicle List -->
+        <div class="section-header">
+            <h3 class="section-title">Your Vehicles</h3>
+            <?php if ($total_vehicles > 0): ?>
+                <a href="vehicles.php" class="view-all-link">View All <i class="bi bi-arrow-right"></i></a>
+            <?php endif; ?>
+        </div>
+
+        <?php if ($total_vehicles > 0): ?>
+            <div class="vehicle-grid">
+                <?php foreach ($vehicles as $vehicle): 
+                    // Calculate health
+                    $current_km = (int)$vehicle['current_km'] ?? 0;
+                    $last_service_km = (int)$vehicle['last_service_km'] ?? 0;
+                    $next_service_km = (int)$vehicle['next_service_km'] ?? 0;
+                    $health = 100;
+                    $km_gap = max(1, $next_service_km - $last_service_km);
+                    if ($next_service_km > 0 && $current_km >= $last_service_km) {
+                        $distance_progress = (($current_km - $last_service_km) / $km_gap) * 100;
+                        $health = max(0, 100 - $distance_progress);
+                    }
+                    if (!empty($vehicle['next_service_date']) && $vehicle['next_service_date'] < $today) {
+                        $health -= 10;
+                    }
+                    $health = max(0, $health);
+                    
+                    $health_class = $health > 70 ? 'excellent' : ($health > 40 ? 'good' : 'poor');
+                    $health_label = $health > 70 ? 'Excellent' : ($health > 40 ? 'Good' : 'Poor');
+                ?>
+                    <div class="vehicle-card">
+                        <div class="vehicle-header">
+                            <div>
+                                <div class="vehicle-name"><?= htmlspecialchars($vehicle['vehicle_name']); ?></div>
+                                <div class="vehicle-model"><?= htmlspecialchars($vehicle['model']); ?></div>
+                            </div>
+                            <span class="health-badge health-<?= $health_class ?>">
+                                <i class="bi bi-heart-fill"></i>
+                                <?= $health_label ?>
+                            </span>
+                        </div>
+
+                        <div class="vehicle-stats">
+                            <div class="vehicle-stat">
+                                <span class="vehicle-stat-label">Current KM</span>
+                                <span class="vehicle-stat-value"><?= number_format($current_km) ?></span>
+                            </div>
+                            <div class="vehicle-stat">
+                                <span class="vehicle-stat-label">Last Service</span>
+                                <span class="vehicle-stat-value"><?= $vehicle['last_service_date'] ?: 'N/A' ?></span>
+                            </div>
+                            <div class="vehicle-stat">
+                                <span class="vehicle-stat-label">Next Service</span>
+                                <span class="vehicle-stat-value"><?= $vehicle['next_service_date'] ?: 'N/A' ?></span>
+                            </div>
+                            <div class="vehicle-stat">
+                                <span class="vehicle-stat-label">Health Score</span>
+                                <span class="vehicle-stat-value"><?= round($health) ?>%</span>
+                            </div>
+                        </div>
+
+                        <div class="vehicle-actions">
+                            <a href="vehicle_details.php?id=<?= $vehicle['id'] ?>" class="btn-action btn-primary-action">
+                                View Details
+                            </a>
+                            <a href="add_maintenance.php?id=<?= $vehicle['id'] ?>" class="btn-action btn-secondary-action">
+                                Add Service
+                            </a>
+                        </div>
+                    </div>
+                <?php endforeach; ?>
+            </div>
+        <?php else: ?>
+            <div class="empty-state">
+                <div class="empty-state-icon">🚗</div>
+                <h3>No Vehicles Yet</h3>
+                <p>Start by adding your first vehicle to track maintenance and health</p>
+                <a href="add_vehicle.php" class="add-vehicle-btn">
+                    <i class="bi bi-plus-circle-fill"></i>
+                    Add Your First Vehicle
+                </a>
+            </div>
+        <?php endif; ?>
     </div>
 </section>
+
 
 <?php include __DIR__ . "/footer.php"; ?>

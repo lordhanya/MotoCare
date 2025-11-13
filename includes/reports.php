@@ -23,13 +23,61 @@ $upcoming_services = 0;
 $total_health = 0;
 ?>
 
-<section class="report-section py-5 px-3 bg-dark min-vh-100">
-    <div class="container text-white">
-        <h2 class="mb-4 mt-5">Maintenance Report</h2>
-        <div class="row">
-            <div class="col-12">
-                <table class="table table-striped table-dark align-middle">
-                    <thead class="table-secondary text-dark">
+
+<section class="report-section">
+    <div class="container">
+        <!-- Page Header -->
+        <div class="page-header">
+            <h2>Fleet Maintenance Report</h2>
+            <p>Comprehensive analysis of your vehicle fleet performance and health metrics</p>
+        </div>
+
+        <?php
+        // Calculate summary stats
+        $average_health = count($vehicles) > 0 ? round($total_health / count($vehicles)) : 0;
+        $total_vehicles = count($vehicles);
+        ?>
+
+        <!-- Summary Cards -->
+        <div class="summary-cards">
+            <div class="stat-card">
+                <div class="stat-card-icon">🚗</div>
+                <div class="stat-card-label">Total Vehicles</div>
+                <div class="stat-card-value"><?= $total_vehicles ?></div>
+                <div class="stat-card-trend">Active fleet</div>
+            </div>
+
+            <div class="stat-card">
+                <div class="stat-card-icon">🔧</div>
+                <div class="stat-card-label">Service Due</div>
+                <div class="stat-card-value" id="service-due-value">0</div>
+                <div class="stat-card-trend">Requires attention</div>
+            </div>
+
+            <div class="stat-card">
+                <div class="stat-card-icon">📊</div>
+                <div class="stat-card-label">Avg Health</div>
+                <div class="stat-card-value"><?= $average_health ?>%</div>
+                <div class="stat-card-trend">Fleet condition</div>
+            </div>
+
+            <div class="stat-card">
+                <div class="stat-card-icon">✓</div>
+                <div class="stat-card-label">Compliance</div>
+                <div class="stat-card-value" id="avg-compliance-value">--</div>
+                <div class="stat-card-trend">Maintenance schedule</div>
+            </div>
+        </div>
+
+        <!-- Vehicle Details Table -->
+        <div class="table-card">
+            <div class="table-card-header">
+                <h3>Vehicle Maintenance Details</h3>
+            </div>
+
+            <div class="table-responsive">
+                <table class="modern-table">
+                    <thead>
                         <tr>
                             <th>Vehicle</th>
                             <th>Model</th>
@@ -37,15 +85,18 @@ $total_health = 0;
                             <th>Last Service</th>
                             <th>Next Service</th>
                             <th>Health</th>
-                            <th>Compliance (%)</th>
+                            <th>Compliance</th>
                             <th>MTBF (KM)</th>
                             <th>MTTR (Hr)</th>
                             <th>Cost/KM</th>
-                            <th>Breakdowns (Yr)</th>
+                            <th>Breakdowns</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <?php if ($vehicles && count($vehicles) > 0): ?>
+                        <?php if ($vehicles && count($vehicles) > 0): 
+                            $total_compliance = 0;
+                            $compliance_count = 0;
+                        ?>
                             <?php foreach ($vehicles as $vehicle):
                                 // ----------- Health -----------
                                 $current_km = (int)$vehicle['current_km'] ?? 0;
@@ -67,12 +118,21 @@ $total_health = 0;
                                     $upcoming_services++;
                                 }
 
+                                // Health class
+                                $health_class = $health > 70 ? 'excellent' : ($health > 40 ? 'good' : 'poor');
+
                                 // ----------- Compliance -----------
                                 $stmt1 = $conn->prepare("SELECT COUNT(*) as total, SUM(status = 'completed') as completed
                                 FROM maintenance_schedule WHERE vehicle_id = :vid");
                                 $stmt1->execute([':vid' => $vehicle['id']]);
                                 $row = $stmt1->fetch(PDO::FETCH_ASSOC);
-                                $compliance = $row['total'] > 0 ? round($row['completed'] / $row['total'] * 100) : 'N/A';
+                                $compliance = $row['total'] > 0 ? round($row['completed'] / $row['total'] * 100) : null;
+                                if ($compliance !== null) {
+                                    $total_compliance += $compliance;
+                                    $compliance_count++;
+                                }
+                                $compliance_display = $compliance !== null ? $compliance . '%' : 'N/A';
+                                $compliance_class = $compliance > 80 ? 'success' : ($compliance > 50 ? 'warning' : 'danger');
 
                                 // ----------- MTBF (KM) -----------
                                 $stmt2 = $conn->prepare("SELECT service_km, service_date FROM maintenance
@@ -85,7 +145,7 @@ $total_health = 0;
                                     for ($i = 1; $i < count($failures); $i++) {
                                         $distance_sum += $failures[$i]['service_km'] - $failures[$i - 1]['service_km'];
                                     }
-                                    $mtbf_km = round($distance_sum / (count($failures) - 1));
+                                    $mtbf_km = number_format(round($distance_sum / (count($failures) - 1)));
                                 }
 
                                 // ----------- MTTR (Hr) -----------
@@ -99,7 +159,7 @@ $total_health = 0;
                                 $stmt4 = $conn->prepare("SELECT SUM(cost) FROM maintenance WHERE vehicle_id = :vid");
                                 $stmt4->execute([':vid' => $vehicle['id']]);
                                 $total_cost = (float)$stmt4->fetchColumn();
-                                $cost_per_km = $vehicle['current_km'] > 0 ? round($total_cost / $vehicle['current_km'], 4) : 'N/A';
+                                $cost_per_km = $vehicle['current_km'] > 0 ? number_format($total_cost / $vehicle['current_km'], 2) : 'N/A';
 
                                 // ----------- Breakdown frequency (Yr) -----------
                                 $stmt5 = $conn->prepare("SELECT COUNT(*) FROM maintenance WHERE vehicle_id=:vid
@@ -109,65 +169,63 @@ $total_health = 0;
                                 $breakdowns = $stmt5->fetchColumn();
                             ?>
                                 <tr>
-                                    <td><?= htmlspecialchars($vehicle['vehicle_name']); ?></td>
+                                    <td><span class="vehicle-name"><?= htmlspecialchars($vehicle['vehicle_name']); ?></span></td>
                                     <td><?= htmlspecialchars($vehicle['model']); ?></td>
-                                    <td><?= htmlspecialchars($vehicle['current_km']); ?></td>
-                                    <td><?= htmlspecialchars($vehicle['last_service_date']); ?></td>
-                                    <td><?= htmlspecialchars($vehicle['next_service_date']); ?></td>
+                                    <td><?= number_format($vehicle['current_km']); ?></td>
+                                    <td><?= htmlspecialchars($vehicle['last_service_date'] ?: 'N/A'); ?></td>
+                                    <td><?= htmlspecialchars($vehicle['next_service_date'] ?: 'N/A'); ?></td>
                                     <td>
-                                        <div class="progress" style="height: 10px; max-width: 110px;">
-                                            <div class="progress-bar 
-                                            <?= $health > 70 ? 'bg-success' : ($health > 40 ? 'bg-warning' : 'bg-danger'); ?>"
-                                                role="progressbar"
-                                                style="width: <?= round($health) ?>%;"
-                                                aria-valuenow="<?= round($health) ?>" aria-valuemin="0" aria-valuemax="100">
+                                        <div class="health-indicator">
+                                            <div class="health-bar">
+                                                <div class="health-fill <?= $health_class ?>" style="width: <?= round($health) ?>%"></div>
                                             </div>
+                                            <span class="health-percent"><?= round($health) ?>%</span>
                                         </div>
-                                        <small><?= round($health) ?>%</small>
                                     </td>
-                                    <td><?= $compliance ?></td>
+                                    <td>
+                                        <?php if ($compliance !== null): ?>
+                                            <span class="badge-metric badge-<?= $compliance_class ?>">
+                                                <?= $compliance_display ?>
+                                            </span>
+                                        <?php else: ?>
+                                            <?= $compliance_display ?>
+                                        <?php endif; ?>
+                                    </td>
                                     <td><?= $mtbf_km ?></td>
                                     <td><?= $mttr ?></td>
-                                    <td><?= $cost_per_km ?></td>
-                                    <td><?= $breakdowns ?></td>
+                                    <td>$<?= $cost_per_km ?></td>
+                                    <td>
+                                        <span class="badge-metric badge-<?= $breakdowns > 3 ? 'danger' : ($breakdowns > 1 ? 'warning' : 'info') ?>">
+                                            <?= $breakdowns ?>
+                                        </span>
+                                    </td>
                                 </tr>
                             <?php endforeach; ?>
                         <?php else: ?>
                             <tr>
-                                <td colspan="11" class="text-center">No vehicles found.</td>
+                                <td colspan="11">
+                                    <div class="empty-state">
+                                        <div class="empty-state-icon">🚗</div>
+                                        <h4>No Vehicles Found</h4>
+                                        <p>Add vehicles to your fleet to see maintenance reports</p>
+                                    </div>
+                                </td>
                             </tr>
                         <?php endif; ?>
                     </tbody>
                 </table>
             </div>
         </div>
-
-        <!-- Summary -->
-        <div class="row mt-4">
-            <div class="col-md-4 offset-md-8">
-                <div class="summary p-3 bg-dark border rounded">
-                    <h4 class="mb-3">Summary</h4>
-                    <p><strong>Total Vehicles:</strong> <?= count($vehicles); ?></p>
-                    <p><strong>Vehicles Due for Service:</strong> <?= $upcoming_services; ?></p>
-                    <?php
-                    $average_health = count($vehicles) > 0 ? round($total_health / count($vehicles)) : 0;
-                    ?>
-                    <p><strong>Average Vehicle Health:</strong></p>
-                    <div class="progress" style="height: 12px;">
-                        <div class="progress-bar 
-                            <?= $average_health > 70 ? 'bg-success' : ($average_health > 40 ? 'bg-warning' : 'bg-danger'); ?>"
-                            role="progressbar"
-                            style="width: <?= $average_health ?>%;"
-                            aria-valuenow="<?= $average_health ?>"
-                            aria-valuemin="0"
-                            aria-valuemax="100">
-                        </div>
-                    </div>
-                    <small><?= $average_health ?>%</small>
-                </div>
-            </div>
-        </div>
     </div>
 </section>
+
+<script>
+    // Update service due count after page calculates it
+    document.getElementById('service-due-value').textContent = <?= $upcoming_services ?>;
+    
+    <?php if ($compliance_count > 0): ?>
+    document.getElementById('avg-compliance-value').textContent = '<?= round($total_compliance / $compliance_count) ?>%';
+    <?php endif; ?>
+</script>
 
 <?php include "footer.php"; ?>
