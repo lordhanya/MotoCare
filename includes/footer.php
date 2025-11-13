@@ -1,5 +1,6 @@
+<!-- Footer -->
 <footer class="footer bg-dark d-grid align-items-center justify-content-center text-white py-3">
-    <div class="footer-container d-flex align-items-center justify-content-center mt-5 ">
+    <div class="footer-container d-flex align-items-center justify-content-center mt-5">
         <div class="footer-col text-center social">
             <h4>Follow <span>Us</span></h4>
             <div class="social-links d-flex gap-4 fs-3">
@@ -15,6 +16,7 @@
         <p>Developed and hosted by <a href="https://arcode.netlify.app/">Md. Ashif Rahman</a></p>
     </div>
 </footer>
+
 
 <script src="../assets/script.js"></script>
 <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>

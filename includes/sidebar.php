@@ -10,7 +10,7 @@
             <hr>
             <p><i class="bi bi-menu-button-wide me-2"></i> Menu</p>
             <hr class="mb-4">
-            <div class="menuContainer bg-dark mt-2 p-3 rounded-4">
+            <div class="menuContainer mt-2 p-3 rounded-4">
                 <ul class="me-auto mb-3 mb-lg-0 d-grid gap-3 mt-3">
                     <li class="listItems active">
                         <a class="sidebarLink" href="dashboard.php">
@@ -37,7 +37,7 @@
             <hr class="mt-5">
             <p><i class="bi bi-three-dots me-2"></i> Other</p>
             <hr class="mb-4">
-            <div class="otherItemsContainer bg-dark mt-2 p-3 rounded-4">
+            <div class="otherItemsContainer mt-2 p-3 rounded-4">
                 <ul class="otherItems d-grid gap-3 mt-3">
                     <li class="listItems">
                         <a class="sidebarLink" href="profile.php">
