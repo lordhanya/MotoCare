@@ -137,5 +137,5 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         </div>
     </div>
 </section>
-
-<?php include "footer.php"; ?>
+<?php include __DIR__ . "/spinner.php"; ?>
+<?php include __DIR__ . "/footer.php"; ?>

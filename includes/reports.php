@@ -228,4 +228,5 @@ $total_health = 0;
     <?php endif; ?>
 </script>
 
+<?php include __DIR__ . "/spinner.php"; ?>
 <?php include "footer.php"; ?>

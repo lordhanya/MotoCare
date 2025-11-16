@@ -240,5 +240,5 @@ include __DIR__ . "/sidebar.php";
     </div>
 </section>
 
-
+<?php include __DIR__ . "/spinner.php"; ?>
 <?php include __DIR__ . "/footer.php"; ?>

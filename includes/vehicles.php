@@ -272,5 +272,5 @@ include __DIR__ . "/dashNav.php";
         </div>
     </div>
 </section>
-
+<?php include __DIR__ . "/spinner.php"; ?>
 <?php include __DIR__ . "/footer.php"; ?>

@@ -67,9 +67,9 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                 <span>Password</span>
             </label>
             <button class="submit" type="submit">Submit</button>
-            <p class="signup">Don't have an account ? <a href="register.php">Create one now!</a></p>
+            <p class="signup">Don't have an account? <a href="register.php">Create one now!</a></p>
         </form>
     </div>
 </section>
-
+<?php include __DIR__ . "/spinner.php"; ?>
 <?php include "footer.php"; ?>
