@@ -1,15 +1,15 @@
-<?php 
+<?php
 include __DIR__ . "/header.php";
 ?>
-
+<!-- Navbar -->
 <header>
-    <nav class="navbar navbar-expand-lg fixed-top mt-2 px-5 py-3" data-aos="slide-down" data-aos-duration="1000">
+    <nav class="navbar navbar-expand-lg fixed-top px-5 py-3" data-aos="slide-down" data-aos-duration="1000">
         <div class="container-fluid">
             <a class="navbar-brand" href="index.php">Auto<span>Care</span></a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
-            <div class="collapse navbar-collapse nav-box" id="navbarNavDropdown">
+            <div class="collapse navbar-collapse nav-box ms-auto" id="navbarNavDropdown">
                 <ul class="navbar-nav mx-auto">
                     <li class="nav-item">
                         <a class="nav-link active" aria-current="page" href="#home">Home</a>
@@ -24,16 +24,17 @@ include __DIR__ . "/header.php";
                         <a class="nav-link" href="#contact">Contact</a>
                     </li>
                 </ul>
-            </div>
-            <div class="auth-btn">
-                <a href="login.php" class="btn login-btn">Log-In</a>
-                <a href="register.php" class="btn signup-btn">Sign-Up</a>
+
+                <div class="auth-btn">
+                    <a href="login.php" class="btn login-btn">Log-In</a>
+                    <a href="register.php" class="btn signup-btn">Sign-Up</a>
+                </div>
             </div>
         </div>
     </nav>
 </header>
 
-<!-- home section starts  -->
+<!-- Home Section -->
 <section class="home d-flex align-items-center" id="home">
     <div class="container">
         <div class="row min-vh-100 align-items-center">
@@ -42,7 +43,7 @@ include __DIR__ . "/header.php";
                 <p>Your Ultimate Car and Bike Maintenance Reminder App</p>
                 <div class="row home-btns">
                     <div class="col" data-aos="fade-right" data-aos-duration="1200" data-aos-delay="300">
-                        <a href="register.php" type="button" class="btn register-btn">
+                        <a href="register.php" class="btn register-btn">
                             Get Started
                         </a>
                     </div>
@@ -55,34 +56,35 @@ include __DIR__ . "/header.php";
     </div>
 </section>
 
-<!-- features section starts  -->
+<!-- Features Section -->
 <section class="features" id="features">
     <div class="container d-flex align-items-center justify-content-center">
-        <div class="row min-vh-100 mt-5 d-flex align-items-center justify-content-center"">
-            <div class=" col feature-content text-center">
-            <h1 data-aos="fade-up" data-aos-duration="1000">FEATURES</h1>
-            <div class="row cards d-flex justify-content-center gap-5 py-4 px-2 m-5">
-                <div class="col">
-                    <div class="card p-3 d-flex text-center justify-content-center align-items-center" style="width: 18rem; height: 25rem;" data-aos="fade-right" data-aos-duration="1000">
-                        <img src="../assets/images/add_car.png" class="card-img-top" alt="add vehicle image">
-                        <div class="card-body d-flex align-items-center justify-content-center">
-                            <p class="card-text">Add your vehicle details.</p>
+        <div class="row min-vh-100 mt-3 d-flex align-items-center justify-content-center">
+            <div class="col feature-content text-center">
+                <h1 data-aos="fade-up" data-aos-duration="1000">FEATURES</h1>
+                <div class="row cards d-flex justify-content-center gap-5 py-4 px-2 m-5">
+                    <div class="col-lg-3 col-md-5 col-sm-12">
+                        <div class="card p-3 d-flex text-center justify-content-center align-items-center" style="height: 25rem;" data-aos="fade-right" data-aos-duration="1000">
+                            <i class="bi bi-car-front-fill" style="font-size: 5rem; color: var(--accent-color);"></i>
+                            <div class="card-body d-flex align-items-center justify-content-center">
+                                <p class="card-text">Add your vehicle details easily and manage multiple vehicles in one place.</p>
+                            </div>
                         </div>
                     </div>
-                </div>
-                <div class="col">
-                    <div class="card p-3 d-flex text-center justify-content-center align-items-center" style="width: 18rem; height: 25rem;" data-aos="fade-up" data-aos-duration="1000">
-                        <img src="../assets/images/maintenance.png" class="card-img-top" alt="Log Maintenance Image">
-                        <div class="card-body d-flex align-items-center justify-content-center">
-                            <p class="card-text">Log maintenance tasks (service, insurance, pollution check, etc.)</p>
+                    <div class="col-lg-3 col-md-5 col-sm-12">
+                        <div class="card p-3 d-flex text-center justify-content-center align-items-center" style="height: 25rem;" data-aos="fade-up" data-aos-duration="1000">
+                            <i class="bi bi-wrench-adjustable-circle-fill" style="font-size: 5rem; color: var(--accent-color);"></i>
+                            <div class="card-body d-flex align-items-center justify-content-center">
+                                <p class="card-text">Log maintenance tasks like service, insurance, pollution check, and more.</p>
+                            </div>
                         </div>
                     </div>
-                </div>
-                <div class="col">
-                    <div class="card p-3 d-flex text-center justify-content-center align-items-center" style="width: 18rem; height: 25rem;" data-aos="fade-left" data-aos-duration="1000">
-                        <img src="../assets/images/reminder.png" class="card-img-top" alt="Get Reminder Image">
-                        <div class="card-body d-flex align-items-center justify-content-center">
-                            <p class="card-text">Get reminders (via email or dashboard alerts) before due dates.</p>
+                    <div class="col-lg-3 col-md-5 col-sm-12">
+                        <div class="card p-3 d-flex text-center justify-content-center align-items-center" style="height: 25rem;" data-aos="fade-left" data-aos-duration="1000">
+                            <i class="bi bi-bell-fill" style="font-size: 5rem; color: var(--accent-color);"></i>
+                            <div class="card-body d-flex align-items-center justify-content-center">
+                                <p class="card-text">Get timely reminders via email or dashboard alerts before due dates.</p>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -91,13 +93,13 @@ include __DIR__ . "/header.php";
     </div>
 </section>
 
-<!-- about section starts here -->
+<!-- About Section -->
 <section class="about bg-dark" id="about">
     <div class="container d-flex justify-content-center align-items-center">
-        <div class="row min-vh-100 mt-5 d-flex align-items-center justify-content-center">
+        <div class="row min-vh-100 mt-3 d-flex align-items-center justify-content-center">
             <div class="col about-content mt-5 text-center" data-aos="fade-up" data-aos-duration="1000">
                 <h1 data-aos="fade-up" data-aos-duration="1000">ABOUT <span>US</span></h1>
-                <div class="info mt-5 d-flex align-items-center justify-content-center gap-5">
+                <div class="info mt-5 d-flex align-items-stretch justify-content-center gap-5 flex-wrap">
                     <div class="our-mission" data-aos="fade-right" data-aos-duration="1000">
                         <h4>
                             Our Mission
@@ -133,41 +135,35 @@ include __DIR__ . "/header.php";
     </div>
 </section>
 
-<!-- contact section starts here -->
+<!-- Contact Section -->
 <section class="contact" id="contact">
     <div class="container d-flex justify-content-center align-items-center">
-        <div class="row min-vh-100 d-flex align-items-center justify-content-center">
+        <div class="row min-vh-100 mt-5 d-flex align-items-center justify-content-center">
             <div class="col contact-content mt-5 text-center" data-aos="fade-up" data-aos-duration="1000">
-                <h1>CONTACT <span>Us</span></h1>
-                <div class="contact-form mt-5 d-flex align-items-center justify-content-center gap-5 p-5">
-                    <div class="appreciation p-5 m-5">
+                <h1>CONTACT <span>US</span></h1>
+                <div class="contact-form mt-3 d-flex align-items-stretch justify-content-center gap-4 flex-wrap">
+                    <div class="appreciation p-5">
                         <p>We'd love to hear from you! Whether you have questions, feedback, or need assistance, our team is here to help.</p>
-                        <a class="mt-3" onclick="alertMSG()"><span>Reach out to us <i class="bi bi-arrow-right-circle-fill ms-3 fs-5"></i></span></a>
+                        <a onclick="alertMSG()"><span>Reach out to us <i class="bi bi-arrow-right-circle-fill ms-3 fs-5"></i></span></a>
                         <p id="reachOut" class="mt-3"></p>
-                        <script>
-                            function alertMSG(){
-                                document.getElementById("reachOut").innerHTML = "Fill the form Buddy -`♡´-";
-                            }
-                        </script>
                     </div>
                     <div class="form-container">
-                        <form action="https://formspree.io/f/xrbozyly"
-                            method="POST">
+                        <form action="https://formspree.io/f/xrbozyly" method="POST">
                             <div class="mb-3">
                                 <label for="name" class="col-form-label">Name:</label>
-                                <input type="text" class="form-control" name="name" id="name">
+                                <input type="text" class="form-control" name="name" id="name" required>
                             </div>
                             <div class="mb-3">
                                 <label for="email" class="col-form-label">Email:</label>
-                                <input type="email" class="form-control" name="email" id="email">
+                                <input type="email" class="form-control" name="email" id="email" required>
                             </div>
                             <div class="mb-3">
                                 <label for="subject" class="col-form-label">Subject:</label>
-                                <input type="text" class="form-control" name="subject" id="subject">
+                                <input type="text" class="form-control" name="subject" id="subject" required>
                             </div>
                             <div class="mb-3">
                                 <label for="message" class="col-form-label">Message:</label>
-                                <textarea class="form-control" name="message" id="message"></textarea>
+                                <textarea class="form-control" name="message" id="message" required></textarea>
                             </div>
                             <div class="mb-3">
                                 <button type="submit" class="btn submit-btn">Submit</button>
@@ -179,6 +175,5 @@ include __DIR__ . "/header.php";
         </div>
     </div>
 </section>
-
 
 <?php include __DIR__ . "/footer.php"; ?>
