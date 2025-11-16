@@ -31,7 +31,6 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     $next_service_date = trim($_POST['next_service_date']);
     $next_service_km = (int)$_POST['next_service_km'];
 
-
     $insert = $conn->prepare("INSERT INTO vehicles (user_id, vehicle_name, model, vehicle_type, registration_no, purchase_date, current_km, last_service_date, last_service_km, next_service_date, next_service_km) VALUES (:user_id, :vehicle_name, :model, :vehicle_type, :registration_no, :purchase_date, :current_km, :last_service_date, :last_service_km, :next_service_date, :next_service_km)");
     $insert->bindParam(':user_id', $user_id, PDO::PARAM_INT);
     $insert->bindParam(':vehicle_name', $vehicle_name, PDO::PARAM_STR);
@@ -46,8 +45,48 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     $insert->bindParam(':next_service_km', $next_service_km, PDO::PARAM_INT);
 
     if ($insert->execute()) {
-        echo "<script>alert('Vehicle added successfully! Redirecting to your vehicles page...'); 
-        window.location.href='vehicles.php';</script>";
+        // Get the last inserted vehicle ID
+        $vehicle_id = $conn->lastInsertId();
+
+        // Fetch user details for reminders
+        $user_stmt = $conn->prepare("SELECT email, username FROM users WHERE id = :user_id");
+        $user_stmt->bindParam(':user_id', $user_id, PDO::PARAM_INT);
+        $user_stmt->execute();
+        $user = $user_stmt->fetch(PDO::FETCH_ASSOC);
+        $email = $user['email'];
+        $username = $user['username'];
+
+        // Compose reminder message
+        $msg = "Your vehicle is due for its next maintenance on $next_service_date.";
+
+        // Calculate reminder date (e.g., 7 days before next service date)
+        $reminder_date = date('Y-m-d', strtotime("$next_service_date -7 days"));
+
+        // Check if reminder already exists for 'next_service'
+        $reminder_check = $conn->prepare("SELECT id FROM reminders WHERE vehicle_id = :vehicle_id AND reminder_type = 'next_service' AND is_sent = 0");
+        $reminder_check->bindParam(':vehicle_id', $vehicle_id, PDO::PARAM_INT);
+        $reminder_check->execute();
+
+        if ($reminder_check->rowCount() > 0) {
+            // Update existing reminder
+            $update = $conn->prepare("UPDATE reminders SET reminder_date = :reminder_date, message = :message WHERE vehicle_id = :vehicle_id AND reminder_type='next_service' AND is_sent=0");
+            $update->bindParam(':reminder_date', $reminder_date, PDO::PARAM_STR);
+            $update->bindParam(':message', $msg, PDO::PARAM_STR);
+            $update->bindParam(':vehicle_id', $vehicle_id, PDO::PARAM_INT);
+            $update->execute();
+        } else {
+            // Insert new reminder
+            $insert_reminder = $conn->prepare("INSERT INTO reminders (user_id, user_email, vehicle_id, vehicle_name, reminder_type, reminder_date, message) VALUES (:user_id, :user_email, :vehicle_id, :vehicle_name, 'next_service', :reminder_date, :message)");
+            $insert_reminder->bindParam(':user_id', $user_id, PDO::PARAM_INT);
+            $insert_reminder->bindParam(':user_email', $email, PDO::PARAM_STR);
+            $insert_reminder->bindParam(':vehicle_id', $vehicle_id, PDO::PARAM_INT);
+            $insert_reminder->bindParam(':vehicle_name', $vehicle_name, PDO::PARAM_STR);
+            $insert_reminder->bindParam(':reminder_date', $reminder_date, PDO::PARAM_STR);
+            $insert_reminder->bindParam(':message', $msg, PDO::PARAM_STR);
+            $insert_reminder->execute();
+        }
+
+        echo "<script>alert('Vehicle added successfully! Redirecting to your vehicles page...'); window.location.href='vehicles.php';</script>";
         exit();
     } else {
         echo "<script>alert('Vehicle addition failed. Please try again.');</script>";

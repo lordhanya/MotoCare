@@ -28,6 +28,16 @@
                         </a>
                     </li>
                     <li class="listItems">
+                        <a class="sidebarLink" href="add_vehicle.php">
+                            <i class="bi bi-clipboard-plus"></i> Add Maintenance
+                        </a>
+                    </li>
+                    <li class="listItems">
+                        <a class="sidebarLink" href="add_vehicle.php">
+                            <i class="bi bi-calendar-check"></i> Schedule Maintenance
+                        </a>
+                    </li>
+                    <li class="listItems">
                         <a class="sidebarLink" href="reports.php">
                             <i class="bi bi-card-checklist"></i> Reports
                         </a>

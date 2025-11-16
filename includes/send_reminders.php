@@ -49,22 +49,19 @@ try {
         
         try {
             // Server settings
-            $mail->SMTPDebug = 2;                                       // Enable verbose debug output
-            $mail->Debugoutput = 'html';                                // HTML output for debug
-            $mail->isSMTP();                                            // Send using SMTP
-            $mail->Host       = 'smtp.gmail.com';                       // Set the SMTP server
-            $mail->SMTPAuth   = true;                                   // Enable SMTP authentication
-            $mail->Username   = 'ashifrahman8638471722@gmail.com';      // SMTP username
-            $mail->Password   = 'fwhk qxbv cfsl bxzg';                  // App Password
-            $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;         // Enable TLS encryption
-            $mail->Port       = 587;                                    // TCP port to connect to
+            $mail->SMTPDebug = 2;                                       
+            $mail->Debugoutput = 'html';                                
+            $mail->isSMTP();                                            
+            $mail->Host       = 'smtp.gmail.com';                       
+            $mail->SMTPAuth   = true;                                   
+            $mail->Username   = 'ashifrahman8638471722@gmail.com';      
+            $mail->Password   = 'fwhk qxbv cfsl bxzg';                  
+            $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;         
+            $mail->Port       = 587;                                    
             
-            // IMPORTANT FIXES:
-            // 1. Add timeout settings (helps with slow connections)
             $mail->Timeout = 60;
             $mail->SMTPKeepAlive = true;
-            
-            // 2. Disable SSL verification if on localhost (REMOVE IN PRODUCTION)
+
             $mail->SMTPOptions = array(
                 'ssl' => array(
                     'verify_peer' => false,
