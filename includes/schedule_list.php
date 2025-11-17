@@ -43,7 +43,7 @@ include __DIR__ . "/dashNav.php";
 include __DIR__ . "/sidebar.php";
 ?>
 
-<section class="scheduled-maintenance-section">
+<section class="scheduled-list-section">
     <div class="container">
         <!-- Page Header -->
         <div class="page-header">
@@ -52,7 +52,7 @@ include __DIR__ . "/sidebar.php";
                 <p>Manage upcoming and scheduled vehicle services</p>
             </div>
             <div class="header-actions">
-                <a href="add_schedule.php" class="btn-add-schedule">
+                <a href="schedule_maintenance.php" class="btn-add-schedule">
                     <i class="bi bi-calendar-plus"></i>
                     Schedule Service
                 </a>
@@ -273,5 +273,5 @@ include __DIR__ . "/sidebar.php";
         alert('Filter functionality to be implemented');
     }
 </script>
-
+<?php include __DIR__ . "/spinner.php";?>
 <?php include __DIR__ . "/footer.php"; ?>

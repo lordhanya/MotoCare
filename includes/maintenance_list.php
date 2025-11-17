@@ -212,5 +212,5 @@ function toggleFilters() {
     alert('Filter functionality to be implemented');
 }
 </script>
-
+<?php include __DIR__ . "/spinner.php";?>
 <?php include __DIR__ . "/footer.php"; ?>

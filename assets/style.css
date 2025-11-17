@@ -4169,7 +4169,7 @@ section.profileSection .profileContainer {
   transform: translateY(-2px);
 }
 
-.stat-icon {
+.maintenance-list-section .stat-icon {
   width: 50px;
   height: 50px;
   background: rgba(248, 41, 0, 0.1);
@@ -4202,7 +4202,7 @@ section.profileSection .profileContainer {
 }
 
 /* Table Card */
-.table-card {
+.maintenance-list-section .table-card {
   background: var(--bg-card);
   border: 1px solid var(--border-color);
   border-radius: 12px;
@@ -4534,8 +4534,8 @@ section.profileSection .profileContainer {
   }
 }
 
-/* Scheduled Maintenance Page Styles */
-.scheduled-maintenance-section {
+/* Scheduled list Page Styles */
+.scheduled-list-section {
   background: var(--bg-dark);
   min-height: 100vh;
   padding: 2rem 1rem;
@@ -4543,7 +4543,7 @@ section.profileSection .profileContainer {
 }
 
 /* Page Header */
-.page-header {
+.scheduled-list-section .page-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -4552,7 +4552,7 @@ section.profileSection .profileContainer {
   gap: 1rem;
 }
 
-.header-content h2 {
+.scheduled-list-section .header-content h2 {
   font-size: 2rem;
   font-weight: 700;
   color: var(--text-primary);
@@ -4560,13 +4560,13 @@ section.profileSection .profileContainer {
   font-family: "BBH Sans Bogle", sans-serif;
 }
 
-.header-content p {
+.scheduled-list-section .header-content p {
   color: var(--text-secondary);
   font-size: 0.95rem;
   margin: 0;
 }
 
-.header-actions .btn-add-schedule {
+.scheduled-list-section .header-actions .btn-add-schedule {
   background: linear-gradient(135deg, var(--accent-color), var(--accent-hover));
   color: var(--text-primary);
   border: none;
@@ -4581,21 +4581,21 @@ section.profileSection .profileContainer {
   box-shadow: 0 2px 8px rgba(248, 41, 0, 0.2);
 }
 
-.btn-add-schedule:hover {
+.scheduled-list-section .btn-add-schedule:hover {
   transform: translateY(-2px);
   box-shadow: 0 4px 12px rgba(248, 41, 0, 0.3);
   color: var(--text-primary);
 }
 
-/* Stats Overview */
-.stats-overview {
+/* Stats .scheduled-list-section Overview */
+.scheduled-list-section .stats-overview {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
   gap: 1.5rem;
   margin-bottom: 2rem;
 }
 
-.stat-box {
+.scheduled-list-section .stat-box {
   background: var(--bg-card);
   border: 1px solid var(--border-color);
   border-radius: 12px;
@@ -4606,39 +4606,39 @@ section.profileSection .profileContainer {
   transition: all 0.3s ease;
 }
 
-.stat-box:hover {
+.scheduled-list-section .stat-box:hover {
   background: var(--bg-card-hover);
   transform: translateY(-2px);
 }
 
-.stat-box.stat-overdue:hover {
+.scheduled-list-section .stat-box.stat-overdue:hover {
   border-color: var(--danger-color);
 }
 
-.stat-box.stat-upcoming:hover {
+.scheduled-list-section .stat-box.stat-upcoming:hover {
   border-color: var(--success-color);
 }
 
-.stat-box.stat-pending:hover {
+.scheduled-list-section .stat-box.stat-pending:hover {
   border-color: var(--warning-color);
 }
 
-.stat-overdue .stat-icon {
+.scheduled-list-section .stat-overdue .stat-icon {
   background: rgba(255, 68, 68, 0.1);
   color: var(--danger-color);
 }
 
-.stat-upcoming .stat-icon {
+.scheduled-list-section .stat-upcoming .stat-icon {
   background: rgba(0, 255, 136, 0.1);
   color: var(--success-color);
 }
 
-.stat-pending .stat-icon {
+.scheduled-list-section .stat-pending .stat-icon {
   background: rgba(255, 215, 0, 0.1);
   color: var(--warning-color);
 }
 
-.stat-icon {
+.scheduled-list-section .stat-icon {
   width: 50px;
   height: 50px;
   border-radius: 10px;
@@ -4649,12 +4649,12 @@ section.profileSection .profileContainer {
   flex-shrink: 0;
 }
 
-.stat-details {
+.scheduled-list-section .stat-details {
   display: flex;
   flex-direction: column;
 }
 
-.stat-label {
+.scheduled-list-section .stat-label {
   font-size: 0.85rem;
   color: var(--text-secondary);
   text-transform: uppercase;
@@ -4662,21 +4662,21 @@ section.profileSection .profileContainer {
   margin-bottom: 0.25rem;
 }
 
-.stat-value {
+.scheduled-list-section .stat-value {
   font-size: 1.75rem;
   font-weight: 700;
   color: var(--text-primary);
 }
 
 /* Table Card */
-.table-card {
+.scheduled-list-section .table-card {
   background: var(--bg-card);
   border: 1px solid var(--border-color);
   border-radius: 12px;
   overflow: hidden;
 }
 
-.table-header {
+.scheduled-list-section .table-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -4686,20 +4686,20 @@ section.profileSection .profileContainer {
   gap: 1rem;
 }
 
-.table-header h3 {
+.scheduled-list-section .table-header h3 {
   font-size: 1.25rem;
   font-weight: 600;
   color: var(--text-primary);
   margin: 0;
 }
 
-.table-actions {
+.scheduled-list-section .table-actions {
   display: flex;
   gap: 0.75rem;
 }
 
-.btn-filter,
-.btn-export {
+.scheduled-list-section .btn-filter,
+.scheduled-list-section .btn-export {
   background: transparent;
   border: 1px solid var(--border-color);
   color: var(--text-primary);
@@ -4714,28 +4714,28 @@ section.profileSection .profileContainer {
   transition: all 0.3s ease;
 }
 
-.btn-filter:hover,
-.btn-export:hover {
+.scheduled-list-section .btn-filter:hover,
+.scheduled-list-section .btn-export:hover {
   background: var(--bg-card-hover);
   border-color: var(--accent-color);
   color: var(--accent-color);
 }
 
 /* Table Responsive */
-.table-responsive {
+.scheduled-list-section .table-responsive {
   overflow-x: auto;
 }
 
-.schedule-table {
+.scheduled-list-section .schedule-table {
   width: 100%;
   border-collapse: collapse;
 }
 
-.schedule-table thead {
+.scheduled-list-section .schedule-table thead {
   background: var(--bg-secondary);
 }
 
-.schedule-table thead th {
+.scheduled-list-section .schedule-table thead th {
   padding: 1rem;
   text-align: left;
   font-size: 0.75rem;
@@ -4747,24 +4747,24 @@ section.profileSection .profileContainer {
   border-bottom: 1px solid var(--border-color);
 }
 
-.schedule-table tbody tr {
+.scheduled-list-section .schedule-table tbody tr {
   border-bottom: 1px solid var(--border-color);
   transition: background 0.2s ease;
 }
 
-.schedule-table tbody tr:hover {
+.scheduled-list-section .schedule-table tbody tr:hover {
   background: var(--bg-card-hover);
 }
 
-.schedule-table tbody tr.row-overdue {
+.scheduled-list-section .schedule-table tbody tr.row-overdue {
   background: rgba(255, 68, 68, 0.05);
 }
 
-.schedule-table tbody tr.row-overdue:hover {
+.scheduled-list-section .schedule-table tbody tr.row-overdue:hover {
   background: rgba(255, 68, 68, 0.08);
 }
 
-.schedule-table tbody td {
+.scheduled-list-section .schedule-table tbody td {
   padding: 1rem;
   color: var(--text-primary);
   font-size: 0.875rem;
@@ -4772,31 +4772,31 @@ section.profileSection .profileContainer {
 }
 
 /* Vehicle Cell */
-.vehicle-cell {
+.scheduled-list-section .vehicle-cell {
   display: flex;
   align-items: center;
   gap: 0.5rem;
   font-weight: 600;
 }
 
-.vehicle-cell i {
+.scheduled-list-section .vehicle-cell i {
   color: var(--accent-color);
   font-size: 1.1rem;
 }
 
 /* Service Type */
-.service-type {
+.scheduled-list-section .service-type {
   display: flex;
   align-items: center;
   gap: 0.5rem;
 }
 
-.service-type i {
+.scheduled-list-section .service-type i {
   color: var(--text-secondary);
 }
 
 /* Days Left */
-.days-left {
+.scheduled-list-section .days-left {
   display: flex;
   align-items: center;
   gap: 0.35rem;
@@ -4804,17 +4804,17 @@ section.profileSection .profileContainer {
   color: var(--text-primary);
 }
 
-.days-left.overdue {
+.scheduled-list-section .days-left.overdue {
   color: var(--danger-color);
   font-weight: 600;
 }
 
-.days-left i {
+.scheduled-list-section .days-left i {
   font-size: 0.9rem;
 }
 
 /* Status Badges */
-.status-badge {
+.scheduled-list-section .status-badge {
   display: inline-block;
   padding: 0.35rem 0.75rem;
   border-radius: 20px;
@@ -4824,28 +4824,28 @@ section.profileSection .profileContainer {
   letter-spacing: 0.5px;
 }
 
-.status-completed {
+.scheduled-list-section .status-completed {
   background: rgba(0, 255, 136, 0.1);
   color: var(--success-color);
 }
 
-.status-pending {
+.scheduled-list-section .status-pending {
   background: rgba(255, 215, 0, 0.1);
   color: var(--warning-color);
 }
 
-.status-scheduled {
+.scheduled-list-section .status-scheduled {
   background: rgba(100, 150, 255, 0.1);
   color: #6496ff;
 }
 
-.status-default {
+.scheduled-list-section .status-default {
   background: rgba(176, 176, 176, 0.1);
   color: var(--text-secondary);
 }
 
 /* Priority Badges */
-.priority-badge {
+.scheduled-list-section .priority-badge {
   display: inline-flex;
   align-items: center;
   gap: 0.35rem;
@@ -4857,41 +4857,41 @@ section.profileSection .profileContainer {
   letter-spacing: 0.5px;
 }
 
-.priority-critical {
+.scheduled-list-section .priority-critical {
   background: rgba(255, 68, 68, 0.15);
   color: var(--danger-color);
   border: 1px solid rgba(255, 68, 68, 0.3);
 }
 
-.priority-high {
+.scheduled-list-section .priority-high {
   background: rgba(255, 165, 0, 0.1);
   color: #ffa500;
   border: 1px solid rgba(255, 165, 0, 0.3);
 }
 
-.priority-medium {
+.scheduled-list-section .priority-medium {
   background: rgba(255, 215, 0, 0.1);
   color: var(--warning-color);
   border: 1px solid rgba(255, 215, 0, 0.3);
 }
 
-.priority-low {
+.scheduled-list-section .priority-low {
   background: rgba(0, 255, 136, 0.1);
   color: var(--success-color);
   border: 1px solid rgba(0, 255, 136, 0.3);
 }
 
-.priority-badge i {
+.scheduled-list-section .priority-badge i {
   font-size: 0.85rem;
 }
 
 /* Action Buttons */
-.action-buttons {
+.scheduled-list-section .action-buttons {
   display: flex;
   gap: 0.5rem;
 }
 
-.btn-icon {
+.scheduled-list-section .btn-icon {
   width: 32px;
   height: 32px;
   border: 1px solid var(--border-color);
@@ -4906,51 +4906,51 @@ section.profileSection .profileContainer {
   font-size: 0.875rem;
 }
 
-.btn-complete:hover {
+.scheduled-list-section .btn-complete:hover {
   background: rgba(0, 255, 136, 0.1);
   border-color: var(--success-color);
   color: var(--success-color);
 }
 
-.btn-edit:hover {
+.scheduled-list-section .btn-edit:hover {
   background: rgba(255, 215, 0, 0.1);
   border-color: var(--warning-color);
   color: var(--warning-color);
 }
 
-.btn-delete:hover {
+.scheduled-list-section .btn-delete:hover {
   background: rgba(255, 68, 68, 0.1);
   border-color: var(--danger-color);
   color: var(--danger-color);
 }
 
 /* Empty State */
-.empty-state {
+.scheduled-list-section .empty-state {
   text-align: center;
   padding: 4rem 2rem;
 }
 
-.empty-icon {
+.scheduled-list-section .empty-icon {
   font-size: 4rem;
   color: var(--text-secondary);
   opacity: 0.3;
   margin-bottom: 1.5rem;
 }
 
-.empty-state h3 {
+.scheduled-list-section .empty-state h3 {
   color: var(--text-primary);
   font-size: 1.5rem;
   font-weight: 600;
   margin-bottom: 0.5rem;
 }
 
-.empty-state p {
+.scheduled-list-section .empty-state p {
   color: var(--text-secondary);
   font-size: 1rem;
   margin-bottom: 2rem;
 }
 
-.btn-add-first {
+.scheduled-list-section .btn-add-first {
   background: linear-gradient(135deg, var(--accent-color), var(--accent-hover));
   color: var(--text-primary);
   border: none;
@@ -4964,7 +4964,7 @@ section.profileSection .profileContainer {
   transition: all 0.3s ease;
 }
 
-.btn-add-first:hover {
+.scheduled-list-section .btn-add-first:hover {
   transform: translateY(-2px);
   box-shadow: 0 4px 12px rgba(248, 41, 0, 0.3);
   color: var(--text-primary);
@@ -4972,56 +4972,56 @@ section.profileSection .profileContainer {
 
 /* Responsive Design */
 @media (max-width: 1200px) {
-  .schedule-table {
+  .scheduled-list-section .schedule-table {
     font-size: 0.8rem;
   }
 
-  .schedule-table thead th,
-  .schedule-table tbody td {
+  .scheduled-list-section .schedule-table thead th,
+  .scheduled-list-section .schedule-table tbody td {
     padding: 0.75rem 0.5rem;
   }
 }
 
 @media (max-width: 768px) {
-  .scheduled-maintenance-section {
+  .scheduled-list-section {
     padding-top: 5rem;
   }
 
-  .page-header {
+  .scheduled-list-section .page-header {
     flex-direction: column;
     align-items: flex-start;
   }
 
-  .header-content h2 {
+  .scheduled-list-section .header-content h2 {
     font-size: 1.5rem;
   }
 
-  .stats-overview {
+  .scheduled-list-section .stats-overview {
     grid-template-columns: 1fr;
   }
 
-  .table-header {
+  .scheduled-list-section .table-header {
     flex-direction: column;
     align-items: flex-start;
   }
 
-  .table-actions {
+  .scheduled-list-section .table-actions {
     width: 100%;
     justify-content: space-between;
   }
 
-  .btn-filter,
-  .btn-export {
+  .scheduled-list-section .btn-filter,
+  .scheduled-list-section .btn-export {
     flex: 1;
     justify-content: center;
   }
 
   /* Stack table for mobile */
-  .schedule-table thead {
+  .scheduled-list-section .schedule-table thead {
     display: none;
   }
 
-  .schedule-table tbody tr {
+  .scheduled-list-section .schedule-table tbody tr {
     display: block;
     margin-bottom: 1rem;
     border: 1px solid var(--border-color);
@@ -5029,22 +5029,22 @@ section.profileSection .profileContainer {
     padding: 1rem;
   }
 
-  .schedule-table tbody tr.row-overdue {
+  .scheduled-list-section .schedule-table tbody tr.row-overdue {
     border-color: var(--danger-color);
   }
 
-  .schedule-table tbody td {
+  .scheduled-list-section .schedule-table tbody td {
     display: flex;
     justify-content: space-between;
     padding: 0.5rem 0;
     border-bottom: 1px solid var(--border-color);
   }
 
-  .schedule-table tbody td:last-child {
+  .scheduled-list-section .schedule-table tbody td:last-child {
     border-bottom: none;
   }
 
-  .schedule-table tbody td::before {
+  .scheduled-list-section .schedule-table tbody td::before {
     content: attr(data-label);
     font-weight: 600;
     color: var(--text-secondary);
@@ -5052,7 +5052,7 @@ section.profileSection .profileContainer {
     text-transform: uppercase;
   }
 
-  .action-buttons {
+  .scheduled-list-section .action-buttons {
     width: 100%;
     justify-content: flex-end;
   }

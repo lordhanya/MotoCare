@@ -51,7 +51,7 @@ include __DIR__ . "/sidebar.php";
     <div class="container">
         <div class="row">
             <div class="col-12">
-                <div class="page-header">
+                <div class="page-header d-grid">
                     <h2>Add <span>Maintenance</span> Record</h2>
                     <p class="subtitle">Keep track of your vehicle's service history</p>
                 </div>
@@ -179,4 +179,5 @@ include __DIR__ . "/sidebar.php";
     </div>
 </section>
 
+<?php include __DIR__ . "/spinner.php";?>
 <?php include __DIR__ . "/footer.php"; ?>
