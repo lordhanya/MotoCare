@@ -36,43 +36,118 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         echo "<script>alert('Failed to add maintenance schedule. Please try again.');</script>";
     }
 }
+
+include __DIR__ . "/header.php";
+include __DIR__ . "/dashNav.php";
+include __DIR__ . "/sidebar.php";
 ?>
 
-<h2>Add Maintenance Schedule</h2>
-<form method="POST" action="">
-    <label>Vehicle:
-        <select name="vehicle_id" required>
-            <option value="" disabled selected>Select Vehicle</option>
-            <?php foreach ($vehicles as $vehicle): ?>
-                <option value="<?= $vehicle['id'] ?>"><?= htmlspecialchars($vehicle['vehicle_name']) ?></option>
-            <?php endforeach; ?>
-        </select>
-    </label>
-    <br>
+<section class="schedule-maintenance-section">
+    <div class="container min-vh-100">
+        <div class="row">
+            <div class="col-12">
+                <div class="page-header">
+                    <h2>Add <span>Maintenance</span> Schedule</h2>
+                    <p class="subtitle">Keep track of your vehicle's service history</p>
+                </div>
+            </div>
+        </div>
 
-    <label>Scheduled Service Type:
-        <input type="text" name="scheduled_service_type" required>
-    </label>
-    <br>
+        <div class="row mt-4">
+            <div class="col-lg-8 col-md-10">
+                <?php if (isset($error_message)): ?>
+                    <div class="alert alert-danger">
+                        <i class="bi bi-exclamation-triangle-fill me-2"></i>
+                        <?= htmlspecialchars($error_message) ?>
+                    </div>
+                <?php endif; ?>
 
-    <label>Due Date:
-        <input type="date" name="due_date">
-    </label>
-    <br>
+                <div class="form-container d-flex align-items-center justify-content-center">
+                    <form method="POST" action="" class="schedule_form" id="scheduleForm">
+                        <div class="form-grid">
+                            <!-- vehicle selection -->
+                            <div class="form-group">
+                                <label for="vehicle_id" class="form-label">
+                                    <i class="bi bi-car-front-fill me-2"></i>Vehicle
+                                </label>
+                                <select name="vehicle_id" id="vehicle_id" class="form-select" required>
+                                    <option value="" disabled selected>Select Vehicle</option>
+                                    <?php foreach ($vehicles as $vehicle): ?>
+                                        <option value="<?= $vehicle['id'] ?>">
+                                            <?= htmlspecialchars($vehicle['vehicle_name']) ?>
+                                        </option>
+                                    <?php endforeach; ?>
+                                </select>
+                            </div>
 
-    <label>Due KM:
-        <input type="number" name="due_km" min="0">
-    </label>
-    <br>
+                            <!-- Scheduled Service Type -->
+                            <div class="form-group">
+                                <label for="scheduled_service_type" class="form-label">
+                                    <i class="bi bi-wrench-adjustable me-2"></i>Scheduled Service Type
+                                </label>
+                                <input type="text"
+                                    name="scheduled_service_type"
+                                    id="scheduled_service_type"
+                                    class="form-control"
+                                    placeholder="e.g., Oil Change, Brake-Oil Change"
+                                    required>
+                            </div>
 
-    <label>Status:
-        <select name="status" required>
-            <option value="pending" selected>Pending</option>
-            <option value="completed">Completed</option>
-            <option value="missed">Missed</option>
-        </select>
-    </label>
-    <br>
+                            <!-- Due Date -->
+                            <div class="form-group">
+                                <label for="due_date" class="form-label">
+                                    <i class="bi bi-calendar-event me-2"></i>Due Date
+                                </label>
+                                <input type="date"
+                                    name="due_date"
+                                    id="due_date"
+                                    class="form-control">
+                            </div>
 
-    <button type="submit">Add Schedule</button>
-</form>
+                            <!-- Due KM -->
+                            <div class="form-group">
+                                <label for="due_km" class="form-label">
+                                    <i class="bi bi-speedometer2 me-2"></i>Due KM
+                                </label>
+                                <input type="number"
+                                    name="due_km"
+                                    id="due_km"
+                                    class="form-control"
+                                    min="0"
+                                    placeholder="e.g., 60000">
+                            </div>
+
+                            <!-- Status -->
+                            <div class="form-group">
+                                <label for="status" class="form-label">
+                                    <i class="bi bi-info-circle-fill me-2"></i>Status
+                                </label>
+                                <select name="status" id="status" class="form-select" required>
+                                    <option value="pending" selected>Pending</option>
+                                    <option value="completed">Completed</option>
+                                    <option value="missed">Missed</option>
+                                </select>
+                            </div>
+                        </div>
+                        <!-- Form Actions -->
+                        <div class="form-actions">
+                            <button type="submit" class="btn btn-submit">
+                                <i class="bi bi-check-circle-fill me-2"></i>Submit
+                            </button>
+                            <button type="button" id="clearBtn" class="btn btn-cancel">
+                                <i class="bi bi-x-circle me-2"></i>Cancel
+                            </button>
+                            <script>
+                                document.getElementById('clearBtn').addEventListener('click', function() {
+                                    document.getElementById('scheduleForm').reset();
+                                });
+                            </script>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<?php include __DIR__ . "/footer.php"; ?>

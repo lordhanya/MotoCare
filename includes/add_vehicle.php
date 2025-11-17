@@ -96,13 +96,13 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
 <section class="add_vehicle">
     <div class="container d-flex align-items-center justify-content-center">
-        <div class="row align-items-center">
+        <div class="row">
             <div class="col">
-                <div class="heading d-flex align-items-center justify-content-center mb-5">
+                <div class="heading mb-5">
                     <h2>Add your <span>vehicle</span> and its <span>details</span></h2>
                 </div>
 
-                <div class="vehicleForm-container">
+                <div class="vehicleForm-container d-flex align-items-center justify-content-center">
                     <form action="" method="POST" class="vehicleForm">
                         <!-- Vehicle Name -->
                         <label for="vehicleName">

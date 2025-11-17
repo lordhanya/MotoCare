@@ -58,7 +58,7 @@ include __DIR__ . "/sidebar.php";
             </div>
         </div>
 
-        <div class="row justify-content-center mt-4">
+        <div class="row mt-4">
             <div class="col-lg-8 col-md-10">
                 <?php if (isset($error_message)): ?>
                     <div class="alert alert-danger">
@@ -67,8 +67,8 @@ include __DIR__ . "/sidebar.php";
                     </div>
                 <?php endif; ?>
 
-                <div class="form-container">
-                    <form method="POST" action="" class="maintenance-form">
+                <div class="form-container d-flex align-items-center justify-content-center">
+                    <form method="POST" action="" class="maintenance-form" id="maintenanceForm">
                         <div class="form-grid">
                             <!-- Vehicle Selection -->
                             <div class="form-group">
@@ -94,7 +94,7 @@ include __DIR__ . "/sidebar.php";
                                     name="service_type"
                                     id="service_type"
                                     class="form-control"
-                                    placeholder="e.g., Oil Change, Tire Rotation"
+                                    placeholder="e.g., Oil Change, Brake-Oil Change"
                                     required>
                             </div>
 
@@ -166,11 +166,16 @@ include __DIR__ . "/sidebar.php";
                         <!-- Form Actions -->
                         <div class="form-actions">
                             <button type="submit" class="btn btn-submit">
-                                <i class="bi bi-check-circle-fill me-2"></i>Add Maintenance
+                                <i class="bi bi-check-circle-fill me-2"></i>Submit
                             </button>
-                            <a href="maintenance_list.php" class="btn btn-cancel">
+                            <button type="button" id="clearBtn" class="btn btn-cancel">
                                 <i class="bi bi-x-circle me-2"></i>Cancel
-                            </a>
+                            </button>
+                            <script>
+                                document.getElementById('clearBtn').addEventListener('click', function() {
+                                    document.getElementById('scheduleForm').reset();
+                                });
+                            </script>
                         </div>
                     </form>
                 </div>
