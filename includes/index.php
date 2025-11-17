@@ -40,7 +40,7 @@ include __DIR__ . "/header.php";
         <div class="row min-vh-100 align-items-center">
             <div class="col content text-center" data-aos="fade-up" data-aos-duration="1200">
                 <h1>ADD YOUR <span>VEHICLE</span> NOW!</h1>
-                <p>Your Ultimate Car and Bike Maintenance Reminder App</p>
+                <p>Simplifying vehicle maintenance for worry-free driving.</p>
                 <div class="row home-btns">
                     <div class="col" data-aos="fade-right" data-aos-duration="1200" data-aos-delay="300">
                         <a href="register.php" class="btn register-btn">
