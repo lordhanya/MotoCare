@@ -28,18 +28,28 @@
                         </a>
                     </li>
                     <li class="listItems">
+                        <a class="sidebarLink" href="maintenance_list.php">
+                            <i class="bi bi-card-list"></i> Maintenance List
+                        </a>
+                    </li>
+                    <li class="listItems">
                         <a class="sidebarLink" href="add_maintenance.php">
                             <i class="bi bi-clipboard-plus"></i> Add Maintenance
                         </a>
                     </li>
                     <li class="listItems">
+                        <a class="sidebarLink" href="schedule_list.php">
+                            <i class="bi bi-calendar-check"></i> Your Schedules
+                        </a>
+                    </li>
+                    <li class="listItems">
                         <a class="sidebarLink" href="schedule_maintenance.php">
-                            <i class="bi bi-calendar-check"></i> Schedule Maintenance
+                            <i class="bi bi-calendar2-plus"></i> Schedule Maintenance
                         </a>
                     </li>
                     <li class="listItems">
                         <a class="sidebarLink" href="reports.php">
-                            <i class="bi bi-card-checklist"></i> Reports
+                            <i class="bi bi-heart-pulse"></i> Reports
                         </a>
                     </li>
                 </ul>

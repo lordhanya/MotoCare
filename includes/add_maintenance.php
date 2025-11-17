@@ -168,14 +168,9 @@ include __DIR__ . "/sidebar.php";
                             <button type="submit" class="btn btn-submit">
                                 <i class="bi bi-check-circle-fill me-2"></i>Submit
                             </button>
-                            <button type="button" id="clearBtn" class="btn btn-cancel">
+                            <a href="maintenance_list.php" class="btn btn-cancel">
                                 <i class="bi bi-x-circle me-2"></i>Cancel
-                            </button>
-                            <script>
-                                document.getElementById('clearBtn').addEventListener('click', function() {
-                                    document.getElementById('scheduleForm').reset();
-                                });
-                            </script>
+                            </a>
                         </div>
                     </form>
                 </div>

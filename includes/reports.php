@@ -41,21 +41,21 @@ $total_health = 0;
         <!-- Summary Cards -->
         <div class="summary-cards">
             <div class="stat-card">
-                <div class="stat-card-icon">🚗</div>
+                <div class="stat-card-icon"><i class="bi bi-car-front-fill"></i></div>
                 <div class="stat-card-label">Total Vehicles</div>
                 <div class="stat-card-value"><?= $total_vehicles ?></div>
                 <div class="stat-card-trend">Active fleet</div>
             </div>
 
             <div class="stat-card">
-                <div class="stat-card-icon">🔧</div>
+                <div class="stat-card-icon"><i class="bi bi-wrench-adjustable"></i></div>
                 <div class="stat-card-label">Service Due</div>
                 <div class="stat-card-value" id="service-due-value">0</div>
                 <div class="stat-card-trend">Requires attention</div>
             </div>
 
             <div class="stat-card">
-                <div class="stat-card-icon">📊</div>
+                <div class="stat-card-icon"><i class="bi bi-heart-pulse"></i></div>
                 <div class="stat-card-label">Avg Health</div>
                 <div class="stat-card-value"><?= $average_health ?>%</div>
                 <div class="stat-card-trend">Fleet condition</div>
