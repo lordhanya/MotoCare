@@ -105,7 +105,7 @@ include __DIR__ . "/sidebar.php";
         </div>
         <!-- Alert -->
         <?php if (isset($_SESSION['message'])): ?>
-            <div class="alert text-center text-danger rounded-3 border-1 border-danger my-3 ms-auto me-auto d-flex align-items-center justify-content-center gap-2">
+            <div class="alert text-center text-success rounded-3 border-1 border-suscess my-3 ms-auto me-auto d-flex align-items-center justify-content-center gap-2">
                 <i class="bi bi-bell"></i>
                 <?php
                 echo htmlspecialchars($_SESSION['message']);

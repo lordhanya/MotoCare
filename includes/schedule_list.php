@@ -28,15 +28,44 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['schedule_id'], $_POST
         $delete->execute();
 
         if ($delete->execute()) {
-                $_SESSION['message'] = "Schedule deleted successfully!";
-            } else {
-                $_SESSION['message'] = "Failed to delete your schedule!";
-            }
-        } 
-        else {
-            $_SESSION['message'] = "Schedule not found or access denied.";
+            $_SESSION['message'] = "Schedule deleted successfully!";
+        } else {
+            $_SESSION['message'] = "Failed to delete your schedule!";
         }
+    } else {
+        $_SESSION['message'] = "Schedule not found or access denied.";
     }
+}
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['schedule_id'], $_POST['action']) && $_POST['action'] === 'update') {
+    $schedule_id = (int)$_POST['schedule_id'];
+
+    $check = $conn->prepare("
+        SELECT ms.id FROM maintenance_schedule ms
+        JOIN vehicles v ON ms.vehicle_id = v.id
+        WHERE ms.id = :sid AND v.user_id = :uid
+    ");
+
+    $check->bindParam(':sid', $schedule_id, PDO::PARAM_INT);
+    $check->bindParam(':uid', $user_id, PDO::PARAM_INT);
+    $check->execute();
+    $exists = $check->fetch(PDO::FETCH_ASSOC);
+
+    if ($exists) {
+        $update = $conn->prepare("UPDATE maintenance_schedule SET status = 'completed' WHERE id = :sid");
+        $update->bindParam(':sid', $schedule_id, PDO::PARAM_INT);
+        $update->execute();
+
+        if ($update->execute()) {
+            $_SESSION['message'] = "Your schedule has been updated!";
+        } else {
+            $_SESSION['message'] = "Failed to update your schedule!";
+        }
+    } else {
+        $_SESSION['message'] = "Schedule not found or access denied.";
+    }
+        
+}
 
 $stmt = $conn->prepare("
     SELECT ms.*, v.vehicle_name FROM maintenance_schedule ms
@@ -80,7 +109,7 @@ include __DIR__ . "/sidebar.php";
                 <div class="header-content">
                     <h2>Scheduled Maintenance</h2>
                     <p>Manage upcoming and scheduled vehicle services</p>
-                </div> 
+                </div>
                 <div class="header-actions">
                     <a href="schedule_maintenance.php" class="btn-add-schedule">
                         <i class="bi bi-calendar-plus"></i>
@@ -122,7 +151,7 @@ include __DIR__ . "/sidebar.php";
         </div>
         <!-- Alert -->
         <?php if (isset($_SESSION['message'])): ?>
-            <div class="alert text-center text-danger border-1 rounded-3 border-danger my-3 ms-auto me-auto d-flex align-items-center justify-content-center gap-2">
+            <div class="alert text-center text-success border-1 rounded-3 border-success my-3 ms-auto me-auto d-flex align-items-center justify-content-center gap-2">
                 <i class="bi bi-bell"></i>
                 <?php
                 echo htmlspecialchars($_SESSION['message']);
@@ -280,9 +309,13 @@ include __DIR__ . "/sidebar.php";
                                         </td>
                                         <td>
                                             <div class="action-buttons">
-                                                <button class="btn-icon btn-complete" title="Mark Complete">
-                                                    <i class="bi bi-check-lg"></i>
-                                                </button>
+                                                <form method="POST" action="" onsubmit="return confirm('Are you sure you want to mark it as complete?');">
+                                                    <input type="hidden" name="schedule_id" value="<?php echo $row['id']; ?>">
+                                                    <input type="hidden" name="action" value="update">
+                                                    <button class="btn-icon btn-complete" title="Mark Complete">
+                                                        <i class="bi bi-check-lg"></i>
+                                                    </button>
+                                                </form>
                                                 <button class="btn-icon btn-edit" title="Edit">
                                                     <i class="bi bi-pencil"></i>
                                                 </button>
