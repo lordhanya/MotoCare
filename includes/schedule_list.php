@@ -64,7 +64,48 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['schedule_id'], $_POST
     } else {
         $_SESSION['message'] = "Schedule not found or access denied.";
     }
-        
+}
+
+// Edit Schedule
+if (isset($_POST['vehicle_id'], $_POST['schedule_id'])) {
+    $vehicle_id = (int)$_POST['vehicle_id'];
+    $schedule_id = (int)$_POST['schedule_id'];
+    $service_type = trim($_POST['scheduled_service_type'] ?? '');
+    $due_date = trim($_POST['due_date'] ?? '');
+    $due_km = isset($_POST['due_km']) ? (int)$_POST['due_km'] : 0;
+    $status = trim($_POST['status'] ?? '');
+
+    // Make sure this schedule and vehicle belong to this user
+    $check = $conn->prepare("
+        SELECT ms.id FROM maintenance_schedule ms
+        JOIN vehicles v ON ms.vehicle_id = v.id
+        WHERE ms.id = :schedule_id AND v.user_id = :user_id
+    ");
+    $check->bindParam(':schedule_id', $schedule_id, PDO::PARAM_INT);
+    $check->bindParam(':user_id', $user_id, PDO::PARAM_INT);
+    $check->execute();
+
+    if ($check->rowCount() > 0) {
+        $update = $conn->prepare("UPDATE maintenance_schedule 
+            SET vehicle_id = :vehicle_id, scheduled_service_type = :scheduled_service_type, 
+                due_date = :due_date, due_km = :due_km, status = :status 
+            WHERE id = :schedule_id
+        ");
+        $update->bindParam(':vehicle_id', $vehicle_id, PDO::PARAM_INT);
+        $update->bindParam(':scheduled_service_type', $service_type, PDO::PARAM_STR);
+        $update->bindParam(':due_date', $due_date, PDO::PARAM_STR);
+        $update->bindParam(':due_km', $due_km, PDO::PARAM_INT);
+        $update->bindParam(':status', $status, PDO::PARAM_STR);
+        $update->bindParam(':schedule_id', $schedule_id, PDO::PARAM_INT);
+
+        if ($update->execute()) {
+            $_SESSION['message'] = "Your schedule has been updated!";
+        } else {
+            $_SESSION['message'] = "Failed to update your schedule!";
+        }
+    } else {
+        $_SESSION['message'] = "Schedule was not found or access denied.";
+    }
 }
 
 $stmt = $conn->prepare("
@@ -95,6 +136,12 @@ foreach ($schedules as $sc) {
         $pending_count++;
     }
 }
+
+// Fetch user's vehicles for dropdown
+$stmt = $conn->prepare("SELECT id, vehicle_name FROM vehicles WHERE user_id = :user_id");
+$stmt->bindParam(':user_id', $user_id, PDO::PARAM_INT);
+$stmt->execute();
+$vehicles = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
 include __DIR__ . "/header.php";
 include __DIR__ . "/dashNav.php";
@@ -316,7 +363,7 @@ include __DIR__ . "/sidebar.php";
                                                         <i class="bi bi-check-lg"></i>
                                                     </button>
                                                 </form>
-                                                <button class="btn-icon btn-edit" title="Edit">
+                                                <button type="button" title="Edit" class="btn-icon btn-edit" data-bs-toggle="modal" data-bs-target="#editModal<?php echo $row['id']; ?>">
                                                     <i class="bi bi-pencil"></i>
                                                 </button>
                                                 <form method="POST" action="" onsubmit="return confirm('Are you sure you want to delete this schedule?');">
@@ -329,6 +376,94 @@ include __DIR__ . "/sidebar.php";
                                             </div>
                                         </td>
                                     </tr>
+
+                                    <!-- Modal for schedule edit -->
+                                    <div class="modal fade" id="editModal<?php echo $row['id']; ?>" tabindex="-1" aria-labelledby="editModalLabel<?php echo $row['id']; ?>" aria-hidden="true">
+                                        <div class="modal-dialog modal-dialog-centered">
+                                            <div class="modal-content p-3">
+                                                <div class="modal-header">
+                                                    <h1 class="modal-title fs-5" id="editModalLabel<?php echo $row['id']; ?>">Edit <span class="text-danger"><?php echo htmlspecialchars($row['vehicle_name']); ?></span> Service Schedule</h1>
+                                                    <button type="button" class="btn-close closeBtn" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <form method="POST" action="" class="scheduleUpdateForm" id="scheduleUpdateForm">
+                                                        <input type="hidden" name="schedule_id" value="<?= $row['id'] ?>">
+                                                        <div class="form-grid">
+                                                            <div class="form-group mb-3">
+                                                                <label for="vehicle_id<?= $row['id']; ?>" class="text-dark form-label">
+                                                                    <i class="bi bi-car-front-fill me-2"></i>Vehicle
+                                                                </label>
+                                                                <select name="vehicle_id" id="vehicle_id<?= $row['id']; ?>" class="form-select" required>
+                                                                    <option value="" disabled>Select Vehicle</option>
+                                                                    <?php foreach ($vehicles as $vehicle): ?>
+                                                                        <option value="<?= $vehicle['id']; ?>" <?= ($vehicle['id'] == $row['vehicle_id']) ? 'selected' : '' ?>>
+                                                                            <?= htmlspecialchars($vehicle['vehicle_name']); ?>
+                                                                        </option>
+                                                                    <?php endforeach; ?>
+                                                                </select>
+                                                            </div>
+
+                                                            <div class="form-group mb-3">
+                                                                <label for="scheduled_service_type<?= $row['id']; ?>" class="form-label text-dark">
+                                                                    <i class="bi bi-wrench-adjustable me-2"></i>Scheduled Service Type
+                                                                </label>
+                                                                <input type="text"
+                                                                    name="scheduled_service_type"
+                                                                    class="form-control"
+                                                                    id="scheduled_service_type<?= $row['id']; ?>"
+                                                                    value="<?= htmlspecialchars($row['scheduled_service_type']); ?>"
+                                                                    required>
+                                                            </div>
+
+                                                            <div class="form-group mb-3">
+                                                                <label for="due_date<?= $row['id']; ?>" class="form-label text-dark">
+                                                                    <i class="bi bi-calendar-event me-2"></i>Due Date
+                                                                </label>
+                                                                <input type="date"
+                                                                    name="due_date"
+                                                                    id="due_date<?= $row['id']; ?>"
+                                                                    value="<?= htmlspecialchars($row['due_date']); ?>"
+                                                                    class="form-control">
+                                                            </div>
+
+                                                            <div class="form-group mb-3">
+                                                                <label for="due_km<?= $row['id']; ?>" class="form-label text-dark">
+                                                                    <i class="bi bi-speedometer2 me-2"></i>Due KM
+                                                                </label>
+                                                                <input type="number"
+                                                                    name="due_km"
+                                                                    id="due_km<?= $row['id']; ?>"
+                                                                    class="form-control"
+                                                                    value="<?= htmlspecialchars($row['due_km']); ?>"
+                                                                    min="0">
+                                                            </div>
+
+                                                            <div class="form-group mb-3">
+                                                                <label for="status<?= $row['id']; ?>" class="form-label text-dark">
+                                                                    <i class="bi bi-info-circle-fill me-2"></i>Status
+                                                                </label>
+                                                                <select name="status" id="status<?= $row['id']; ?>" class="form-select" required>
+                                                                    <option value="pending" <?= strtolower($row['status']) === 'pending' ? 'selected' : '' ?>>Pending</option>
+                                                                    <option value="completed" <?= strtolower($row['status']) === 'completed' ? 'selected' : '' ?>>Completed</option>
+                                                                    <option value="missed" <?= strtolower($row['status']) === 'missed' ? 'selected' : '' ?>>Missed</option>
+                                                                </select>
+                                                            </div>
+                                                        </div>
+                                                        <div class="modal-footer mt-4">
+                                                            <div class="form-actions">
+                                                                <button type="submit" class="btn btn-submit">
+                                                                    <i class="bi bi-check-circle-fill me-2"></i>Submit
+                                                                </button>
+                                                                <button type="button" class="btn px-5 py-2 d-flex align-items-center justify-content-center gap-2 btn-secondary" data-bs-dismiss="modal">
+                                                                    <i class="bi bi-x-circle"></i> Cancel
+                                                                </button>
+                                                            </div>
+                                                        </div>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
                                 <?php endforeach; ?>
                             </tbody>
                         </table>
