@@ -23,7 +23,7 @@
             
             <div class="nav-divider"></div>
             
-            <a class="logout-btn" href="logout.php">
+            <a class="logout-btn py-3" href="logout.php">
                 <i class="bi bi-box-arrow-right"></i>
                 Logout
             </a>
