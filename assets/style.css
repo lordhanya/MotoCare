@@ -4534,6 +4534,32 @@ section.profileSection .profileContainer {
   }
 }
 
+@media print {
+  body {
+    background-color: white;
+    color: black;
+    font-size: 12pt;
+  }
+
+  .navbar.no-print,
+  .footer.no-print,
+  .no-print,
+  .maintenance-list-section .table-card .table-actions {
+    display: none;
+  }
+
+  .maintenance-list-section {
+    margin: 0;
+    padding: 0;
+  }
+
+  .maintenance-list-section .maintenance-table th:last-child,
+  .maintenance-list-section .maintenance-table td:last-child {
+    display: none;
+  }
+
+}
+
 /* Scheduled list Page Styles */
 .scheduled-list-section {
   background: var(--bg-dark);
@@ -5056,6 +5082,32 @@ section.profileSection .profileContainer {
     width: 100%;
     justify-content: flex-end;
   }
+}
+
+@media print {
+  body {
+    background-color: white;
+    color: black;
+    font-size: 12pt;
+  }
+
+  .navbar.no-print,
+  .footer.no-print,
+  .no-print,
+  .scheduled-list-section .table-card .table-actions {
+    display: none;
+  }
+
+  .scheduled-list-section {
+    margin: 3em;
+    padding: 0;
+  }
+
+  .scheduled-list-section .schedule-table th:last-child,
+  .scheduled-list-section .schedule-table td:last-child {
+    display: none;
+  }
+
 }
 /* footer */
 .footer {

@@ -1,5 +1,5 @@
 <!-- Dashboard Navbar -->
-<nav class="navbar navbar-expand-lg border-body fixed-top px-4 py-3 dashNav">
+<nav class="navbar no-print navbar-expand-lg border-body fixed-top px-4 py-3 dashNav">
     <div class="container-fluid">
         <!-- Left Section: Sidebar Toggle + Logo -->
         <div class="d-flex align-items-center gap-3">

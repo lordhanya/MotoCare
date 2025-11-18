@@ -1,5 +1,5 @@
 <!-- Footer -->
-<footer class="footer bg-dark d-grid align-items-center justify-content-center text-white py-3">
+<footer class="footer no-print bg-dark d-grid align-items-center justify-content-center text-white py-3">
     <div class="footer-container d-flex align-items-center justify-content-center mt-5">
         <div class="footer-col text-center social">
             <h4>Follow <span>Us</span></h4>

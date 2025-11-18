@@ -9,6 +9,35 @@ if (!isset($_SESSION['user_id'])) {
 
 $user_id = $_SESSION['user_id'];
 
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['maintenance_id'], $_POST['action']) && $_POST['action'] === 'delete') {
+    $maintenance_id = (int)$_POST['maintenance_id'];
+
+    $check = $conn->prepare("
+        SELECT m.id FROM maintenance m
+        JOIN vehicles v ON m.vehicle_id = v.id
+        WHERE m.id = :mid AND v.user_id = :uid
+    ");
+    $check->bindParam(':mid', $maintenance_id, PDO::PARAM_INT);
+    $check->bindParam(':uid', $user_id, PDO::PARAM_INT);
+    $check->execute();
+    $exists = $check->fetch(PDO::FETCH_ASSOC);
+
+    if ($exists) {
+        $delete = $conn->prepare("DELETE FROM maintenance WHERE id = :mid");
+        $delete->bindParam(':mid', $maintenance_id, PDO::PARAM_INT);
+        $delete->execute();
+
+        if ($delete->execute()) {
+                $_SESSION['message'] = "Record deleted successfully!";
+            } else {
+                $_SESSION['message'] = "Failed to delete your record!";
+            }
+        } 
+        else {
+            $_SESSION['message'] = "Record not found or access denied.";
+        }
+    }
+
 // Fetch maintenance records joined with vehicle data
 $sql = "SELECT m.*, v.vehicle_name 
 FROM maintenance m 
@@ -28,51 +57,62 @@ include __DIR__ . "/sidebar.php";
 
 <section class="maintenance-list-section">
     <div class="container">
-        <!-- Page Header -->
-        <div class="page-header">
-            <div class="header-content">
-                <h2>Maintenance Records</h2>
-                <p>Track and manage all your vehicle maintenance history</p>
+        <div class="no-print">
+            <!-- Page Header -->
+            <div class="page-header">
+                <div class="header-content">
+                    <h2>Maintenance Records</h2>
+                    <p>Track and manage all your vehicle maintenance history</p>
+                </div>
+                <div class="header-actions">
+                    <a href="add_maintenance.php" class="btn-add-maintenance">
+                        <i class="bi bi-plus-circle"></i>
+                        Add New Record
+                    </a>
+                </div>
             </div>
-            <div class="header-actions">
-                <a href="add_maintenance.php" class="btn-add-maintenance">
-                    <i class="bi bi-plus-circle"></i>
-                    Add New Record
-                </a>
+
+            <!-- Stats Overview -->
+            <div class="stats-overview">
+                <div class="stat-box">
+                    <div class="stat-icon">
+                        <i class="bi bi-card-checklist"></i>
+                    </div>
+                    <div class="stat-details">
+                        <span class="stat-label">Total Records</span>
+                        <span class="stat-value"><?= count($records) ?></span>
+                    </div>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-icon">
+                        <i class="bi bi-cash-stack"></i>
+                    </div>
+                    <div class="stat-details">
+                        <span class="stat-label">Total Spent</span>
+                        <span class="stat-value">₹<?= number_format(array_sum(array_column($records, 'cost')), 2) ?></span>
+                    </div>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-icon">
+                        <i class="bi bi-clock-history"></i>
+                    </div>
+                    <div class="stat-details">
+                        <span class="stat-label">Last Service</span>
+                        <span class="stat-value"><?= $records ? date('M d, Y', strtotime($records[0]['service_date'])) : 'N/A' ?></span>
+                    </div>
+                </div>
             </div>
         </div>
-
-        <!-- Stats Overview -->
-        <div class="stats-overview">
-            <div class="stat-box">
-                <div class="stat-icon">
-                    <i class="bi bi-card-checklist"></i>
-                </div>
-                <div class="stat-details">
-                    <span class="stat-label">Total Records</span>
-                    <span class="stat-value"><?= count($records) ?></span>
-                </div>
+        <!-- Alert -->
+        <?php if (isset($_SESSION['message'])): ?>
+            <div class="alert text-center text-danger rounded-3 border-1 border-danger my-3 ms-auto me-auto d-flex align-items-center justify-content-center gap-2">
+                <i class="bi bi-bell"></i>
+                <?php
+                echo htmlspecialchars($_SESSION['message']);
+                unset($_SESSION['message']);
+                ?>
             </div>
-            <div class="stat-box">
-                <div class="stat-icon">
-                    <i class="bi bi-cash-stack"></i>
-                </div>
-                <div class="stat-details">
-                    <span class="stat-label">Total Spent</span>
-                    <span class="stat-value">₹<?= number_format(array_sum(array_column($records, 'cost')), 2) ?></span>
-                </div>
-            </div>
-            <div class="stat-box">
-                <div class="stat-icon">
-                    <i class="bi bi-clock-history"></i>
-                </div>
-                <div class="stat-details">
-                    <span class="stat-label">Last Service</span>
-                    <span class="stat-value"><?= $records ? date('M d, Y', strtotime($records[0]['service_date'])) : 'N/A' ?></span>
-                </div>
-            </div>
-        </div>
-
+        <?php endif; ?>
         <!-- Maintenance Table Card -->
         <div class="table-card">
             <div class="table-header">
@@ -82,10 +122,15 @@ include __DIR__ . "/sidebar.php";
                         <i class="bi bi-funnel"></i>
                         Filter
                     </button>
-                    <button class="btn-export">
+                    <button class="btn-export" id="exportBtn">
                         <i class="bi bi-download"></i>
                         Export
                     </button>
+                    <script>
+                        document.getElementById("exportBtn").addEventListener("click", function() {
+                            window.print();
+                        });
+                    </script>
                 </div>
             </div>
 
@@ -105,12 +150,12 @@ include __DIR__ . "/sidebar.php";
                             </tr>
                         </thead>
                         <tbody>
-                            <?php foreach ($records as $row): 
+                            <?php foreach ($records as $row):
                                 // Determine status class
                                 $statusClass = '';
                                 $statusText = ucfirst($row['status']);
-                                
-                                switch(strtolower($row['status'])) {
+
+                                switch (strtolower($row['status'])) {
                                     case 'completed':
                                         $statusClass = 'status-completed';
                                         break;
@@ -126,7 +171,7 @@ include __DIR__ . "/sidebar.php";
 
                                 // Determine service type icon
                                 $serviceIcon = '';
-                                switch(strtolower($row['service_type'])) {
+                                switch (strtolower($row['service_type'])) {
                                     case 'oil change':
                                         $serviceIcon = 'bi-droplet-fill';
                                         break;
@@ -146,7 +191,7 @@ include __DIR__ . "/sidebar.php";
                                 <tr>
                                     <td>
                                         <div class="vehicle-cell">
-                                            <i class="bi bi-car-front"></i>
+                                            <i class="bi bi-caret-right-fill"></i>
                                             <span><?= htmlspecialchars($row['vehicle_name']); ?></span>
                                         </div>
                                     </td>
@@ -166,7 +211,7 @@ include __DIR__ . "/sidebar.php";
                                     </td>
                                     <td>
                                         <div class="notes-cell">
-                                            <?php 
+                                            <?php
                                             $notes = htmlspecialchars($row['service_notes']);
                                             echo strlen($notes) > 50 ? substr($notes, 0, 50) . '...' : $notes;
                                             ?>
@@ -180,9 +225,13 @@ include __DIR__ . "/sidebar.php";
                                             <button class="btn-icon btn-edit" title="Edit">
                                                 <i class="bi bi-pencil"></i>
                                             </button>
-                                            <button class="btn-icon btn-delete" title="Delete">
-                                                <i class="bi bi-trash"></i>
-                                            </button>
+                                            <form method="POST" action="" onsubmit="return confirm('Are you sure you want to delete this maintenance record?');">
+                                                <input type="hidden" name="maintenance_id" value="<?php echo $row['id']; ?>">
+                                                <input type="hidden" name="action" value="delete">
+                                                <button type="submit" class="btn-icon btn-delete" title="Delete">
+                                                    <i class="bi bi-trash"></i>
+                                                </button>
+                                            </form>
                                         </div>
                                     </td>
                                 </tr>
@@ -208,9 +257,9 @@ include __DIR__ . "/sidebar.php";
 </section>
 
 <script>
-function toggleFilters() {
-    alert('Filter functionality to be implemented');
-}
+    function toggleFilters() {
+        alert('Filter functionality to be implemented');
+    }
 </script>
-<?php include __DIR__ . "/spinner.php";?>
+<?php include __DIR__ . "/spinner.php"; ?>
 <?php include __DIR__ . "/footer.php"; ?>
