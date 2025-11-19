@@ -10,7 +10,7 @@ include __DIR__ . "/header.php";
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse nav-box ms-auto" id="navbarNavDropdown">
-                <ul class="navbar-nav mx-auto">
+                <ul class="navbar-nav">
                     <li class="nav-item">
                         <a class="nav-link active" aria-current="page" href="#home">Home</a>
                     </li>
@@ -24,7 +24,7 @@ include __DIR__ . "/header.php";
                         <a class="nav-link" href="#contact">Contact</a>
                     </li>
                 </ul>
-
+                <div class="divider me-3"></div>
                 <div class="auth-btn">
                     <a href="login.php" class="btn login-btn">Log-In</a>
                     <a href="register.php" class="btn signup-btn">Sign-Up</a>

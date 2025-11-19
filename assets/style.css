@@ -97,7 +97,7 @@ html {
 /* INDEX NAVBAR */
 header .navbar {
   background: rgba(0, 0, 0, 0.04);
-  backdrop-filter: blur(10px);
+  backdrop-filter: blur(6px);
   box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
   transition: all 0.3s ease;
   z-index: 1000;
@@ -171,6 +171,12 @@ header .nav-link.active {
 
 header .nav-link:hover::before {
   width: 60%;
+}
+
+header .collapse .divider {
+  width: 2px;
+  height: 35px;
+  background: #625c5c;
 }
 
 header .auth-btn .btn {
@@ -924,8 +930,8 @@ textarea.form-control {
 
 /* Divider */
 .nav-divider {
-  width: 1px;
-  height: 30px;
+  width: 2px;
+  height: 35px;
   background: var(--border-color);
   margin: 0 0.5rem;
 }
@@ -4557,7 +4563,6 @@ section.profileSection .profileContainer {
   .maintenance-list-section .maintenance-table td:last-child {
     display: none;
   }
-
 }
 
 /* Scheduled list Page Styles */
@@ -5107,7 +5112,6 @@ section.profileSection .profileContainer {
   .scheduled-list-section .schedule-table td:last-child {
     display: none;
   }
-
 }
 /* footer */
 .footer {
