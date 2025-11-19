@@ -162,7 +162,7 @@ include __DIR__ . "/dashNav.php";
                             <div class="modal-content">
                                 <div class="modal-header">
                                     <h1 class="modal-title fs-5" id="detailsModalLabel<?php echo $vehicle['id']; ?>"><?php echo htmlspecialchars($vehicle['vehicle_name']); ?> Details</h1>
-                                    <button type="button" class="btn-close closeBtn" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    <button type="button" class="btn-close closeBtn" data-bs-dismiss="modal" aria-label="Close"><i class="bi bi-x-lg"></i></button>
                                 </div>
                                 <div class="modal-body ms-2">
                                     <ul>
@@ -192,7 +192,7 @@ include __DIR__ . "/dashNav.php";
                             <div class="modal-content">
                                 <div class="modal-header">
                                     <h1 class="modal-title fs-5" id="editModalLabel<?php echo $vehicle['id']; ?>">Edit <?php echo htmlspecialchars($vehicle['vehicle_name']); ?></h1>
-                                    <button type="button" class="btn-close closeBtn" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    <button type="button" class="btn-close closeBtn" data-bs-dismiss="modal" aria-label="Close"><i class="bi bi-x-lg"></i></button>
                                 </div>
                                 <div class="modal-body">
                                     <form method="POST" action="" class="editForm">

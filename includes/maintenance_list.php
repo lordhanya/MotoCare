@@ -9,50 +9,6 @@ if (!isset($_SESSION['user_id'])) {
 
 $user_id = $_SESSION['user_id'];
 
-// Edit Schedule
-if (isset($_POST['vehicle_id'], $_POST['maintenance_id'])) {
-    $vehicle_id = (int)$_POST['vehicle_id'];
-    $service_type = (int)$_POST['service_type'];
-    $service_date = trim($_POST['service_date'] ?? '');
-    $service_km = isset($_POST['service_km']) ? (int)$_POST['service_km'] : 0;
-    $service_notes = trim($_POST['service_notes'] ?? '');
-    $cost = isset($_POST['cost']) ? (int)$_POST['due_km'] : 0;
-    $status = trim($_POST['status'] ?? '');
-
-    $check = $conn->prepare("
-        SELECT m.id FROM maintenance m
-        JOIN vehicles v ON m.vehicle_id = v.id
-        WHERE m.id = :maintenance_id AND v.user_id = :user_id
-    ");
-    $check->bindParam(':maintenance_id', $maintenance_id, PDO::PARAM_INT);
-    $check->bindParam(':user_id', $user_id, PDO::PARAM_INT);
-    $check->execute();
-
-    if ($check->rowCount() > 0) {
-        $update = $conn->prepare("UPDATE maintenance_schedule 
-            SET vehicle_id = :vehicle_id, service_type = :service_type, 
-                service_date = :service_date, service_km = :service_km, service_notes = :service_notes, cost = :cost, status = :status 
-            WHERE id = :maintenance_id
-        ");
-        $update->bindParam(':vehicle_id', $vehicle_id, PDO::PARAM_INT);
-        $update->bindParam(':service_type', $service_type, PDO::PARAM_STR);
-        $update->bindParam(':service_date', $service_date, PDO::PARAM_STR);
-        $update->bindParam(':service_km', $service_km, PDO::PARAM_INT);
-        $update->bindParam(':service_notes', $service_notes, PDO::PARAM_STR);
-        $update->bindParam(':cost', $cost, PDO::PARAM_INT);
-        $update->bindParam(':status', $status, PDO::PARAM_STR);
-        $update->bindParam(':maintenance_id', $maintenance_id, PDO::PARAM_INT);
-
-        if ($update->execute()) {
-            $_SESSION['message'] = "Your maintenance record has been updated!";
-        } else {
-            $_SESSION['message'] = "Failed to update your maintenance record!";
-        }
-    } else {
-        $_SESSION['message'] = "Maintenance record was not found or access denied.";
-    }
-}
-
 // DELETE RECORD
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['maintenance_id'], $_POST['action']) && $_POST['action'] === 'delete') {
     $maintenance_id = (int)$_POST['maintenance_id'];
@@ -79,6 +35,61 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['maintenance_id'], $_P
         }
     } else {
         $_SESSION['message'] = "Record not found or access denied.";
+    }
+}
+
+// Edit Maintenance Record Logic
+if (
+    $_SERVER['REQUEST_METHOD'] === 'POST' &&
+    isset($_POST['maintenance_id'], $_POST['vehicle_id'], $_POST['service_type'], $_POST['service_date'], $_POST['service_km'], $_POST['service_notes'], $_POST['cost'], $_POST['status'])
+) {
+
+    $maintenance_id = (int)$_POST['maintenance_id'];
+    $vehicle_id = (int)$_POST['vehicle_id'];
+    $service_type = trim($_POST['service_type']);
+    $service_date = trim($_POST['service_date']);
+    $service_km = (int)$_POST['service_km'];
+    $service_notes = trim($_POST['service_notes']);
+    $cost = (int)$_POST['cost'];
+    $status = trim($_POST['status']);
+
+    $check = $conn->prepare("
+        SELECT m.id FROM maintenance m
+        JOIN vehicles v ON m.vehicle_id = v.id
+        WHERE m.id = :maintenance_id AND v.user_id = :user_id
+    ");
+    $check->bindParam(':maintenance_id', $maintenance_id, PDO::PARAM_INT);
+    $check->bindParam(':user_id', $user_id, PDO::PARAM_INT);
+    $check->execute();
+
+    if ($check->rowCount() > 0) {
+        $update = $conn->prepare("
+            UPDATE maintenance
+            SET vehicle_id = :vehicle_id,
+                service_type = :service_type,
+                service_date = :service_date,
+                service_km = :service_km,
+                service_notes = :service_notes,
+                cost = :cost,
+                status = :status
+            WHERE id = :maintenance_id
+        ");
+        $update->bindParam(':vehicle_id', $vehicle_id, PDO::PARAM_INT);
+        $update->bindParam(':service_type', $service_type, PDO::PARAM_STR);
+        $update->bindParam(':service_date', $service_date, PDO::PARAM_STR);
+        $update->bindParam(':service_km', $service_km, PDO::PARAM_INT);
+        $update->bindParam(':service_notes', $service_notes, PDO::PARAM_STR);
+        $update->bindParam(':cost', $cost, PDO::PARAM_INT);
+        $update->bindParam(':status', $status, PDO::PARAM_STR);
+        $update->bindParam(':maintenance_id', $maintenance_id, PDO::PARAM_INT);
+
+        if ($update->execute()) {
+            $_SESSION['message'] = "Your maintenance record has been updated!";
+        } else {
+            $_SESSION['message'] = "Failed to update your maintenance record!";
+        }
+    } else {
+        $_SESSION['message'] = "Maintenance record was not found or access denied.";
     }
 }
 
@@ -292,7 +303,7 @@ include __DIR__ . "/sidebar.php";
                                         <div class="modal-content p-3">
                                             <div class="modal-header">
                                                 <h1 class="modal-title fs-5" id="editModalLabel<?php echo $row['id']; ?>"><span class="text-danger"><?php echo htmlspecialchars($row['vehicle_name']); ?></span> Details</h1>
-                                                <button type="button" class="btn-close closeBtn" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                <button type="button" class="btn-close closeBtn" data-bs-dismiss="modal" aria-label="Close"><i class="bi bi-x-lg"></i></button>
                                             </div>
                                             <div class="modal-body">
                                                 <ul>
@@ -321,7 +332,7 @@ include __DIR__ . "/sidebar.php";
                                         <div class="modal-content p-3">
                                             <div class="modal-header">
                                                 <h1 class="modal-title fs-5" id="editModalLabel<?php echo $row['id']; ?>">Edit <span class="text-danger"><?php echo htmlspecialchars($row['vehicle_name']); ?></span> Maintenance Record</h1>
-                                                <button type="button" class="btn-close closeBtn" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                <button type="button" class="btn-close closeBtn" data-bs-dismiss="modal" aria-label="Close"><i class="bi bi-x-lg"></i></button>
                                             </div>
                                             <div class="modal-body">
                                                 <form method="POST" action="" class="maintenance-form" id="maintenanceForm">
@@ -329,7 +340,7 @@ include __DIR__ . "/sidebar.php";
                                                     <div class="form-grid">
                                                         <!-- Vehicle Selection -->
                                                         <div class="form-group">
-                                                            <label for="vehicle_id<?= $currentVehicleId; ?>" class="text-dark form-label">
+                                                            <label for="vehicle_id<?= $currentVehicleId; ?>" class="form-label">
                                                                 <i class="bi bi-car-front-fill me-2"></i>Vehicle
                                                             </label>
                                                             <select name="vehicle_id" id="vehicle_id<?= $row['id']; ?>" class="form-select" required>
@@ -344,7 +355,7 @@ include __DIR__ . "/sidebar.php";
 
                                                         <!-- Service Type -->
                                                         <div class="form-group">
-                                                            <label for="service_type<?= $row['id']; ?>" class="form-label text-dark">
+                                                            <label for="service_type<?= $row['id']; ?>" class="form-label">
                                                                 <i class="bi bi-wrench-adjustable me-2"></i>Service Type
                                                             </label>
                                                             <input type="text"
@@ -416,7 +427,8 @@ include __DIR__ . "/sidebar.php";
                                                         <textarea name="service_notes"
                                                             id="service_notes<?= $row['id']; ?>"
                                                             class="form-control"
-                                                            rows="4"></textarea>
+                                                            rows="4"><?= htmlspecialchars($row['service_notes']); ?>
+                                                            </textarea>
                                                     </div>
 
                                                     <div class="modal-footer">

@@ -383,14 +383,14 @@ include __DIR__ . "/sidebar.php";
                                             <div class="modal-content p-3">
                                                 <div class="modal-header">
                                                     <h1 class="modal-title fs-5" id="editModalLabel<?php echo $row['id']; ?>">Edit <span class="text-danger"><?php echo htmlspecialchars($row['vehicle_name']); ?></span> Service Schedule</h1>
-                                                    <button type="button" class="btn-close closeBtn" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                    <button type="button" class="btn-close closeBtn" data-bs-dismiss="modal" aria-label="Close"><i class="bi bi-x-lg"></i></button>
                                                 </div>
                                                 <div class="modal-body">
                                                     <form method="POST" action="" class="scheduleUpdateForm" id="scheduleUpdateForm">
                                                         <input type="hidden" name="schedule_id" value="<?= $row['id'] ?>">
                                                         <div class="form-grid">
                                                             <div class="form-group mb-3">
-                                                                <label for="vehicle_id<?= $row['id']; ?>" class="text-dark form-label">
+                                                                <label for="vehicle_id<?= $row['id']; ?>" class="form-label">
                                                                     <i class="bi bi-car-front-fill me-2"></i>Vehicle
                                                                 </label>
                                                                 <select name="vehicle_id" id="vehicle_id<?= $row['id']; ?>" class="form-select" required>
@@ -404,7 +404,7 @@ include __DIR__ . "/sidebar.php";
                                                             </div>
 
                                                             <div class="form-group mb-3">
-                                                                <label for="scheduled_service_type<?= $row['id']; ?>" class="form-label text-dark">
+                                                                <label for="scheduled_service_type<?= $row['id']; ?>" class="form-label">
                                                                     <i class="bi bi-wrench-adjustable me-2"></i>Scheduled Service Type
                                                                 </label>
                                                                 <input type="text"
@@ -416,7 +416,7 @@ include __DIR__ . "/sidebar.php";
                                                             </div>
 
                                                             <div class="form-group mb-3">
-                                                                <label for="due_date<?= $row['id']; ?>" class="form-label text-dark">
+                                                                <label for="due_date<?= $row['id']; ?>" class="form-label">
                                                                     <i class="bi bi-calendar-event me-2"></i>Due Date
                                                                 </label>
                                                                 <input type="date"
@@ -427,7 +427,7 @@ include __DIR__ . "/sidebar.php";
                                                             </div>
 
                                                             <div class="form-group mb-3">
-                                                                <label for="due_km<?= $row['id']; ?>" class="form-label text-dark">
+                                                                <label for="due_km<?= $row['id']; ?>" class="form-label">
                                                                     <i class="bi bi-speedometer2 me-2"></i>Due KM
                                                                 </label>
                                                                 <input type="number"
@@ -439,7 +439,7 @@ include __DIR__ . "/sidebar.php";
                                                             </div>
 
                                                             <div class="form-group mb-3">
-                                                                <label for="status<?= $row['id']; ?>" class="form-label text-dark">
+                                                                <label for="status<?= $row['id']; ?>" class="form-label">
                                                                     <i class="bi bi-info-circle-fill me-2"></i>Status
                                                                 </label>
                                                                 <select name="status" id="status<?= $row['id']; ?>" class="form-select" required>
@@ -450,11 +450,11 @@ include __DIR__ . "/sidebar.php";
                                                             </div>
                                                         </div>
                                                         <div class="modal-footer mt-4">
-                                                            <div class="form-actions">
+                                                            <div class="form-actions d-flex align-items-center gap-2 justify-content-center">
                                                                 <button type="submit" class="btn btn-submit">
                                                                     <i class="bi bi-check-circle-fill me-2"></i>Submit
                                                                 </button>
-                                                                <button type="button" class="btn px-5 py-2 d-flex align-items-center justify-content-center gap-2 btn-secondary" data-bs-dismiss="modal">
+                                                                <button type="button" class="btn d-flex align-items-center justify-content-center gap-2 btn-secondary" data-bs-dismiss="modal">
                                                                     <i class="bi bi-x-circle"></i> Cancel
                                                                 </button>
                                                             </div>

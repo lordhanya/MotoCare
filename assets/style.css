@@ -3505,7 +3505,9 @@ section.profileSection .profileContainer {
   }
 }
 
-/* MAINTANENCE SCHEDULE PAGE */
+/* ========================================
+    SCHEDULE MAINTENANCE PAGE STYLE
+   ======================================== */
 .schedule-maintenance-section {
   min-height: 100vh;
   padding: 4rem 0;
@@ -4097,7 +4099,9 @@ section.profileSection .profileContainer {
   }
 }
 
-/* Maintenance List Page Styles */
+/* ========================================
+    MAINTENANCE LIST PAGE STYLE
+   ======================================== */
 .maintenance-list-section {
   background: var(--bg-dark);
   min-height: 100vh;
@@ -5113,6 +5117,432 @@ section.profileSection .profileContainer {
     display: none;
   }
 }
+
+/* ========================================
+   MAINTENANCE LIST PAGE MODALS 
+   ======================================== */
+
+.modal.fade {
+  transition: opacity 0.3s ease;
+}
+
+.modal-dialog {
+  margin: 1.75rem auto;
+}
+
+.modal-content {
+  background: var(--bg-card) !important;
+  border: 2px solid var(--border-color) !important;
+  border-radius: 16px;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.8);
+  color: var(--text-primary);
+  overflow: hidden;
+}
+
+/* ========================================
+   MODAL HEADER
+   ======================================== */
+
+.modal-header {
+  background: var(--bg-secondary);
+  border-bottom: 2px solid var(--border-color);
+  padding: 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.modal-title {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin: 0;
+  letter-spacing: 0.5px;
+}
+
+.modal-title .text-danger {
+  color: var(--accent-color);
+  font-weight: 800;
+}
+
+.btn-close.closeBtn {
+  background: var(--accent-color);
+  border: 2px solid var(--border-color);
+  border-radius: 16px;
+  padding: 0.5rem;
+  width: 36px;
+  height: 36px;
+  color: #fff;
+  opacity: 1;
+  transition: all 0.3s ease;
+}
+
+.btn-close.closeBtn:hover {
+  background: var(--accent-hover);
+  border-color: #fff;
+  color: #fff;
+  transform: rotate(90deg);
+}
+
+/* ========================================
+   MODAL BODY - VIEW DETAILS
+   ======================================== */
+
+.modal-body {
+  padding: 2rem;
+  background: var(--bg-card);
+}
+
+.modal-body ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.modal-body ul li {
+  padding: 1rem;
+  margin-bottom: 0.75rem;
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-color);
+  border-radius: 10px;
+  color: var(--text-primary);
+  font-size: 0.95rem;
+  transition: all 0.3s ease;
+}
+
+.modal-body ul li:hover {
+  background: var(--bg-card-hover);
+  border-color: var(--accent-color);
+  transform: translateX(5px);
+}
+
+.modal-body ul li:last-child {
+  margin-bottom: 0;
+}
+
+.modal-body ul li strong {
+  color: var(--accent-color);
+  font-weight: 700;
+  display: inline-block;
+  min-width: 140px;
+  margin-right: 0.5rem;
+  font-size: 0.85rem;
+  letter-spacing: 0.5px;
+}
+
+.maintenance-form, .scheduleUpdateForm {
+  width: 100%;
+}
+
+.form-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.25rem;
+  margin-bottom: 1.25rem;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+}
+
+.form-group.full-width {
+  grid-column: 1 / -1;
+}
+
+.form-label {
+  color: var(--text-primary);
+  font-weight: 600;
+  font-size: 0.9rem;
+  margin-bottom: 0.5rem;
+  display: flex;
+  align-items: center;
+  letter-spacing: 0.3px;
+}
+
+.form-label {
+  color: var(--text-primary);
+}
+
+/* .form-label i - Icon in label */
+.form-label i {
+  color: var(--accent-color);
+  font-size: 1rem;
+  margin-right: 0.5rem;
+}
+
+input.form-control,
+select.form-select {
+  background: var(--bg-secondary);
+  border: 2px solid var(--border-color);
+  color: var(--text-primary);
+  padding: 1rem 1.25rem;
+  border-radius: 12px;
+  font-size: 1rem;
+  transition: all 0.3s ease;
+  width: 100%;
+  font-weight: 500;
+  position: relative;
+}
+
+input.form-control:focus,
+select.form-select:focus {
+  color: var(--text-primary);
+  outline: none;
+  background: var(--bg-card-hover);
+  border-color: var(--accent-color);
+  box-shadow: 0 0 0 4px rgba(248, 41, 0, 0.1), 0 5px 20px rgba(248, 41, 0, 0.2);
+  transform: translateY(-2px);
+}
+
+input.form-control::placeholder {
+  color: var(--text-secondary);
+  opacity: 0.7;
+  font-weight: 400;
+}
+
+input.form-control:hover,
+select.form-select:hover {
+  border-color: var(--accent-hover);
+  background: var(--bg-card-hover);
+}
+
+select.form-select {
+  background: var(--bg-secondary);
+  border: 2px solid var(--border-color);
+  border-radius: 10px;
+  color: var(--text-primary);
+  font-size: 0.95rem;
+  transition: all 0.3s ease;
+  cursor: pointer;
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3e%3cpath fill='none' stroke='%23f82900' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M2 5l6 6 6-6'/%3e%3c/svg%3e");
+  background-repeat: no-repeat;
+  background-position: right 1rem center;
+  background-size: 14px 10px;
+  padding-right: 2.5rem;
+}
+
+select.form-select:focus {
+  outline: none;
+  background-color: var(--bg-card-hover);
+  border-color: var(--accent-color);
+  box-shadow: 0 0 0 3px rgba(248, 41, 0, 0.1);
+}
+
+select.form-select option {
+  background: var(--bg-card);
+  color: var(--text-primary);
+  padding: 0.75rem;
+}
+
+form.maintenance-form input.form-control,
+form.scheduleUpdateForm input.form-control {
+  color: #fff;
+  resize: vertical;
+  min-height: 100px;
+  font-family: inherit;
+  line-height: 1.6;
+}
+
+.modal .modal-footer {
+  border-top: 2px solid var(--border-color);
+  padding: 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+}
+
+form .form-actions {
+  display: flex;
+  gap: 1rem;
+  width: 100%;
+  justify-content: center;
+}
+
+/* ========================================
+   BUTTONS
+   ======================================== */
+
+.maintenance-list-section .btn,
+.scheduled-list-section .btn {
+  padding: 0.75rem 1.5rem;
+  border-radius: 10px;
+  font-weight: 600;
+  font-size: 0.95rem;
+  border: 2px solid;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.maintenance-list-section .btn-submit,
+.scheduled-list-section .btn-submit {
+  background: var(--accent-color);
+  border-color: var(--accent-color);
+  color: white;
+}
+
+.maintenance-list-section .btn-submit:hover,
+.scheduled-list-section .btn-submit:hover {
+  background: var(--accent-hover);
+  border-color: var(--accent-hover);
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(248, 41, 0, 0.4);
+}
+
+.maintenance-list-section .btn-cancel,
+.scheduled-list-section .btn-cancel {
+  background: transparent;
+  border-color: var(--border-color);
+  color: var(--text-secondary);
+}
+
+.maintenance-list-section .btn-cancel:hover,
+.scheduled-list-section .btn-cancel:hover {
+  background: var(--bg-secondary);
+  border-color: var(--accent-color);
+  color: var(--text-primary);
+  transform: translateY(-2px);
+}
+
+
+.maintenance-list-section .btn-secondary,
+.scheduled-list-section .btn-secondary {
+  background: var(--bg-secondary);
+  border-color: var(--border-color);
+  color: var(--text-primary);
+}
+
+.maintenance-list-section .btn-secondary:hover,
+.scheduled-list-section .btn-secondary:hover {
+  background: var(--bg-card-hover);
+  border-color: var(--accent-color);
+  transform: translateY(-2px);
+}
+
+.maintenance-list-section .btn i,
+.scheduled-list-section .btn i {
+  font-size: 1rem;
+}
+
+/* ========================================
+   RESPONSIVE DESIGN
+   ======================================== */
+
+/* Tablets */
+@media (max-width: 768px) {
+  .modal-dialog {
+    max-width: 90%;
+    margin: 1rem auto;
+  }
+
+  .modal-header {
+    padding: 1.25rem;
+  }
+
+  .modal-title {
+    font-size: 1.1rem;
+  }
+
+  .modal-body {
+    padding: 1.5rem;
+  }
+
+  .modal-body ul li {
+    padding: 0.875rem;
+    font-size: 0.9rem;
+  }
+
+  .modal-body ul li strong {
+    min-width: 120px;
+    font-size: 0.8rem;
+  }
+
+  .form-grid {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+
+  .modal-footer {
+    padding: 1.25rem;
+    flex-direction: column;
+  }
+
+  .form-actions {
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .btn {
+    width: 100%;
+  }
+}
+
+/* Mobile Devices */
+@media (max-width: 576px) {
+  .maintenance-list-section #editModal .modal-dialog {
+    max-width: 95%;
+    margin: 0.5rem auto;
+  }
+
+  .maintenance-list-section #editModal .modal-header {
+    padding: 1rem;
+  }
+
+  .maintenance-list-section #editModal .modal-title {
+    font-size: 1rem;
+  }
+
+  .maintenance-list-section #editModal .btn-close.closeBtn {
+    width: 32px;
+    height: 32px;
+    padding: 0.375rem;
+  }
+
+  .maintenance-list-section #editModal .modal-body {
+    padding: 1.25rem;
+  }
+
+  .maintenance-list-section #editModal .modal-body ul li {
+    padding: 0.75rem;
+    font-size: 0.85rem;
+  }
+
+  .maintenance-list-section #editModal .modal-body ul li strong {
+    min-width: 100px;
+    font-size: 0.75rem;
+    display: block;
+    margin-bottom: 0.25rem;
+  }
+
+  .maintenance-list-section #editModal .form-label {
+    font-size: 0.85rem;
+  }
+
+  .maintenance-list-section #editModal .form-control,
+  .maintenance-list-section #editModal .form-select {
+    padding: 0.65rem 0.875rem;
+    font-size: 0.9rem;
+  }
+
+  .maintenance-list-section #editModal .btn {
+    padding: 0.65rem 1.25rem;
+    font-size: 0.85rem;
+  }
+
+  .maintenance-list-section #editModal .modal-footer {
+    padding: 1rem;
+  }
+}
+
 /* footer */
 .footer {
   background: linear-gradient(180deg, var(--bg-card) 0%, var(--bg-dark) 100%);
