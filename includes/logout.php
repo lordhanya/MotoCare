@@ -20,6 +20,5 @@ if (ini_get("session.use_cookies")) {
 
 session_destroy();
 include __DIR__ . "/spinner.php";
-header("Location: index.php");
+header("Location: ../index.php");
 exit();
-?>

@@ -1,5 +1,5 @@
 <?php
-include __DIR__ . "/header.php";
+include __DIR__ . "/includes/header.php";
 ?>
 <!-- Navbar -->
 <header>
@@ -26,8 +26,8 @@ include __DIR__ . "/header.php";
                 </ul>
                 <div class="divider me-3"></div>
                 <div class="auth-btn">
-                    <a href="login.php" class="btn login-btn">Log-In</a>
-                    <a href="register.php" class="btn signup-btn">Sign-Up</a>
+                    <a href="/includes/login.php" class="btn login-btn">Log-In</a>
+                    <a href="/includes/register.php" class="btn signup-btn">Sign-Up</a>
                 </div>
             </div>
         </div>
@@ -43,7 +43,7 @@ include __DIR__ . "/header.php";
                 <p>Simplifying vehicle maintenance for worry-free driving.</p>
                 <div class="row home-btns mt-3">
                     <div class="col" data-aos="fade-right" data-aos-duration="1200" data-aos-delay="300">
-                        <a href="register.php" class="btn register-btn">
+                        <a href="/includes/register.php" class="btn register-btn">
                             Get Started
                         </a>
                     </div>
@@ -176,4 +176,4 @@ include __DIR__ . "/header.php";
     </div>
 </section>
 
-<?php include __DIR__ . "/footer.php"; ?>
+<?php include __DIR__ . "/includes/footer.php"; ?>

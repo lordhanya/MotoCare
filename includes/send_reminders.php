@@ -78,7 +78,7 @@ try {
 
             // Content
             $mail->isHTML(true);                                        // Set email format to HTML
-            $mail->Subject = "🚗 AutoCare Service Reminder";
+            $mail->Subject = "AutoCare Service Reminder";
 
             // HTML email body
             $mail->Body = "
