@@ -1,5 +1,5 @@
 <?php 
-include "header.php"; 
+
 include "../db/connection.php";
 
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
@@ -41,6 +41,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         }
     }
 }
+include "header.php"; 
 ?>
 
 

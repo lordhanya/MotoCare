@@ -1,7 +1,7 @@
 <?php
 
 session_start();
-include "header.php";
+
 include "../db/connection.php";
 
 if (isset($_SESSION['login_success'])) {
@@ -92,6 +92,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         echo "<script>alert('Vehicle addition failed. Please try again.');</script>";
     }
 }
+include "header.php";
 ?>
 
 <section class="add_vehicle">

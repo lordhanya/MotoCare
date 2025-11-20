@@ -1,7 +1,6 @@
 <?php
 session_start();
-include "header.php";
-include "../db/connection.php";
+include __DIR__ . "/../db/connection.php";
 
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
     $_email = trim($_POST['email']);
@@ -50,6 +49,8 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         }
     }
 }
+
+include __DIR__ . "/header.php";
 ?>
 
 <section class="loginForm-section d-flex align-items-center justify-content-center">
@@ -72,4 +73,4 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     </div>
 </section>
 <?php include __DIR__ . "/spinner.php"; ?>
-<?php include "footer.php"; ?>
+<?php include __DIR__ . "/footer.php"; ?>
