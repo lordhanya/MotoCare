@@ -5,8 +5,10 @@ ini_set('display_errors', 1);
 
 require __DIR__ . '/../vendor/autoload.php';
 
-$dotenv = Dotenv\Dotenv::createImmutable(__DIR__ . '/../');
-$dotenv->load();
+if (file_exists(__DIR__ . '/../.env')) {
+    $dotenv = Dotenv\Dotenv::createImmutable(__DIR__ . '/../');
+    $dotenv->load();
+}
 
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
@@ -51,30 +53,35 @@ try {
         try {
             // Server settings
             $mail->isSMTP();
-            $mail->Host       = $_ENV['MAIL_HOST'];
+            $mail->Host       = $_ENV['MAIL_HOST'] ?? getenv('MAIL_HOST');
             $mail->SMTPAuth   = true;
-            $mail->Username   = $_ENV['MAIL_USERNAME'];
-            $mail->Password   = $_ENV['MAIL_PASSWORD'];
-            $mail->SMTPSecure = $_ENV['MAIL_ENCRYPTION'];
-            $mail->Port       = $_ENV['MAIL_PORT'];
+            $mail->Username   = $_ENV['MAIL_USERNAME'] ?? getenv('MAIL_USERNAME');
+            $mail->Password   = $_ENV['MAIL_PASSWORD'] ?? getenv('MAIL_PASSWORD');
+            $mail->SMTPSecure = $_ENV['MAIL_ENCRYPTION'] ?? getenv('MAIL_ENCRYPTION');
+            $mail->Port       = $_ENV['MAIL_PORT'] ?? getenv('MAIL_PORT');
 
-            $mail->setFrom($_ENV['MAIL_FROM_ADDRESS'], $_ENV['MAIL_FROM_NAME']);
+            $mail->setFrom(
+                $_ENV['MAIL_FROM_ADDRESS'] ?? getenv('MAIL_FROM_ADDRESS'),
+                $_ENV['MAIL_FROM_NAME']    ?? getenv('MAIL_FROM_NAME')
+            );
 
             $mail->Timeout = 60;
             $mail->SMTPKeepAlive = true;
-
-            $mail->SMTPOptions = array(
-                'ssl' => array(
+            $mail->SMTPOptions = [
+                'ssl' => [
                     'verify_peer' => false,
                     'verify_peer_name' => false,
                     'allow_self_signed' => true
-                )
-            );
+                ]
+            ];
 
             // Recipients
-            $mail->setFrom($_ENV['MAIL_FROM_ADDRESS'], $_ENV['MAIL_FROM_NAME']);  // Use your actual Gmail
             $mail->addAddress($row["user_email"], $row["user_name"]);
-            $mail->addReplyTo($_ENV['MAIL_FROM_ADDRESS'], $_ENV['MAIL_FROM_NAME']);
+            $mail->addReplyTo(
+                $_ENV['MAIL_FROM_ADDRESS'] ?? getenv('MAIL_FROM_ADDRESS'),
+                $_ENV['MAIL_FROM_NAME']    ?? getenv('MAIL_FROM_NAME')
+            );
+
 
             // Content
             $mail->isHTML(true);                                        // Set email format to HTML
