@@ -431,9 +431,9 @@ include __DIR__ . "/sidebar.php";
                                                             </textarea>
                                                     </div>
 
-                                                    <div class="modal-footer">
+                                                    <div class="modal-footer mt-4">
                                                         <!-- Form Actions -->
-                                                        <div class="form-actions">
+                                                        <div class="form-actions d-flex gap-3">
                                                             <button type="submit" class="btn btn-submit">
                                                                 <i class="bi bi-check-circle-fill me-2"></i>Submit
                                                             </button>

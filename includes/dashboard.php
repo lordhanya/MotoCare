@@ -124,7 +124,7 @@ include __DIR__ . "/sidebar.php";
                 <div class="stat-value"><?= $upcoming_services ?></div>
                 <div class="stat-footer">
                     <span style="color: var(--text-secondary); font-size: 0.875rem;">Requires attention</span>
-                    <a href="maintenance.php" class="stat-action">View <i class="bi bi-arrow-right"></i></a>
+                    <a href="schedule_list.php" class="stat-action">View <i class="bi bi-arrow-right"></i></a>
                 </div>
             </div>
 
@@ -216,7 +216,7 @@ include __DIR__ . "/sidebar.php";
                         </div>
 
                         <div class="vehicle-actions">
-                            <a href="vehicle_details.php?id=<?= $vehicle['id'] ?>" class="btn-action btn-primary-action">
+                            <a href="vehicles.php?id=<?= $vehicle['id'] ?>" class="btn-action btn-primary-action">
                                 View Details
                             </a>
                             <a href="add_maintenance.php?id=<?= $vehicle['id'] ?>" class="btn-action btn-secondary-action">
@@ -228,7 +228,7 @@ include __DIR__ . "/sidebar.php";
             </div>
         <?php else: ?>
             <div class="empty-state">
-                <div class="empty-state-icon">🚗</div>
+                <div class="empty-state-icon"><i class="bi bi-car-front-fill"></i></div>
                 <h3>No Vehicles Yet</h3>
                 <p>Start by adding your first vehicle to track maintenance and health</p>
                 <a href="add_vehicle.php" class="add-vehicle-btn">

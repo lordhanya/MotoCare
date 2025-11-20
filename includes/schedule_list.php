@@ -333,7 +333,7 @@ include __DIR__ . "/sidebar.php";
                                             <div class="days-left <?= $days_left < 0 ? 'overdue' : '' ?>">
                                                 <?php if ($days_left < 0): ?>
                                                     <i class="bi bi-exclamation-circle"></i>
-                                                    <?= abs($days_left) ?> days overdue
+                                                    <?= abs($days_left) ?> day/s overdue
                                                 <?php elseif ($days_left == 0): ?>
                                                     <i class="bi bi-calendar-event"></i>
                                                     Today
