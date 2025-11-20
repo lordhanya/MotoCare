@@ -8,10 +8,6 @@ require __DIR__ . '/../vendor/autoload.php';
 $dotenv = Dotenv\Dotenv::createImmutable(__DIR__ . '/../');
 $dotenv->load();
 
-require_once __DIR__ . '/../src/PHPMailer.php';
-require_once __DIR__ . '/../src/SMTP.php';
-require_once __DIR__ . '/../src/Exception.php';
-
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
 
@@ -76,9 +72,9 @@ try {
             );
 
             // Recipients
-            $mail->setFrom('ashifrahman8638471722@gmail.com', 'AutoCare Support');  // Use your actual Gmail
+            $mail->setFrom($_ENV['MAIL_FROM_ADDRESS'], $_ENV['MAIL_FROM_NAME']);  // Use your actual Gmail
             $mail->addAddress($row["user_email"], $row["user_name"]);
-            $mail->addReplyTo('ashifrahman8638471722@gmail.com', 'AutoCare Support');
+            $mail->addReplyTo($_ENV['MAIL_FROM_ADDRESS'], $_ENV['MAIL_FROM_NAME']);
 
             // Content
             $mail->isHTML(true);                                        // Set email format to HTML
