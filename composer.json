@@ -1,0 +1,22 @@
+{
+    "name": "autocare/autocare",
+    "description": "A smart vehicle maintenance tracker that predicts service dates, manages history, shows total expenses on vehicle maintenance, and sends automated service reminders.",
+    "type": "project",
+    "require": {
+        "phpmailer/phpmailer": "^7.0",
+        "vlucas/phpdotenv": "^5.6"
+    },
+    "license": "proprietary",
+    "autoload": {
+        "psr-4": {
+            "Autocare\\Autocare\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Ashif",
+            "email": "ashifrahman8638471722@gmail.com"
+        }
+    ],
+    "minimum-stability": "stable"
+}

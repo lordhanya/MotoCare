@@ -3,6 +3,11 @@
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
 
+require __DIR__ . '/../vendor/autoload.php';
+
+$dotenv = Dotenv\Dotenv::createImmutable(__DIR__ . '/../');
+$dotenv->load();
+
 require_once __DIR__ . '/../src/PHPMailer.php';
 require_once __DIR__ . '/../src/SMTP.php';
 require_once __DIR__ . '/../src/Exception.php';
@@ -27,38 +32,38 @@ try {
     $stmt = $conn->prepare($sql);
     $stmt->bindParam(1, $today, PDO::PARAM_STR);
     $stmt->execute();
-    
+
     $rowCount = $stmt->rowCount();
     echo "<strong>Rows found: " . $rowCount . "</strong><br><br>";
-    
+
     if ($rowCount == 0) {
         echo "<p style='color: orange;'>No pending reminders for today.</p>";
         exit;
     }
-    
+
     $successCount = 0;
     $failCount = 0;
-    
+
     while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
         echo "<hr>";
         echo "<strong>Processing Reminder ID: {$row['id']}</strong><br>";
         echo "Recipient: {$row['user_email']} ({$row['user_name']})<br>";
         echo "Vehicle: {$row['vehicle_name']}<br><br>";
-        
+
         $mail = new PHPMailer(true);
-        
+
         try {
             // Server settings
-            $mail->SMTPDebug = 2;                                       
-            $mail->Debugoutput = 'html';                                
-            $mail->isSMTP();                                            
-            $mail->Host       = 'smtp.gmail.com';                       
-            $mail->SMTPAuth   = true;                                   
-            $mail->Username   = 'ashifrahman8638471722@gmail.com';      
-            $mail->Password   = 'fwhk qxbv cfsl bxzg';                  
-            $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;         
-            $mail->Port       = 587;                                    
-            
+            $mail->isSMTP();
+            $mail->Host       = $_ENV['MAIL_HOST'];
+            $mail->SMTPAuth   = true;
+            $mail->Username   = $_ENV['MAIL_USERNAME'];
+            $mail->Password   = $_ENV['MAIL_PASSWORD'];
+            $mail->SMTPSecure = $_ENV['MAIL_ENCRYPTION'];
+            $mail->Port       = $_ENV['MAIL_PORT'];
+
+            $mail->setFrom($_ENV['MAIL_FROM_ADDRESS'], $_ENV['MAIL_FROM_NAME']);
+
             $mail->Timeout = 60;
             $mail->SMTPKeepAlive = true;
 
@@ -69,16 +74,16 @@ try {
                     'allow_self_signed' => true
                 )
             );
-            
+
             // Recipients
             $mail->setFrom('ashifrahman8638471722@gmail.com', 'AutoCare Support');  // Use your actual Gmail
             $mail->addAddress($row["user_email"], $row["user_name"]);
             $mail->addReplyTo('ashifrahman8638471722@gmail.com', 'AutoCare Support');
-            
+
             // Content
             $mail->isHTML(true);                                        // Set email format to HTML
             $mail->Subject = "🚗 AutoCare Service Reminder";
-            
+
             // HTML email body
             $mail->Body = "
             <html>
@@ -112,50 +117,47 @@ try {
             </body>
             </html>
             ";
-            
+
             // Plain text version for email clients that don't support HTML
             $mail->AltBody = "Hello {$row['user_name']},\n\n"
-                           . "This is a reminder for your vehicle: {$row['vehicle_name']}.\n\n"
-                           . "{$row['message']}\n\n"
-                           . "Thank you for using AutoCare!\n\n"
-                           . "— AutoCare Team";
-            
+                . "This is a reminder for your vehicle: {$row['vehicle_name']}.\n\n"
+                . "{$row['message']}\n\n"
+                . "Thank you for using AutoCare!\n\n"
+                . "— AutoCare Team";
+
             // Send email
             if ($mail->send()) {
                 echo "<p style='color: green;'>✅ Email sent successfully!</p>";
-                
+
                 // Update database
                 $update = $conn->prepare("UPDATE reminders SET is_sent = 1 WHERE id = ?");
                 $update->bindValue(1, $row["id"], PDO::PARAM_INT);
                 $update->execute();
-                
+
                 echo "<p style='color: blue;'>✅ Database updated - reminder marked as sent</p>";
                 $successCount++;
             }
-            
         } catch (Exception $e) {
             echo "<p style='color: red;'>❌ <strong>Email Error:</strong> {$mail->ErrorInfo}</p>";
             echo "<p style='color: red;'>Exception: {$e->getMessage()}</p>";
             $failCount++;
         }
-        
+
         // Clear addresses for next iteration
         $mail->clearAddresses();
         $mail->clearAttachments();
-        
+
         ob_flush();
         flush();
     }
-    
+
     echo "<hr>";
     echo "<h3>Summary</h3>";
     echo "<p>✅ Successfully sent: <strong style='color: green;'>$successCount</strong></p>";
     echo "<p>❌ Failed: <strong style='color: red;'>$failCount</strong></p>";
     echo "<p>Total processed: <strong>" . ($successCount + $failCount) . "</strong></p>";
-    
 } catch (PDOException $e) {
     echo "<p style='color: red;'><strong>Database Error:</strong> " . $e->getMessage() . "</p>";
 }
 
 echo "<br><p>Script completed at " . date("Y-m-d H:i:s") . "</p>";
-?>

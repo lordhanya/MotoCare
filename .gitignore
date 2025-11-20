@@ -1,0 +1,11 @@
+# Sensitive folder/files
+/vendor/
+.env
+
+# VS Code workspace settings
+.vscode/
+
+# Log files and temp data
+*.log
+temp/
+cache/
