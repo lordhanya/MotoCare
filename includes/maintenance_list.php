@@ -187,11 +187,6 @@ include __DIR__ . "/sidebar.php";
                         <i class="bi bi-download"></i>
                         Export
                     </button>
-                    <script>
-                        document.getElementById("exportBtn").addEventListener("click", function() {
-                            window.print();
-                        });
-                    </script>
                 </div>
             </div>
 
@@ -469,9 +464,564 @@ include __DIR__ . "/sidebar.php";
 </section>
 
 <script>
+    /**
+     * ========================================
+     * MAINTENANCE LIST - FILTER & EXPORT
+     * ========================================
+     */
+
+    // ========================================
+    // FILTER FUNCTIONALITY
+    // ========================================
+
+    /**
+     * Toggle filter panel visibility
+     */
     function toggleFilters() {
-        alert('Filter functionality to be implemented');
+        const filterPanel = document.getElementById("filterPanel");
+
+        if (!filterPanel) {
+            createFilterPanel();
+        } else {
+            filterPanel.classList.toggle("active");
+        }
     }
+
+    /**
+     * Create filter panel dynamically
+     */
+    function createFilterPanel() {
+        const tableCard = document.querySelector(".maintenance-list-section .container .table-card");
+        const tableHeader = document.querySelector(".maintenance-list-section .container .table-header");
+
+        // Create filter panel HTML
+        const filterPanelHTML = `
+    <div id="filterPanel" class="filter-panel active">
+      <div class="filter-grid">
+        <!-- Vehicle Filter -->
+        <div class="filter-group">
+          <label for="filterVehicle">Vehicle</label>
+          <select id="filterVehicle" class="filter-input">
+            <option value="">All Vehicles</option>
+          </select>
+        </div>
+        
+        <!-- Service Type Filter -->
+        <div class="filter-group">
+          <label for="filterServiceType">Service Type</label>
+          <input type="text" id="filterServiceType" class="filter-input" placeholder="e.g., Oil Change">
+        </div>
+        
+        <!-- Status Filter -->
+        <div class="filter-group">
+          <label for="filterStatus">Status</label>
+          <select id="filterStatus" class="filter-input">
+            <option value="">All Statuses</option>
+            <option value="completed">Completed</option>
+            <option value="pending">Pending</option>
+            <option value="scheduled">Scheduled</option>
+          </select>
+        </div>
+        
+        <!-- Date Range Filter -->
+        <div class="filter-group">
+          <label for="filterDateFrom">Date From</label>
+          <input type="date" id="filterDateFrom" class="filter-input">
+        </div>
+        
+        <div class="filter-group">
+          <label for="filterDateTo">Date To</label>
+          <input type="date" id="filterDateTo" class="filter-input">
+        </div>
+        
+        <!-- Cost Range Filter -->
+        <div class="filter-group">
+          <label for="filterCostMin">Min Cost</label>
+          <input type="number" id="filterCostMin" class="filter-input" placeholder="0" min="0">
+        </div>
+        
+        <div class="filter-group">
+          <label for="filterCostMax">Max Cost</label>
+          <input type="number" id="filterCostMax" class="filter-input" placeholder="10000" min="0">
+        </div>
+        
+        <!-- Odometer Range Filter -->
+        <div class="filter-group">
+          <label for="filterOdometerMin">Min Odometer</label>
+          <input type="number" id="filterOdometerMin" class="filter-input" placeholder="0" min="0">
+        </div>
+
+        <div class="filter-group">
+          <label for="filterOdometerMax">Max Odometer</label>
+          <input type="number" id="filterOdometerMax" class="filter-input" placeholder="100000" min="0">
+        </div>
+
+        <!-- Filter Actions -->
+        <div class="filter-actions">
+          <button class="btn-apply-filter" onclick="applyFilters()">
+            <i class="bi bi-check-circle"></i> Apply Filters
+          </button>
+          <button class="btn-reset-filter" onclick="resetFilters()">
+            <i class="bi bi-x-circle"></i> Reset
+          </button>
+        </div>
+      </div>
+    </div>
+  `;
+
+        // Insert filter panel after table header
+        tableHeader.insertAdjacentHTML("afterend", filterPanelHTML);
+
+        // Populate vehicle dropdown
+        populateVehicleFilter();
+    }
+
+    /**
+     * Populate vehicle filter dropdown with unique vehicles from table
+     */
+    function populateVehicleFilter() {
+        const filterVehicle = document.getElementById("filterVehicle");
+        const vehicleCells = document.querySelectorAll(".vehicle-cell span");
+
+        if (!filterVehicle || !vehicleCells.length) return;
+
+        // Get unique vehicles
+        const vehicles = new Set();
+        vehicleCells.forEach((cell) => {
+            vehicles.add(cell.textContent.trim());
+        });
+
+        // Add options to dropdown
+        vehicles.forEach((vehicle) => {
+            const option = document.createElement("option");
+            option.value = vehicle;
+            option.textContent = vehicle;
+            filterVehicle.appendChild(option);
+        });
+    }
+
+    /**
+     * Apply filters to table
+     */
+    function applyFilters() {
+        const odometerMax =
+            parseFloat(document.getElementById("filterOdometerMax")?.value) || Infinity;
+        // ...
+        const matchesOdometerMax = odometer <= odometerMax;
+        // ...
+        const isVisible =
+            matchesVehicle &&
+            matchesServiceType &&
+            matchesStatus &&
+            matchesDateFrom &&
+            matchesDateTo &&
+            matchesCostMin &&
+            matchesCostMax &&
+            matchesOdometerMin &&
+            matchesOdometerMax;
+
+        const table = document.querySelector(".maintenance-table tbody");
+        if (!table) return;
+
+        const rows = table.querySelectorAll("tr");
+        let visibleCount = 0;
+
+        // Get filter values
+        const filters = {
+            vehicle: document.getElementById("filterVehicle")?.value.toLowerCase() || "",
+            serviceType: document.getElementById("filterServiceType")?.value.toLowerCase() || "",
+            status: document.getElementById("filterStatus")?.value.toLowerCase() || "",
+            dateFrom: document.getElementById("filterDateFrom")?.value || "",
+            dateTo: document.getElementById("filterDateTo")?.value || "",
+            costMin: parseFloat(document.getElementById("filterCostMin")?.value) || 0,
+            costMax: parseFloat(document.getElementById("filterCostMax")?.value) || Infinity,
+            odometerMin: parseFloat(document.getElementById("filterOdometerMin")?.value) || 0,
+        };
+
+        // Filter each row
+        rows.forEach((row) => {
+            const vehicle =
+                row.querySelector(".vehicle-cell span")?.textContent.toLowerCase() || "";
+            const serviceType =
+                row.querySelector(".service-type")?.textContent.toLowerCase() || "";
+            const statusBadge =
+                row.querySelector(".status-badge")?.textContent.toLowerCase() || "";
+            const dateText = row.cells[2]?.textContent || "";
+            const costText =
+                row.querySelector(".cost-cell")?.textContent.replace(/[₹,]/g, "") || "0";
+            const odometerText = row.cells[3]?.textContent.replace(/[,km]/g, "") || "0";
+
+            const cost = parseFloat(costText);
+            const odometer = parseFloat(odometerText);
+            const rowDate = convertDateToISO(dateText);
+
+            // Check all filters
+            const matchesVehicle = !filters.vehicle || vehicle.includes(filters.vehicle);
+            const matchesServiceType = !filters.serviceType || serviceType.includes(filters.serviceType);
+            const matchesStatus = !filters.status || statusBadge.includes(filters.status);
+            const matchesDateFrom = !filters.dateFrom || rowDate >= filters.dateFrom;
+            const matchesDateTo = !filters.dateTo || rowDate <= filters.dateTo;
+            const matchesCostMin = cost >= filters.costMin;
+            const matchesCostMax = cost <= filters.costMax;
+            const matchesOdometerMin = odometer >= filters.odometerMin;
+
+            const isVisible =
+                matchesVehicle &&
+                matchesServiceType &&
+                matchesStatus &&
+                matchesDateFrom &&
+                matchesDateTo &&
+                matchesCostMin &&
+                matchesCostMax &&
+                matchesOdometerMin;
+
+            row.style.display = isVisible ? "" : "none";
+            if (isVisible) visibleCount++;
+        });
+
+        // Show message if no results
+        showFilterResults(visibleCount);
+    }
+
+    /**
+     * Convert date text to ISO format
+     */
+    function convertDateToISO(dateText) {
+        const months = {
+            Jan: "01",
+            Feb: "02",
+            Mar: "03",
+            Apr: "04",
+            May: "05",
+            Jun: "06",
+            Jul: "07",
+            Aug: "08",
+            Sep: "09",
+            Oct: "10",
+            Nov: "11",
+            Dec: "12",
+        };
+
+        const parts = dateText.split(" ");
+        if (parts.length !== 3) return "";
+
+        const month = months[parts[0]];
+        const day = parts[1].replace(",", "").padStart(2, "0");
+        const year = parts[2];
+
+        return `${year}-${month}-${day}`;
+    }
+
+    /**
+     * Show filter results message
+     */
+    function showFilterResults(count) {
+        // Remove existing message
+        const existingMsg = document.querySelector(".filter-result-message");
+        if (existingMsg) existingMsg.remove();
+
+        // Create new message
+        const filterPanel = document.getElementById("filterPanel");
+        if (!filterPanel) return;
+
+        const message = document.createElement("div");
+        message.className = "filter-result-message";
+        message.style.cssText = `
+    padding: 1rem;
+    margin-top: 1rem;
+    background: var(--bg-card);
+    border: 2px solid var(--accent-color);
+    border-radius: 10px;
+    color: var(--accent-color);
+    font-weight: 600;
+    text-align: center;
+  `;
+        message.innerHTML = `<i class="bi bi-funnel-fill me-2"></i>Showing ${count} record(s)`;
+
+        filterPanel.appendChild(message);
+    }
+
+    /**
+     * Reset all filters
+     */
+    function resetFilters() {
+        // Reset all filter inputs
+        document.getElementById("filterVehicle").value = "";
+        document.getElementById("filterServiceType").value = "";
+        document.getElementById("filterStatus").value = "";
+        document.getElementById("filterDateFrom").value = "";
+        document.getElementById("filterDateTo").value = "";
+        document.getElementById("filterCostMin").value = "";
+        document.getElementById("filterCostMax").value = "";
+        document.getElementById("filterOdometerMin").value = "";
+        document.getElementById("filterOdometerMax").value = "";
+
+        // Show all rows
+        const rows = document.querySelectorAll(".maintenance-table tbody tr");
+        rows.forEach((row) => {
+            row.style.display = "";
+        });
+
+        // Remove filter result message
+        const message = document.querySelector(".filter-result-message");
+        if (message) message.remove();
+    }
+
+    // ========================================
+    // EXPORT FUNCTIONALITY
+    // ========================================
+
+    /**
+     * Export table data to CSV
+     */
+    function exportToCSV() {
+        const table = document.querySelector(".maintenance-table");
+        if (!table) return;
+
+        let csv = [];
+        const rows = table.querySelectorAll("tr");
+
+        rows.forEach((row, index) => {
+            const cols = row.querySelectorAll("td, th");
+            const csvRow = [];
+
+            cols.forEach((col, colIndex) => {
+                // Skip Actions column (last column)
+                if (colIndex === cols.length - 1 && index !== 0) return;
+
+                let cellText = col.textContent.trim();
+                // Clean up text
+                cellText = cellText.replace(/\s+/g, " ");
+                // Escape quotes
+                cellText = cellText.replace(/"/g, '""');
+                // Wrap in quotes
+                csvRow.push(`"${cellText}"`);
+            });
+
+            csv.push(csvRow.join(","));
+        });
+
+        // Create CSV file
+        const csvContent = csv.join("\n");
+        const blob = new Blob([csvContent], {
+            type: "text/csv;charset=utf-8;"
+        });
+        const link = document.createElement("a");
+        const url = URL.createObjectURL(blob);
+
+        link.setAttribute("href", url);
+        link.setAttribute("download", `maintenance_records_${Date.now()}.csv`);
+        link.style.visibility = "hidden";
+
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+
+        // Show success message
+        showExportMessage("CSV file exported successfully!");
+    }
+
+    /**
+     * Export table data to Excel
+     */
+    function exportToExcel() {
+        const table = document.querySelector(".maintenance-table");
+        if (!table) return;
+
+        // Clone table to manipulate
+        const clonedTable = table.cloneNode(true);
+
+        // Remove action columns
+        const headerCells = clonedTable.querySelectorAll("thead th");
+        headerCells[headerCells.length - 1].remove();
+
+        const rows = clonedTable.querySelectorAll("tbody tr");
+        rows.forEach((row) => {
+            const cells = row.querySelectorAll("td");
+            if (cells.length > 0) {
+                cells[cells.length - 1].remove();
+            }
+        });
+
+        // Create workbook
+        const wb = XLSX.utils.table_to_book(clonedTable, {
+            sheet: "Maintenance Records",
+        });
+
+        // Export
+        XLSX.writeFile(wb, `maintenance_records_${Date.now()}.xlsx`);
+
+        showExportMessage("Excel file exported successfully!");
+    }
+
+    /**
+     * Export using print dialog (PDF)
+     */
+    function exportToPDF() {
+        window.print();
+    }
+
+    /**
+     * Show export success message
+     */
+    function showExportMessage(message) {
+        const alertDiv = document.createElement("div");
+        alertDiv.className =
+            "alert text-center text-success border-1 rounded-3 border-success my-3 ms-auto me-auto d-flex align-items-center justify-content-center gap-2";
+        alertDiv.style.cssText = `
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 9999;
+    max-width: 400px;
+    animation: slideIn 0.3s ease-out;
+  `;
+        alertDiv.innerHTML = `
+    <i class="bi bi-check-circle-fill"></i>
+    ${message}
+  `;
+
+        document.body.appendChild(alertDiv);
+
+        // Auto remove after 3 seconds
+        setTimeout(() => {
+            alertDiv.style.animation = "slideOut 0.3s ease-out";
+            setTimeout(() => alertDiv.remove(), 300);
+        }, 3000);
+    }
+
+    // ========================================
+    // ENHANCED EXPORT BUTTON
+    // ========================================
+
+    /**
+     * Create export dropdown menu
+     */
+    function createExportDropdown() {
+        const exportBtn = document.getElementById("exportBtn");
+        if (!exportBtn) return;
+
+        // Remove default click event
+        exportBtn.onclick = null;
+
+        // Create dropdown menu
+        const dropdown = document.createElement("div");
+        dropdown.className = "export-dropdown";
+        dropdown.style.cssText = `
+    position: absolute;
+    top: 100%;
+    right: 0;
+    margin-top: 0.5rem;
+    background: var(--bg-card);
+    border: 2px solid var(--border-color);
+    border-radius: 10px;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
+    display: none;
+    z-index: 1000;
+    min-width: 180px;
+  `;
+
+        dropdown.innerHTML = `
+    <button class="export-option" onclick="exportToCSV()">
+      <i class="bi bi-filetype-csv"></i>
+      Export as CSV
+    </button>
+    <button class="export-option" onclick="exportToPDF()">
+      <i class="bi bi-filetype-pdf"></i>
+      Export as PDF
+    </button>
+  `;
+
+        // Add styles for dropdown options
+        const style = document.createElement("style");
+        style.textContent = `
+    .export-option {
+      width: 100%;
+      padding: 0.875rem 1.25rem;
+      background: transparent;
+      border: none;
+      color: var(--text-primary);
+      font-weight: 600;
+      font-size: 0.9rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      transition: all 0.3s ease;
+      text-align: left;
+    }
+    
+    .export-option:hover {
+      background: var(--bg-secondary);
+      color: var(--accent-color);
+    }
+    
+    .export-option i {
+      font-size: 1.1rem;
+    }
+    
+    .export-option:first-child {
+      border-radius: 8px 8px 0 0;
+    }
+    
+    .export-option:last-child {
+      border-radius: 0 0 8px 8px;
+    }
+  `;
+        document.head.appendChild(style);
+
+        // Make export button container relative
+        exportBtn.parentElement.style.position = "relative";
+        exportBtn.parentElement.appendChild(dropdown);
+
+        // Toggle dropdown on click
+        exportBtn.addEventListener("click", (e) => {
+            e.stopPropagation();
+            dropdown.style.display =
+                dropdown.style.display === "none" ? "block" : "none";
+        });
+
+        // Close dropdown when clicking outside
+        document.addEventListener("click", () => {
+            dropdown.style.display = "none";
+        });
+    }
+
+    // ========================================
+    // INITIALIZE ON PAGE LOAD
+    // ========================================
+
+    document.addEventListener("DOMContentLoaded", () => {
+        // Create export dropdown
+        createExportDropdown();
+
+        // Add CSS animations
+        const style = document.createElement("style");
+        style.textContent = `
+    @keyframes slideIn {
+      from {
+        transform: translateX(100%);
+        opacity: 0;
+      }
+      to {
+        transform: translateX(0);
+        opacity: 1;
+      }
+    }
+    
+    @keyframes slideOut {
+      from {
+        transform: translateX(0);
+        opacity: 1;
+      }
+      to {
+        transform: translateX(100%);
+        opacity: 0;
+      }
+    }
+  `;
+        document.head.appendChild(style);
+    });
 </script>
 <?php include __DIR__ . "/spinner.php"; ?>
 <?php include __DIR__ . "/footer.php"; ?>
