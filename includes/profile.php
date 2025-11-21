@@ -70,7 +70,7 @@ include __DIR__ . "/sidebar.php";
             <div class="profileContainer mt-3">
                 <h3>My Profile</h3>
                 <div class="profileFlex d-grid align-items-center justify-content-center mt-4 gap-3">
-                    <div class="pfpContainer d-flex align-items-center gap-3">
+                    <div class="pfpContainer">
                         <i class="bi bi-person-circle userIcon"></i>
                         <div class="userData ms-3">
                             <p class='user-name mb-1'>
@@ -83,9 +83,14 @@ include __DIR__ . "/sidebar.php";
                         </div>
                     </div>
                     <div class="profileEditBtn d-flex align-items-center justify-content-center">
-                        <button type="button" class="d-flex px-4 py-2 align-items-center justify-content-center gap-2">
+                        <button type="button" id="pfpEdit" class="d-flex px-4 py-2 align-items-center justify-content-center gap-2">
                             <i class="bi bi-pencil-square"></i> Edit
                         </button>
+                        <script>
+                            document.getElementById("pfpEdit").addEventListener('click', function () {
+                                alert("Profile Picture Edit functionality to be implemented.")
+                            })
+                        </script>
                     </div>
                 </div>
 

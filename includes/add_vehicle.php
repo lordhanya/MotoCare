@@ -107,25 +107,25 @@ include "header.php";
                     <form action="" method="POST" class="vehicleForm">
                         <!-- Vehicle Name -->
                         <label for="vehicleName">
-                            <input class="input" name="vehicle_name" type="text" required>
+                            <input class="input" name="vehicle_name" type="text" placeholder="" required>
                             <span>Vehicle Name</span>
                         </label>
 
                         <!-- Model -->
                         <label for="model">
-                            <input class="input" id="model" name="model" type="text" required>
+                            <input class="input" id="model" name="model" type="text" placeholder="" required>
                             <span>Model</span>
                         </label>
 
                         <!-- Vehicle Type -->
                         <label for="vehicle_type">
-                            <input class="input" id="vehicle_type" name="vehicle_type" type="text" required>
-                            <span>Vehicle Type (Car, Bike, Scooter, etc.)</span>
-                        </label>
+                            <input class="input" id="vehicle_type" name="vehicle_type" type="text" placeholder="" required>
+                            <span>Vehicle Type</span>
+                         </label>
 
                         <!-- Registration Number -->
                         <label for="registration_no">
-                            <input class="input" id="registration_no" name="registration_no" type="text" required>
+                            <input class="input" id="registration_no" placeholder="" name="registration_no" type="text" required>
                             <span>Registration Number</span>
                         </label>
 
@@ -137,7 +137,7 @@ include "header.php";
 
                         <!-- Current KM -->
                         <label for="current_km">
-                            <input class="input" id="current_km" name="current_km" type="number" min="0" required>
+                            <input class="input" id="current_km" placeholder="" name="current_km" type="number" min="0" required>
                             <span>Current Odometer Reading (KM)</span>
                         </label>
 
@@ -149,7 +149,7 @@ include "header.php";
 
                         <!-- Last Service KM (Optional) -->
                         <label for="last_service_km">
-                            <input class="input" id="last_service_km" name="last_service_km" type="number" min="0">
+                            <input class="input" id="last_service_km" placeholder="" name="last_service_km" type="number" min="0">
                             <span>Odometer at Last Service, if any (KM)</span>
                         </label>
 
@@ -161,7 +161,7 @@ include "header.php";
 
                         <!-- Next Service KM -->
                         <label for="next_service_km">
-                            <input class="input" id="next_service_km" name="next_service_km" type="number" min="0" required>
+                            <input class="input" id="next_service_km" placeholder="" name="next_service_km" type="number" min="0" required>
                             <span>Next Service Odometer (KM)</span>
                         </label>
 

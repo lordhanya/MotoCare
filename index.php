@@ -36,6 +36,7 @@ include __DIR__ . "/includes/header.php";
 
 <!-- Home Section -->
 <section class="home d-flex align-items-center" id="home">
+    <div class="glow-container"></div>
     <div class="container">
         <div class="row min-vh-100 align-items-center">
             <div class="col content text-center" data-aos="fade-up" data-aos-duration="1200">

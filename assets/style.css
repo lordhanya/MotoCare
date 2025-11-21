@@ -97,7 +97,7 @@ html {
 /* INDEX NAVBAR */
 header .navbar {
   background: rgba(0, 0, 0, 0.04);
-  backdrop-filter: blur(6px);
+  backdrop-filter: blur(10px);
   box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
   transition: all 0.3s ease;
   z-index: 1000;
@@ -302,8 +302,16 @@ header .navbar-toggler-icon {
   header .auth-btn .signup-btn {
     margin-top: 0.5rem;
   }
+  header .divider {
+    display: none;
+  }
 }
 
+@media (max-width: 768px) {
+  header .divider {
+    display: none;
+  }
+}
 /* Mobile phones */
 @media (max-width: 576px) {
   header .navbar {
@@ -315,6 +323,10 @@ header .navbar-toggler-icon {
     font-size: 1.3rem;
   }
 
+  header .divider {
+    display: none;
+  }
+
   header .auth-btn .btn {
     padding: 0.5rem 1rem;
     font-size: 0.9rem;
@@ -323,6 +335,9 @@ header .navbar-toggler-icon {
 
 /* Extra small screens */
 @media (max-width: 400px) {
+  header .divider {
+    display: none;
+  }
   header .navbar .navbar-brand {
     font-size: 1.2rem;
   }
@@ -331,11 +346,25 @@ header .navbar-toggler-icon {
 /* ========== HOME SECTION ========== */
 /* Hero Section */
 .home {
-  background: url("./images/wp12487135-black-and-white-car-desktop-wallpapers.jpg")
-    no-repeat center center/cover;
-  width: 100%;
-  height: 100%;
   position: relative;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  background: radial-gradient(
+      ellipse 100% 80% at 85% 15%,
+      rgba(248, 41, 0, 0.2) 0%,
+      rgba(248, 41, 0, 0.12) 20%,
+      rgba(248, 41, 0, 0.06) 40%,
+      transparent 70%
+    ),
+    linear-gradient(
+      135deg,
+      rgba(248, 41, 0, 0.08) 0%,
+      rgba(248, 41, 0, 0.03) 30%,
+      transparent 60%
+    ),
+    linear-gradient(180deg, #0a0a0a 0%, #1a0f0f 50%, #0a0a0a 100%);
   border: none;
 }
 
@@ -348,19 +377,22 @@ header .navbar-toggler-icon {
 }
 
 .home .content h1 {
-  color: #fff;
+  background: linear-gradient(135deg, #ffffff 0%, #f82900 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
   font-size: 4rem;
   font-weight: 800;
   margin-bottom: 1.5rem;
   line-height: 1.2;
 }
 
-.home .content h1 span {
+/* .home .content h1 span {
   color: var(--accent-color);
-}
+} */
 
 .home .content p {
-  color: var(--text-primary);
+  color: rgba(255, 255, 255, 0.7);
   font-size: 1.2em;
 }
 
@@ -706,7 +738,7 @@ textarea.form-control {
   }
 
   .features .card {
-    width: 100% !important;
+    min-width: 300px;
   }
 
   .contact .container .contact-content {
@@ -1248,143 +1280,606 @@ textarea.form-control {
 }
 
 /* Add Vehicle */
+/* ========================================
+   ADD VEHICLE - MODERN REDESIGN
+   ======================================== */
+
+:root {
+  --accent-color: #f82900;
+  --accent-hover: #ff4520;
+  --bg-dark: #000;
+  --bg-card: #0a0a0a;
+  --bg-card-hover: #121212;
+  --bg-secondary: #2a2828;
+  --text-primary: #fff;
+  --text-secondary: #b0b0b0;
+  --border-color: #2b2b2b;
+  --border-light: rgba(255, 255, 255, 0.1);
+  --danger-color: #ff4444;
+  --success-color: #00ff88;
+  --warning-color: #ffd700;
+}
+
+/* ========================================
+   MAIN SECTION
+   ======================================== */
+
+/* .add_vehicle - Main container */
 .add_vehicle {
   background: var(--bg-dark);
   width: 100%;
-  height: 110vh;
+  min-height: 110vh;
+  padding: 2rem 0;
+  position: relative;
 }
 
+.add_vehicle::before {
+  content: '';
+  position: absolute;
+  top: -20%;
+  left: -10%;
+  width: 500px;
+  height: 500px;
+  background: radial-gradient(circle, rgba(248, 41, 0, 0.08) 0%, transparent 70%);
+  pointer-events: none;
+  filter: blur(60px);
+}
+
+.add_vehicle::after {
+  content: '';
+  position: absolute;
+  bottom: -20%;
+  right: -10%;
+  width: 600px;
+  height: 600px;
+  background: radial-gradient(circle, rgba(248, 41, 0, 0.05) 0%, transparent 70%);
+  pointer-events: none;
+  filter: blur(80px);
+}
+
+/* .add_vehicle .row - Bootstrap row */
 .add_vehicle .row {
-  margin-top: 10em;
+  margin-top: 8rem;
+  position: relative;
+  z-index: 1;
 }
 
+/* ========================================
+   HEADING SECTION
+   ======================================== */
+
+/* .add_vehicle .heading - Header container */
+.add_vehicle .heading {
+  text-align: center;
+  margin-bottom: 3rem;
+  padding-bottom: 1.5rem;
+  position: relative;
+}
+
+/* .add_vehicle .heading h2 - Main heading */
 .add_vehicle .heading h2 {
-  font-size: 2em;
-  font-weight: 600;
+  font-size: 3rem;
+  font-weight: 800;
   color: var(--text-primary);
-  border-bottom: 2px solid var(--accent-color);
+  border-bottom: none;
+  margin-bottom: 0.5rem;
+  letter-spacing: -0.5px;
+  text-transform: uppercase;
+  position: relative;
+  display: inline-block;
+  padding-bottom: 1rem;
 }
 
+.add_vehicle .heading h2::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 80%;
+  height: 3px;
+  background: linear-gradient(90deg, transparent, var(--accent-color), transparent);
+}
+
+/* .add_vehicle .heading span - Accent text */
 .add_vehicle .heading span {
   color: var(--accent-color);
+  position: relative;
 }
 
+/* ========================================
+   CARD STYLING
+   ======================================== */
+
+/* .add_vehicle .card-title - Card title */
+.add_vehicle .card-title {
+  color: var(--text-primary);
+  font-size: 2rem;
+  font-weight: 700;
+  text-align: center;
+  margin-bottom: 2rem;
+  letter-spacing: 0.5px;
+}
+
+/* ========================================
+   FORM CONTAINER
+   ======================================== */
+
+/* .add_vehicle .vehicleForm - Form grid */
 .add_vehicle .vehicleForm {
   display: grid;
-  grid-template-columns: auto auto;
+  grid-template-columns: repeat(2, 1fr);
   justify-content: center;
-  column-gap: 2.4em;
-  row-gap: 2em;
-  max-width: 50vh;
+  column-gap: 2.5rem;
+  row-gap: 2rem;
+  max-width: 1000px;
+  margin: 0 auto;
   position: relative;
   color: var(--text-primary);
   border: none;
+  background: var(--bg-card);
+  padding: 3rem;
+  border-radius: 24px;
+  border: 2px solid var(--border-color);
+  box-shadow: 0 10px 50px rgba(0, 0, 0, 0.5),
+              0 0 0 1px var(--border-light) inset;
 }
 
+/* ========================================
+   FORM LABELS & INPUTS
+   ======================================== */
+
+/* .vehicleForm label - Label container */
+.vehicleForm label {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+}
+
+/* .vehicleForm p - Helper text (if any) */
+.vehicleForm p {
+  color: rgba(255, 255, 255, 0.5);
+  font-size: 0.8rem;
+  cursor: text;
+  transition: 0.3s ease;
+  margin: 0;
+  padding: 0;
+}
+
+/* .vehicleForm label .input - Input fields */
+.vehicleForm label .input {
+  background-color: var(--bg-secondary);
+  color: var(--text-primary);
+  min-width: 40vh;
+  padding: 1.25rem 1rem 0.75rem 1rem;
+  outline: 0;
+  border: 2px solid var(--border-color);
+  border-radius: 12px;
+  font-size: 1rem;
+  font-weight: 500;
+  transition: all 0.3s ease;
+}
+
+.vehicleForm label .input:hover {
+  border-color: var(--accent-hover);
+  background-color: var(--bg-card-hover);
+}
+
+.vehicleForm label .input:focus {
+  border-color: var(--accent-color);
+  background-color: var(--bg-card-hover);
+  box-shadow: 0 0 0 4px rgba(248, 41, 0, 0.1);
+}
+
+/* .vehicleForm label .input + span - Floating label */
+.vehicleForm label .input + span {
+  color: rgba(255, 255, 255, 0.6);
+  position: absolute;
+  left: 1rem;
+  top: 1.25rem;
+  font-size: 1rem;
+  cursor: text;
+  transition: all 0.3s ease;
+  pointer-events: none;
+  font-weight: 500;
+}
+
+/* Date input specific labels */
+.vehicleForm label #purchaseDate + span,
+.vehicleForm label #nextServiceDate + span {
+  color: rgba(255, 255, 255, 0.6);
+  position: absolute;
+  left: 1rem;
+  top: 0.4rem;
+  font-size: 0.75rem;
+  cursor: text;
+  transition: all 0.3s ease;
+  pointer-events: none;
+  font-weight: 700;
+  letter-spacing: 0.3px;
+}
+
+/* Placeholder shown state */
+.vehicleForm label .input:placeholder-shown + span {
+  top: 1.25rem;
+  font-size: 1rem;
+  font-weight: 500;
+}
+
+.vehicleForm label #purchaseDate:placeholder-shown + span,
+.vehicleForm label #nextServiceDate:placeholder-shown + span {
+  top: 1.25rem;
+  font-size: 1rem;
+  font-weight: 500;
+}
+
+/* Focus and valid states */
+.vehicleForm label .input:focus + span,
+.vehicleForm label .input:valid + span,
+.vehicleForm label .input:not(:placeholder-shown) + span {
+  color: var(--accent-color);
+  top: 0.4rem;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+}
+
+.vehicleForm label #purchaseDate:focus + span,
+.vehicleForm label #purchaseDate:valid + span,
+.vehicleForm label #purchaseDate:not(:placeholder-shown) + span,
+.vehicleForm label #nextServiceDate:focus + span,
+.vehicleForm label #nextServiceDate:valid + span,
+.vehicleForm label #nextServiceDate:not(:placeholder-shown) + span {
+  color: var(--accent-color);
+  top: 0.4rem;
+  font-size: 0.75rem;
+  font-weight: 700;
+}
+
+/* .vehicleForm .input - General input styling */
+.vehicleForm .input {
+  font-size: 1rem;
+}
+
+/* ========================================
+   SUBMIT BUTTON
+   ======================================== */
+
+/* .vehicleForm .submitBtn - Submit button container */
 .vehicleForm .submitBtn {
   grid-column: 1 / span 2;
   justify-content: center;
   display: flex;
-}
-
-.add_vehicle .card-title {
-  color: var(--text-primary);
-  font-size: 2em;
-  font-size: 600;
-}
-
-.vehicleForm label {
+  margin-top: 1.5rem;
+  padding-top: 2rem;
+  border-top: 2px solid var(--border-color);
   position: relative;
 }
 
-.vehicleForm p {
-  color: rgba(255, 255, 255, 0.5);
-  font-size: 0.7em;
-  cursor: text;
-  transition: 0.3s ease;
-}
-
-.vehicleForm label .input {
-  background-color: #333;
-  color: #fff;
-  width: 40vh;
-  padding: 20px 05px 05px 10px;
-  outline: 0;
-  border: 1px solid rgba(105, 105, 105, 0.397);
-  border-radius: 10px;
-}
-
-.vehicleForm label .input + span {
-  color: rgba(255, 255, 255, 0.5);
+.vehicleForm .submitBtn::before {
+  content: '';
   position: absolute;
-  left: 10px;
-  top: 15px;
-  font-size: 0.9em;
-  cursor: text;
-  transition: 0.3s ease;
+  top: -2px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100px;
+  height: 2px;
+  background: var(--accent-color);
 }
 
-.vehicleForm label #purchaseDate + span,
-.vehicleForm label #nextServiceDate + span {
-  color: rgba(255, 255, 255, 0.5);
-  position: absolute;
-  left: 10px;
-  top: 3px;
-  font-size: 0.9em;
-  cursor: text;
-  transition: 0.3s ease;
-}
-
-.vehicleForm label .input:placeholder-shown + span,
-.vehicleForm label #purchaseDate:placeholder-shown + span,
-.vehicleForm label #nextServiceDate:placeholder-shown + span {
-  top: 12.5px;
-  font-size: 0.9em;
-}
-
-.vehicleForm label .input:focus + span,
-.vehicleForm label .input:valid + span,
-.vehicleForm label #purchaseDate:focus + span,
-.vehicleForm label #purchaseDate:valid + span,
-.vehicleForm label #nextServiceDate:focus + span,
-.vehicleForm label #nextServiceDate:valid + span {
-  color: #f82900;
-  top: 3px;
-  font-size: 0.7em;
-  font-weight: 600;
-}
-
-.vehicleForm .input {
-  font-size: medium;
-}
-
-.vehicleForm .submit {
-  border: none;
-  outline: none;
-  padding: 10px;
-  border-radius: 10px;
-  color: #fff;
-  font-size: 16px;
-  font-weight: 700;
-  transform: 0.3s ease;
-  background-color: #f82900;
-}
-
+/* .vehicleForm .submit - Submit button */
+.vehicleForm .submit,
 .add_vehicle .submit {
   border: none;
   outline: none;
-  padding: 10px;
-  border-radius: 10px;
-  color: #fff;
-  font-size: 16px;
-  background-color: #f82900;
+  padding: 1rem 3rem;
+  border-radius: 12px;
+  color: white;
+  font-size: 1rem;
+  font-weight: 700;
+  background-color: var(--accent-color);
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  border: 2px solid var(--accent-color);
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 5px 20px rgba(248, 41, 0, 0.3);
 }
 
+.vehicleForm .submit::before,
+.add_vehicle .submit::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.2);
+  transform: translate(-50%, -50%);
+  transition: width 0.6s, height 0.6s;
+}
+
+.vehicleForm .submit:hover::before,
+.add_vehicle .submit:hover::before {
+  width: 300px;
+  height: 300px;
+}
+
+/* .add_vehicle .submit:hover - Submit hover state */
+.vehicleForm .submit:hover,
 .add_vehicle .submit:hover {
-  background: #fff;
-  color: #f82900;
-  transform: scale(1.02);
-  transform: all 0.3s ease;
+  background: var(--accent-hover);
+  color: white;
+  transform: translateY(-3px);
+  box-shadow: 0 8px 30px rgba(248, 41, 0, 0.5);
+  border-color: var(--accent-hover);
+}
+
+.vehicleForm .submit:active,
+.add_vehicle .submit:active {
+  transform: translateY(-1px);
+  box-shadow: 0 5px 20px rgba(248, 41, 0, 0.4);
+}
+
+/* ========================================
+   DATE INPUT SPECIFIC STYLING
+   ======================================== */
+
+/* Custom calendar icon color */
+.vehicleForm label .input[type="date"]::-webkit-calendar-picker-indicator {
+  cursor: pointer;
+  filter: invert(0.4) sepia(1) saturate(5) hue-rotate(345deg);
+  opacity: 0.8;
+  transition: all 0.3s ease;
+}
+
+.vehicleForm label .input[type="date"]::-webkit-calendar-picker-indicator:hover {
+  opacity: 1;
+  transform: scale(1.1);
+}
+
+/* ========================================
+   RESPONSIVE DESIGN
+   ======================================== */
+
+/* Large Tablets */
+@media (max-width: 1024px) {
+  .add_vehicle .row {
+    margin-top: 6rem;
+  }
+
+  .add_vehicle .heading h2 {
+    font-size: 2.5rem;
+  }
+
+  .add_vehicle .vehicleForm {
+    max-width: 750px;
+    padding: 2.5rem;
+    column-gap: 2rem;
+  }
+}
+
+/* Tablets */
+@media (max-width: 768px) {
+  .add_vehicle {
+    min-height: auto;
+    padding: 1.5rem 0;
+    margin-top: 3rem;
+  }
+
+  .add_vehicle .row {
+    margin-top: 2rem;
+  }
+
+  .add_vehicle .heading {
+    margin-bottom: 1rem;
+  }
+
+  .add_vehicle .heading h2 {
+    font-size: 2rem;
+  }
+
+  .add_vehicle .card-title {
+    font-size: 1.75rem;
+  }
+
+  .add_vehicle .vehicleForm {
+    grid-template-columns: 1fr;
+    column-gap: 0;
+    row-gap: 1.75rem;
+    padding: 2rem;
+    border-radius: 20px;
+    max-width: 100%;
+  }
+
+  .vehicleForm .submitBtn {
+    grid-column: 1;
+    margin-top: 1rem;
+    padding-top: 1.5rem;
+  }
+
+  .vehicleForm label .input {
+    padding: 1.25rem 1rem 0.75rem 1rem;
+  }
+}
+
+/* Mobile Devices */
+@media (max-width: 576px) {
+  .add_vehicle .row {
+    margin-top: 3rem;
+    padding: 0 1rem;
+  }
+
+  .add_vehicle .heading h2 {
+    font-size: 1.75rem;
+  }
+
+  .add_vehicle .heading h2::after {
+    width: 90%;
+  }
+
+  .add_vehicle .card-title {
+    font-size: 1.5rem;
+  }
+
+  .add_vehicle .vehicleForm {
+    padding: 1.5rem;
+    row-gap: 1.5rem;
+    border-radius: 16px;
+  }
+
+  .vehicleForm label .input {
+    padding: 1.125rem 0.875rem 0.65rem 0.875rem;
+    font-size: 0.95rem;
+    border-radius: 10px;
+  }
+
+  .vehicleForm label .input + span {
+    left: 0.875rem;
+    font-size: 0.95rem;
+  }
+
+  .vehicleForm label #purchaseDate + span,
+  .vehicleForm label #nextServiceDate + span {
+    left: 0.875rem;
+  }
+
+  .vehicleForm label .input:placeholder-shown + span {
+    font-size: 0.95rem;
+  }
+
+  .vehicleForm label .input:focus + span,
+  .vehicleForm label .input:valid + span,
+  .vehicleForm label .input:not(:placeholder-shown) + span {
+    font-size: 0.7rem;
+  }
+
+  .vehicleForm .submit,
+  .add_vehicle .submit {
+    padding: 0.875rem 2.5rem;
+    font-size: 0.95rem;
+    width: 100%;
+    border-radius: 10px;
+  }
+
+  .vehicleForm .submitBtn {
+    padding-top: 1.25rem;
+  }
+}
+
+/* Extra Small Devices */
+@media (max-width: 375px) {
+  .add_vehicle .heading h2 {
+    font-size: 1.5rem;
+  }
+
+  .add_vehicle .vehicleForm {
+    padding: 1.25rem;
+  }
+
+  .vehicleForm label .input {
+    font-size: 0.9rem;
+  }
+
+  .vehicleForm .submit,
+  .add_vehicle .submit {
+    font-size: 0.9rem;
+    padding: 0.75rem 2rem;
+  }
+}
+
+/* ========================================
+   ACCESSIBILITY & UTILITIES
+   ======================================== */
+
+/* Focus visible for keyboard navigation */
+.vehicleForm label .input:focus-visible {
+  outline: 3px solid var(--accent-color);
+  outline-offset: 2px;
+}
+
+.vehicleForm .submit:focus-visible,
+.add_vehicle .submit:focus-visible {
+  outline: 3px solid var(--accent-color);
+  outline-offset: 3px;
+}
+
+/* High contrast support */
+@media (prefers-contrast: high) {
+  .vehicleForm label .input {
+    border-width: 3px;
+  }
+
+  .vehicleForm .submit,
+  .add_vehicle .submit {
+    border-width: 3px;
+  }
+}
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* Disabled state */
+.vehicleForm label .input:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  background-color: var(--bg-secondary);
+}
+
+.vehicleForm .submit:disabled,
+.add_vehicle .submit:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}
+
+/* Input validation states */
+.vehicleForm label .input:invalid:not(:placeholder-shown) {
+  border-color: var(--danger-color);
+}
+
+.vehicleForm label .input:valid:not(:placeholder-shown) {
+  border-color: var(--success-color);
+}
+
+/* Loading state for submit button */
+.vehicleForm .submit.loading,
+.add_vehicle .submit.loading {
+  position: relative;
+  color: transparent;
+  pointer-events: none;
+}
+
+.vehicleForm .submit.loading::after,
+.add_vehicle .submit.loading::after {
+  content: '';
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  top: 50%;
+  left: 50%;
+  margin-left: -10px;
+  margin-top: -10px;
+  border: 3px solid rgba(255, 255, 255, 0.3);
+  border-top-color: white;
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
 }
 
 /* dashboard */
@@ -1420,18 +1915,7 @@ textarea.form-control {
     var(--accent-color)
   );
   background-size: 200% 100%;
-  /* animation: gradientShift 3s ease infinite; */
 }
-/* 
-@keyframes gradientShift {
-  0%,
-  100% {
-    background-position: 0% 50%;
-  }
-  50% {
-    background-position: 100% 50%;
-  }
-} */
 
 .user-avatar {
   width: 80px;
@@ -2356,8 +2840,12 @@ section.profileSection .profileContainer {
 }
 
 .userIcon {
-  font-size: 70px;
+  font-size: 8rem;
   color: var(--accent-color);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 1rem;
   transition: all 0.3s ease;
 }
 
@@ -2589,6 +3077,7 @@ section.profileSection .profileContainer {
   .personalInfo-container {
     padding: 1.5rem;
   }
+
 }
 
 /* Smooth animations */
@@ -5104,7 +5593,6 @@ section.profileSection .profileContainer {
   }
 }
 
-
 /* ========================================
    MAINTENANCE LIST PAGE MODALS 
    ======================================== */
@@ -5217,7 +5705,8 @@ section.profileSection .profileContainer {
   letter-spacing: 0.5px;
 }
 
-.maintenance-form, .scheduleUpdateForm {
+.maintenance-form,
+.scheduleUpdateForm {
   width: 100%;
 }
 
@@ -5347,7 +5836,7 @@ form .form-actions {
   justify-content: center;
 }
 
-textarea.form-control{
+textarea.form-control {
   background: var(--bg-secondary);
 }
 
@@ -5402,7 +5891,6 @@ textarea.form-control{
   color: var(--text-primary);
   transform: translateY(-2px);
 }
-
 
 .maintenance-list-section .btn-secondary,
 .scheduled-list-section .btn-secondary {
@@ -5532,7 +6020,6 @@ textarea.form-control{
     padding: 1rem;
   }
 }
-
 
 /* ========================================
    SCHEDULE LIST FILTER PANEL
