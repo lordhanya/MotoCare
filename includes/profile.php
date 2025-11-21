@@ -72,7 +72,7 @@ include __DIR__ . "/sidebar.php";
                 <div class="profileFlex d-grid align-items-center justify-content-center mt-4 gap-3">
                     <div class="pfpContainer">
                         <i class="bi bi-person-circle userIcon"></i>
-                        <div class="userData ms-3">
+                        <div class="userData">
                             <p class='user-name mb-1'>
                                 <?php echo isset($_SESSION['first_name']) ? $_SESSION['first_name'] : ''; ?>
                                 <?php echo isset($_SESSION['last_name']) ? $_SESSION['last_name'] : ''; ?>

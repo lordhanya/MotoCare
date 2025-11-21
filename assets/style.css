@@ -103,6 +103,12 @@ header .navbar {
   z-index: 1000;
 }
 
+@media (max-width: 991px) {
+  header .navbar-collapse {
+    z-index: 1050; /* Above other content */
+  }
+}
+
 header .navbar::before {
   content: "";
   position: absolute;
@@ -756,12 +762,26 @@ textarea.form-control {
 }
 
 @media (max-width: 576px) {
-  .home h1 {
-    font-size: 2rem;
+  .home .content h1 {
+    font-size: 2rem !important;
   }
 
   .navbar-brand {
     font-size: 1.5rem;
+  }
+  .home .content p {
+    font-size: 1rem;
+  }
+
+  .home .container .register-btn,
+  .home .container .learn-btn {
+    width: 100%;
+    padding: 0.875rem 1.5rem;
+  }
+  .contact .container .appreciation a {
+    width: 100%;
+    transform: skew(0); /* Remove skew */
+    padding: 0.75rem 1rem;
   }
 }
 
@@ -1314,25 +1334,33 @@ textarea.form-control {
 }
 
 .add_vehicle::before {
-  content: '';
+  content: "";
   position: absolute;
   top: -20%;
   left: -10%;
   width: 500px;
   height: 500px;
-  background: radial-gradient(circle, rgba(248, 41, 0, 0.08) 0%, transparent 70%);
+  background: radial-gradient(
+    circle,
+    rgba(248, 41, 0, 0.08) 0%,
+    transparent 70%
+  );
   pointer-events: none;
   filter: blur(60px);
 }
 
 .add_vehicle::after {
-  content: '';
+  content: "";
   position: absolute;
   bottom: -20%;
   right: -10%;
   width: 600px;
   height: 600px;
-  background: radial-gradient(circle, rgba(248, 41, 0, 0.05) 0%, transparent 70%);
+  background: radial-gradient(
+    circle,
+    rgba(248, 41, 0, 0.05) 0%,
+    transparent 70%
+  );
   pointer-events: none;
   filter: blur(80px);
 }
@@ -1371,14 +1399,19 @@ textarea.form-control {
 }
 
 .add_vehicle .heading h2::after {
-  content: '';
+  content: "";
   position: absolute;
   bottom: 0;
   left: 50%;
   transform: translateX(-50%);
   width: 80%;
   height: 3px;
-  background: linear-gradient(90deg, transparent, var(--accent-color), transparent);
+  background: linear-gradient(
+    90deg,
+    transparent,
+    var(--accent-color),
+    transparent
+  );
 }
 
 /* .add_vehicle .heading span - Accent text */
@@ -1422,7 +1455,7 @@ textarea.form-control {
   border-radius: 24px;
   border: 2px solid var(--border-color);
   box-shadow: 0 10px 50px rgba(0, 0, 0, 0.5),
-              0 0 0 1px var(--border-light) inset;
+    0 0 0 1px var(--border-light) inset;
 }
 
 /* ========================================
@@ -1558,7 +1591,7 @@ textarea.form-control {
 }
 
 .vehicleForm .submitBtn::before {
-  content: '';
+  content: "";
   position: absolute;
   top: -2px;
   left: 50%;
@@ -1591,7 +1624,7 @@ textarea.form-control {
 
 .vehicleForm .submit::before,
 .add_vehicle .submit::before {
-  content: '';
+  content: "";
   position: absolute;
   top: 50%;
   left: 50%;
@@ -1637,7 +1670,9 @@ textarea.form-control {
   transition: all 0.3s ease;
 }
 
-.vehicleForm label .input[type="date"]::-webkit-calendar-picker-indicator:hover {
+.vehicleForm
+  label
+  .input[type="date"]::-webkit-calendar-picker-indicator:hover {
   opacity: 1;
   transform: scale(1.1);
 }
@@ -1865,7 +1900,7 @@ textarea.form-control {
 
 .vehicleForm .submit.loading::after,
 .add_vehicle .submit.loading::after {
-  content: '';
+  content: "";
   position: absolute;
   width: 20px;
   height: 20px;
@@ -1880,7 +1915,9 @@ textarea.form-control {
 }
 
 @keyframes spin {
-  to { transform: rotate(360deg); }
+  to {
+    transform: rotate(360deg);
+  }
 }
 
 /* dashboard */
@@ -2305,6 +2342,12 @@ textarea.form-control {
     margin-top: 1rem;
     width: 100%;
     justify-content: center;
+  }
+}
+
+@media (max-width: 576px) {
+  .stats-grid {
+    grid-template-columns: 1fr;
   }
 }
 
@@ -2789,6 +2832,25 @@ form.editForm input:hover {
   grid-column: 1 / span 3;
 }
 
+@media (max-width: 768px) {
+  .vehicle-card {
+    min-height: auto;
+    padding: 2em;
+  }
+}
+
+@media (max-width: 768px) {
+  .vehicleForm {
+    grid-template-columns: 1fr !important;
+    min-width: 100%;
+    padding: 2rem 1.5rem;
+  }
+
+  .vehicleForm label .input {
+    min-width: 100%;
+  }
+}
+
 /* profile page */
 section.profileSection {
   background: var(--bg-dark);
@@ -2860,11 +2922,13 @@ section.profileSection .profileContainer {
   font-weight: 600;
   color: var(--text-primary);
   margin: 0;
+  text-align: center;
 }
 
 .userData .email {
   color: var(--text-secondary);
   font-size: 0.95rem;
+  text-align: center;
 }
 
 .profileEditBtn button,
@@ -3078,7 +3142,15 @@ section.profileSection .profileContainer {
   .personalInfo-container {
     padding: 1.5rem;
   }
+}
+@media (max-width: 576px) {
+  section.profileSection {
+    padding: 6rem 1rem; /* Much less */
+  }
 
+  .userIcon {
+    font-size: 5rem; /* Smaller icon */
+  }
 }
 
 /* Smooth animations */
@@ -3253,6 +3325,15 @@ section.profileSection .profileContainer {
   color: var(--text-primary);
   border-bottom: 1px solid var(--border-color);
   font-size: 0.875rem;
+  white-space: normal;
+  word-wrap: break-word;
+}
+
+@media (max-width: 768px) {
+  .table-responsive {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch; /* Smooth scroll */
+  }
 }
 
 .vehicle-name {
@@ -5615,6 +5696,17 @@ section.profileSection .profileContainer {
   overflow: hidden;
 }
 
+@media (max-width: 576px) {
+  .modal-dialog {
+    margin: 0.5rem;
+    max-width: calc(100% - 1rem);
+  }
+  
+  .modal-content {
+    border-radius: 12px; /* Smaller radius */
+  }
+}
+
 /* ========================================
    MODAL HEADER
    ======================================== */
@@ -6648,3 +6740,33 @@ textarea.form-control {
     opacity: 1;
   }
 }
+
+
+/* Extra Small Phones (< 375px) */
+@media (max-width: 374px) {
+  .page-header h2 {
+    font-size: 1.5rem !important;
+  }
+  
+  .btn {
+    font-size: 0.8rem;
+    padding: 0.65rem 1rem;
+  }
+  
+  .form-control,
+  .form-select {
+    font-size: 0.85rem;
+  }
+}
+
+/* Large Tablets (768px - 991px) - Missing for many sections */
+@media (min-width: 768px) and (max-width: 991px) {
+  .stats-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  
+  .vehicle-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+

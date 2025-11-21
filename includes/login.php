@@ -24,10 +24,13 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                     $_SESSION['email'] = $user['email'];
                     $_SESSION['login_success'] = true;
 
+                    $_SESSION['first_name'] = $user['first_name'];
+                    $_SESSION['last_name'] = $user['last_name'];
+                    
                     $stmt = $conn->prepare("SELECT COUNT(*) FROM vehicles WHERE user_id = :user_id");
                     $stmt->bindParam(':user_id', $user['id'], PDO::PARAM_INT);
                     $stmt->execute();
-                    
+
                     $vehicleCount = $stmt->fetchColumn();
 
                     if ($vehicleCount > 0) {
