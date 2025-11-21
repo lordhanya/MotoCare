@@ -1666,6 +1666,7 @@ textarea.form-control {
 /* Tablets */
 @media (max-width: 768px) {
   .add_vehicle {
+    width: 100%;
     min-height: auto;
     padding: 1.5rem 0;
     margin-top: 3rem;
