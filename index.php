@@ -49,7 +49,7 @@ include __DIR__ . "/includes/header.php";
                         </a>
                     </div>
                     <div class="col" data-aos="fade-left" data-aos-duration="1200" data-aos-delay="300">
-                        <a href="#features" class="btn btn-primary learn-btn d-inline-flex align-items-center gap-2">Learn More<i class="bi bi-arrow-up-right-circle-fill"></i></a>
+                        <a href="#features" class="btn btn-primary d-flex learn-btn justify-content-center align-items-center gap-2">Learn More<i class="bi bi-arrow-up-right-circle-fill"></i></a>
                     </div>
                 </div>
             </div>
@@ -142,7 +142,7 @@ include __DIR__ . "/includes/header.php";
         <div class="row min-vh-100 mt-5 d-flex align-items-center justify-content-center">
             <div class="col contact-content mt-5 text-center" data-aos="fade-up" data-aos-duration="1000">
                 <h1>CONTACT <span>US</span></h1>
-                <div class="contact-form mt-3 d-flex align-items-stretch justify-content-center gap-4 flex-wrap">
+                <div class="contact-form mt-5 d-flex align-items-stretch justify-content-center gap-4 flex-wrap">
                     <div class="appreciation p-5">
                         <p>We'd love to hear from you! Whether you have questions, feedback, or need assistance, our team is here to help.</p>
                         <a onclick="alertMSG()"><span>Reach out to us <i class="bi bi-arrow-right-circle-fill ms-3 fs-5"></i></span></a>
