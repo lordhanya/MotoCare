@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>AutoCare - Your Ultimate Vehicle Maintenance App</title>
+    <link rel="icon" type="image/png" href="../assets/images/AutoCare_logo.png">
     <link rel="stylesheet" href="../assets/style.css">
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     <link rel="preconnect" href="https://fonts.googleapis.com">
