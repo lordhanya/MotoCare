@@ -426,6 +426,13 @@ header .navbar-toggler-icon {
   font-size: 1.2em;
 }
 
+.home .content .home-btns .col {
+  flex: 1 1 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 .home .content .home-btns {
   display: flex;
   gap: 1rem;
@@ -434,6 +441,7 @@ header .navbar-toggler-icon {
 
 .home .container .register-btn,
 .home .container .learn-btn {
+  max-width: 320px;
   padding: 1rem 2.5rem;
   font-size: 1.1rem;
   font-weight: 600;
@@ -804,7 +812,6 @@ textarea.form-control {
 
   .home .content .register-btn,
   .home .content .learn-btn {
-    width: 100%;
     text-align: center;
   }
 
