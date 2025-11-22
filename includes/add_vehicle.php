@@ -148,13 +148,13 @@ include "header.php";
                         <!-- Last Service Date (Optional) -->
                         <label for="last_service_date">
                             <input class="input" id="last_service_date" name="last_service_date" type="date">
-                            <span>Last Service Date (if any)</span>
+                            <span>Last Service Date (Optional)</span>
                         </label>
 
                         <!-- Last Service KM (Optional) -->
                         <label for="last_service_km">
-                            <input class="input" id="last_service_km" placeholder="" name="last_service_km" type="number" min="0">
-                            <span>Odometer at Last Service, if any (KM)</span>
+                            <input class="input" id="last_service_km" name="last_service_km" type="number" min="0">
+                            <span>Last Service KM (optional)</span>
                         </label>
 
                         <!-- Next Service Date -->
