@@ -49,12 +49,13 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         $vehicle_id = $conn->lastInsertId();
 
         // Fetch user details for reminders
-        $user_stmt = $conn->prepare("SELECT email, username FROM users WHERE id = :user_id");
+        $user_stmt = $conn->prepare("SELECT email, first_name, last_name FROM users WHERE id = :user_id");
         $user_stmt->bindParam(':user_id', $user_id, PDO::PARAM_INT);
         $user_stmt->execute();
         $user = $user_stmt->fetch(PDO::FETCH_ASSOC);
         $email = $user['email'];
-        $username = $user['username'];
+        $first_name = $user['first_name'];
+        $last_name = $user['last_name'];
 
         // Compose reminder message
         $msg = "Your vehicle is due for its next maintenance on $next_service_date.";
