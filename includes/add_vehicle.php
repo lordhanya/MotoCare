@@ -76,16 +76,19 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
             $update->bindParam(':vehicle_id', $vehicle_id, PDO::PARAM_INT);
             $update->execute();
         } else {
-            // Insert new reminder
-            $insert_reminder = $conn->prepare("INSERT INTO reminders (user_id, user_email, vehicle_id, vehicle_name, reminder_type, reminder_date, message) VALUES (:user_id, :user_email, :vehicle_id, :vehicle_name, 'next_service', :reminder_date, :message)");
+
+            $insert_reminder = $conn->prepare("INSERT INTO reminders (user_id, user_email, vehicle_id, vehicle_name, first_name, last_name, reminder_type, reminder_date, message) VALUES (:user_id, :user_email, :vehicle_id, :vehicle_name, :first_name, :last_name, 'next_service', :reminder_date, :message)");
             $insert_reminder->bindParam(':user_id', $user_id, PDO::PARAM_INT);
             $insert_reminder->bindParam(':user_email', $email, PDO::PARAM_STR);
             $insert_reminder->bindParam(':vehicle_id', $vehicle_id, PDO::PARAM_INT);
             $insert_reminder->bindParam(':vehicle_name', $vehicle_name, PDO::PARAM_STR);
+            $insert_reminder->bindParam(':first_name', $user['first_name'], PDO::PARAM_STR);
+            $insert_reminder->bindParam(':last_name', $user['last_name'], PDO::PARAM_STR);
             $insert_reminder->bindParam(':reminder_date', $reminder_date, PDO::PARAM_STR);
             $insert_reminder->bindParam(':message', $msg, PDO::PARAM_STR);
             $insert_reminder->execute();
         }
+
 
         echo "<script>alert('Vehicle added successfully! Redirecting to your vehicles page...'); window.location.href='vehicles.php';</script>";
         exit();
@@ -122,7 +125,7 @@ include "header.php";
                         <label for="vehicle_type">
                             <input class="input" id="vehicle_type" name="vehicle_type" type="text" placeholder="" required>
                             <span>Vehicle Type</span>
-                         </label>
+                        </label>
 
                         <!-- Registration Number -->
                         <label for="registration_no">
