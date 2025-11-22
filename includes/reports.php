@@ -1,6 +1,6 @@
 <?php
 session_start();
-include "../db/connection.php";
+include __DIR__ . "/../db/connection.php";
 
 if (!isset($_SESSION['user_id'])) {
     header("Location: login.php");
@@ -14,14 +14,15 @@ $stmt->bindParam(':user_id', $user_id, PDO::PARAM_INT);
 $stmt->execute();
 $vehicles = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-include "header.php";
-include "dashNav.php";
-include "sidebar.php";
+include __DIR__ . "/header.php";
+include __DIR__ . "/dashNav.php";
+include __DIR__ . "/sidebar.php";
 
 $today = date('Y-m-d');
 $upcoming_services = 0;
 $total_health = 0;
 ?>
+
 
 
 <section class="report-section">
@@ -33,41 +34,10 @@ $total_health = 0;
         </div>
 
         <?php
-        // Calculate summary stats
-        $average_health = count($vehicles) > 0 ? round($total_health / count($vehicles)) : 0;
         $total_vehicles = count($vehicles);
+        $total_compliance = 0;
+        $compliance_count = 0;
         ?>
-
-        <!-- Summary Cards -->
-        <div class="summary-cards">
-            <div class="stat-card">
-                <div class="stat-card-icon"><i class="bi bi-car-front-fill"></i></div>
-                <div class="stat-card-label">Total Vehicles</div>
-                <div class="stat-card-value"><?= $total_vehicles ?></div>
-                <div class="stat-card-trend">Active fleet</div>
-            </div>
-
-            <div class="stat-card">
-                <div class="stat-card-icon"><i class="bi bi-wrench-adjustable"></i></div>
-                <div class="stat-card-label">Service Due</div>
-                <div class="stat-card-value" id="service-due-value">0</div>
-                <div class="stat-card-trend">Requires attention</div>
-            </div>
-
-            <div class="stat-card">
-                <div class="stat-card-icon"><i class="bi bi-heart-pulse"></i></div>
-                <div class="stat-card-label">Avg Health</div>
-                <div class="stat-card-value"><?= $average_health ?>%</div>
-                <div class="stat-card-trend">Fleet condition</div>
-            </div>
-
-            <div class="stat-card">
-                <div class="stat-card-icon">✓</div>
-                <div class="stat-card-label">Compliance</div>
-                <div class="stat-card-value" id="avg-compliance-value">--</div>
-                <div class="stat-card-trend">Maintenance schedule</div>
-            </div>
-        </div>
 
         <!-- Vehicle Details Table -->
         <div class="table-card">
@@ -93,32 +63,44 @@ $total_health = 0;
                         </tr>
                     </thead>
                     <tbody>
-                        <?php if ($vehicles && count($vehicles) > 0): 
-                            $total_compliance = 0;
-                            $compliance_count = 0;
-                        ?>
-                            <?php foreach ($vehicles as $vehicle):
+                        <?php if ($vehicles && $total_vehicles > 0): ?>
+                            <?php foreach ($vehicles as $vehicle): ?>
+                                <?php
                                 // ----------- Health -----------
-                                $current_km = (int)$vehicle['current_km'] ?? 0;
-                                $last_service_km = (int)$vehicle['last_service_km'] ?? 0;
-                                $next_service_km = (int)$vehicle['next_service_km'] ?? 0;
-                                $health = 100;
-                                $km_gap = max(1, $next_service_km - $last_service_km);
-                                if ($next_service_km > 0 && $current_km >= $last_service_km) {
-                                    $distance_progress = (($current_km - $last_service_km) / $km_gap) * 100;
-                                    $health = max(0, 100 - $distance_progress);
-                                }
-                                if (!empty($vehicle['next_service_date']) && $vehicle['next_service_date'] < $today) {
-                                    $health -= 10;
-                                }
-                                $health = max(0, $health);
+                                // $current_km = (int)($vehicle['current_km'] ?? 0);
+                                // $last_service_km = (int)($vehicle['last_service_km'] ?? 0);
+                                // $next_service_km = (int)($vehicle['next_service_km'] ?? 0);
+                                // $health = 100;
+                                // $km_gap = max(1, $next_service_km - $last_service_km);
+                                // if ($next_service_km > 0 && $current_km >= $last_service_km) {
+                                //     $distance_progress = (($current_km - $last_service_km) / $km_gap) * 100;
+                                //     $health = max(0, 100 - $distance_progress);
+                                // }
+                                // if (!empty($vehicle['next_service_date']) && $vehicle['next_service_date'] < $today) {
+                                //     $health -= 10;
+                                // }
+                                // $health = max(0, $health);
+                                // $total_health += $health;
+
+                                // if (!empty($vehicle['next_service_date']) && $vehicle['next_service_date'] <= $today) {
+                                //     $upcoming_services++;
+                                // }
+
+                                // $health_class = $health > 70 ? 'excellent' : ($health > 40 ? 'good' : 'poor');
+
+
+                                // --- Simple Odometer-based Health Calculation ---
+                                $current_km = (int)($vehicle['current_km'] ?? 0);
+                                $max_expected_km = 100000; // Adjust as appropriate for your vehicle category
+                                $health = max(0, 100 - ($current_km / $max_expected_km * 100));
+                                $health = round($health);
                                 $total_health += $health;
 
+                                // Optional: still highlight vehicles with overdue service dates
                                 if (!empty($vehicle['next_service_date']) && $vehicle['next_service_date'] <= $today) {
                                     $upcoming_services++;
                                 }
 
-                                // Health class
                                 $health_class = $health > 70 ? 'excellent' : ($health > 40 ? 'good' : 'poor');
 
                                 // ----------- Compliance -----------
@@ -150,7 +132,7 @@ $total_health = 0;
 
                                 // ----------- MTTR (Hr) -----------
                                 $stmt3 = $conn->prepare("SELECT TIMESTAMPDIFF(HOUR, repair_start, repair_end) as duration FROM repairs
-                                WHERE vehicle_id=:vid AND repair_start IS NOT NULL AND repair_end IS NOT NULL");
+                                    WHERE vehicle_id=:vid AND repair_start IS NOT NULL AND repair_end IS NOT NULL");
                                 $stmt3->execute([':vid' => $vehicle['id']]);
                                 $durations = $stmt3->fetchAll(PDO::FETCH_COLUMN);
                                 $mttr = count($durations) > 0 ? round(array_sum($durations) / count($durations), 1) : 'N/A';
@@ -163,11 +145,11 @@ $total_health = 0;
 
                                 // ----------- Breakdown frequency (Yr) -----------
                                 $stmt5 = $conn->prepare("SELECT COUNT(*) FROM maintenance WHERE vehicle_id=:vid
-                                AND service_type='breakdown'
-                                AND service_date BETWEEN DATE_SUB(NOW(), INTERVAL 1 YEAR) AND NOW()");
+                                    AND service_type='breakdown'
+                                    AND service_date BETWEEN DATE_SUB(NOW(), INTERVAL 1 YEAR) AND NOW()");
                                 $stmt5->execute([':vid' => $vehicle['id']]);
                                 $breakdowns = $stmt5->fetchColumn();
-                            ?>
+                                ?>
                                 <tr>
                                     <td><span class="vehicle-name"><?= htmlspecialchars($vehicle['vehicle_name']); ?></span></td>
                                     <td><?= htmlspecialchars($vehicle['model']); ?></td>
@@ -216,17 +198,47 @@ $total_health = 0;
                 </table>
             </div>
         </div>
+
+        <?php
+        // Ensure health/compliance are calculated after looping!
+        $average_health = $total_vehicles > 0 ? round($total_health / $total_vehicles) : 0;
+        $avg_compliance = $compliance_count > 0 ? round($total_compliance / $compliance_count) : null;
+        ?>
+
+        <!-- Summary Cards -->
+        <div class="summary-cards">
+            <div class="stat-card">
+                <div class="stat-card-icon"><i class="bi bi-car-front-fill"></i></div>
+                <div class="stat-card-label">Total Vehicles</div>
+                <div class="stat-card-value"><?= $total_vehicles ?></div>
+                <div class="stat-card-trend">Active fleet</div>
+            </div>
+
+            <div class="stat-card">
+                <div class="stat-card-icon"><i class="bi bi-wrench-adjustable"></i></div>
+                <div class="stat-card-label">Service Due</div>
+                <div class="stat-card-value" id="service-due-value"><?= $upcoming_services ?></div>
+                <div class="stat-card-trend">Requires attention</div>
+            </div>
+
+            <div class="stat-card">
+                <div class="stat-card-icon"><i class="bi bi-heart-pulse"></i></div>
+                <div class="stat-card-label">Avg Health</div>
+                <div class="stat-card-value"><?= $average_health ?>%</div>
+                <div class="stat-card-trend">Fleet condition</div>
+            </div>
+
+            <div class="stat-card">
+                <div class="stat-card-icon">✓</div>
+                <div class="stat-card-label">Compliance</div>
+                <div class="stat-card-value" id="avg-compliance-value">
+                    <?= $avg_compliance !== null ? $avg_compliance . '%' : '--' ?>
+                </div>
+                <div class="stat-card-trend">Maintenance schedule</div>
+            </div>
+        </div>
     </div>
 </section>
-
-<script>
-    // Update service due count after page calculates it
-    document.getElementById('service-due-value').textContent = <?= $upcoming_services ?>;
-    
-    <?php if ($compliance_count > 0): ?>
-    document.getElementById('avg-compliance-value').textContent = '<?= round($total_compliance / $compliance_count) ?>%';
-    <?php endif; ?>
-</script>
 
 <?php include __DIR__ . "/spinner.php"; ?>
 <?php include "footer.php"; ?>
