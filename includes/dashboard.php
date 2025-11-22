@@ -38,25 +38,15 @@ $total_vehicles = count($vehicles);
 // Calculate stats
 foreach ($vehicles as $vehicle) {
     $current_km = (int)$vehicle['current_km'] ?? 0;
-    $last_service_km = (int)$vehicle['last_service_km'] ?? 0;
-    $next_service_km = (int)$vehicle['next_service_km'] ?? 0;
-    $health = 100;
-    $km_gap = max(1, $next_service_km - $last_service_km);
-    if ($next_service_km > 0 && $current_km >= $last_service_km) {
-        $distance_progress = (($current_km - $last_service_km) / $km_gap) * 100;
-        $health = max(0, 100 - $distance_progress);
-    }
-    if (!empty($vehicle['next_service_date']) && $vehicle['next_service_date'] < $today) {
-        $health -= 10;
-    }
-    $health = max(0, $health);
+    $max_expected_km = 100000; // Or adjust as fits your fleet; can be made dynamic
+    $health = max(0, 100 - ($current_km / $max_expected_km * 100));
+    $health = round($health);
     $total_health += $health;
 
     if (!empty($vehicle['next_service_date']) && $vehicle['next_service_date'] <= $today) {
         $upcoming_services++;
     }
 }
-
 $average_health = $total_vehicles > 0 ? round($total_health / $total_vehicles) : 0;
 
 include __DIR__ . "/header.php";
@@ -165,22 +155,13 @@ include __DIR__ . "/sidebar.php";
 
         <?php if ($total_vehicles > 0): ?>
             <div class="vehicle-grid">
-                <?php foreach ($vehicles as $vehicle): 
+                <?php foreach ($vehicles as $vehicle):
                     // Calculate health
                     $current_km = (int)$vehicle['current_km'] ?? 0;
-                    $last_service_km = (int)$vehicle['last_service_km'] ?? 0;
-                    $next_service_km = (int)$vehicle['next_service_km'] ?? 0;
-                    $health = 100;
-                    $km_gap = max(1, $next_service_km - $last_service_km);
-                    if ($next_service_km > 0 && $current_km >= $last_service_km) {
-                        $distance_progress = (($current_km - $last_service_km) / $km_gap) * 100;
-                        $health = max(0, 100 - $distance_progress);
-                    }
-                    if (!empty($vehicle['next_service_date']) && $vehicle['next_service_date'] < $today) {
-                        $health -= 10;
-                    }
-                    $health = max(0, $health);
-                    
+                    $max_expected_km = 100000; // Sync with above, or customize per vehicle type
+                    $health = max(0, 100 - ($current_km / $max_expected_km * 100));
+                    $health = round($health);
+
                     $health_class = $health > 70 ? 'excellent' : ($health > 40 ? 'good' : 'poor');
                     $health_label = $health > 70 ? 'Excellent' : ($health > 40 ? 'Good' : 'Poor');
                 ?>
