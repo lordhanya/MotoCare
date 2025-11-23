@@ -10,7 +10,8 @@ require __DIR__ . '/../vendor/autoload.php';
 
 // Load .env (local dev) – Render uses env vars
 if (file_exists(__DIR__ . '/../.env')) {
-    Dotenv\Dotenv::createImmutable(__DIR__ . '/../')->load();
+    $dotenv = Dotenv\Dotenv::createUnsafeImmutable(__DIR__ . '/../');
+    $dotenv->load();
 }
 
 use PHPMailer\PHPMailer\PHPMailer;
@@ -67,8 +68,8 @@ while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
         // Recipient
         $mail->addAddress($row['user_email'], $fullName);
 
-        $vehicleName = htmlspecialchars($row['vehicle_name']);
-        $messageHTML = nl2br(htmlspecialchars($row['message']));
+        $vehicleName = htmlspecialchars($row['vehicle_name'] ?? '');
+        $messageHTML = nl2br(htmlspecialchars($row['message'] ?? ''));
 
         $mail->isHTML(true);
         $mail->Subject = "AutoCare Reminder";
@@ -116,7 +117,6 @@ while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
         $update->execute();
 
         echo "Reminder marked as sent.\n";
-
     } catch (Exception $e) {
         echo "Mailer error: {$mail->ErrorInfo}\n";
     }
