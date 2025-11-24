@@ -1319,22 +1319,28 @@ textarea.form-control {
 }
 
 .loginForm .message,
-.loginForm .signup {
+.loginForm .signup,
+.loginForm .resend_verification {
   font-size: 14.5px;
   color: rgba(255, 255, 255, 0.7);
 }
 
-.loginForm .signup {
+.loginForm .signup,
+.loginForm .resend_verification {
   text-align: center;
+  margin: 0;
 }
 
-.loginForm .signup a:hover {
+.loginForm .signup a:hover,
+.loginForm .resend_verification a:hover {
   text-decoration: underline var(--accent-color);
   color: var(--accent-color);
 }
 
-.loginForm .signup a {
+.loginForm .signup a,
+.loginForm .resend_verification a {
   color: var(--accent-color);
+  text-decoration: none;
 }
 
 .loginForm label {
@@ -2422,7 +2428,6 @@ textarea.form-control {
     width: 100%;
     justify-content: center;
   }
-
 }
 
 @media (max-width: 576px) {
@@ -2913,7 +2918,7 @@ form.editForm input:hover {
 }
 
 @media (max-width: 768px) {
-  .vehicles .container{
+  .vehicles .container {
     min-width: 100vw;
     padding: 0 1rem;
   }
@@ -6841,4 +6846,3 @@ textarea.form-control {
     font-size: 0.85rem;
   }
 }
-
