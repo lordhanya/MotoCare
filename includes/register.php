@@ -63,30 +63,172 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
         try {
             $mail->isSMTP();
-            $mail->Host       = getenv('MAIL_HOST');
             $mail->SMTPAuth   = true;
-            $mail->Username   = getenv('MAIL_USERNAME');
-            $mail->Password   = getenv('MAIL_PASSWORD');
-            $mail->SMTPSecure = getenv('MAIL_ENCRYPTION');
-            $mail->Port       = getenv('MAIL_PORT');
+            $mail->Host       = $_ENV['MAIL_HOST'];
+            $mail->Username   = $_ENV['MAIL_USERNAME'];
+            $mail->Password   = $_ENV['MAIL_PASSWORD'];
+            $mail->SMTPSecure = $_ENV['MAIL_ENCRYPTION'];
+            $mail->Port       = $_ENV['MAIL_PORT'];
 
-            $mail->setFrom(getenv('MAIL_FROM_ADDRESS'), "AutoCare");
-            $mail->addAddress($email, $first_name);
+            $mail->setFrom($_ENV['MAIL_FROM_ADDRESS'], $_ENV['MAIL_FROM_NAME']);
+
 
             $mail->isHTML(true);
             $mail->Subject = "Verify Your AutoCare Account";
 
-            $mail->Body = "
-                <h2>Welcome to AutoCare</h2>
-                <p>Hello <strong>{$first_name}</strong>,</p>
-                <p>Please verify your email to activate your account:</p>
-                <a href='{$verifyUrl}' 
-                   style='padding:10px 20px;background:#f82900;color:white;text-decoration:none;border-radius:6px;'>
-                    Verify Email
-                </a>
-                <p>If the button doesn't work, copy and paste this URL:</p>
-                <p>{$verifyUrl}</p>
-            ";
+            $mail->Body = '
+                <html>
+    <head>
+        <style>
+            body { 
+                font-family: Arial, sans-serif; 
+                line-height: 1.6; 
+                color: #333; 
+                background: #f4f4f4; 
+                margin: 0; 
+                padding: 20px; 
+            }
+            .container { 
+                max-width: 600px; 
+                margin: 0 auto; 
+                padding: 30px; 
+                background: white; 
+                border-radius: 12px; 
+                box-shadow: 0 2px 10px rgba(0,0,0,0.1); 
+            }
+            .header { 
+                text-align: center; 
+                margin-bottom: 30px; 
+                padding-bottom: 20px; 
+                border-bottom: 2px solid #f82900; 
+            }
+            .header h1 { 
+                color: #383838; 
+                margin: 0; 
+                font-size: 2em; 
+            }
+            .header p { 
+                font-size: 0.9em; 
+                color: #666; 
+                margin: 10px 0 0 0; 
+                text-transform: uppercase; 
+                letter-spacing: 1px; 
+            }
+            span { 
+                color: #f82900; 
+            }
+            .greeting { 
+                font-size: 1.1em; 
+                margin-bottom: 20px; 
+            }
+            .message { 
+                margin: 25px 0; 
+                padding: 20px; 
+                font-size: 1em; 
+                background: #fff3f0; 
+                border-left: 4px solid #f82900; 
+                line-height: 1.8; 
+                border-radius: 4px; 
+            }
+            .button-container { 
+                text-align: center; 
+                margin: 30px 0; 
+            }
+            .verify-button { 
+                display: inline-block; 
+                padding: 15px 40px; 
+                background: #f82900; 
+                color: white; 
+                text-decoration: none; 
+                border-radius: 8px; 
+                font-weight: bold; 
+                font-size: 1em; 
+                letter-spacing: 0.5px; 
+            }
+            .verify-button:hover { 
+                background: #ff4520; 
+            }
+            .url-box { 
+                margin: 20px 0; 
+                padding: 15px; 
+                background: #f9f9f9; 
+                border: 1px solid #ddd; 
+                border-radius: 6px; 
+                word-break: break-all; 
+                font-size: 0.85em; 
+                color: #666; 
+            }
+            .url-box strong { 
+                color: #f82900; 
+            }
+            .footer { 
+                margin-top: 40px; 
+                padding-top: 20px; 
+                border-top: 1px solid #ddd; 
+                font-size: 0.9em; 
+                color: #666; 
+                line-height: 1.8; 
+            }
+            .footer strong { 
+                color: #383838; 
+            }
+            .security-note { 
+                margin-top: 30px; 
+                padding: 15px; 
+                background: #f9f9f9; 
+                border-radius: 6px; 
+                font-size: 0.85em; 
+                color: #666; 
+            }
+        </style>
+    </head>
+    <body>
+        <div class="container">
+            <div class="header">
+                <h1>Auto<span>Care</span></h1>
+                <p>Email Verification</p>
+            </div>
+            
+            <p class="greeting">Hey, <strong>' . htmlspecialchars($user['first_name']) . '</strong> 👋</p>
+            
+            <div class="message">
+                <p>Welcome to <strong>AutoCare</strong>!</p>
+                <p>Thank you for signing up. To complete your registration and start managing your vehicle maintenance, please verify your email address by clicking the button below.</p>
+            </div>
+            
+            <div class="button-container">
+                <a href="' . $verifyUrl . '" class="verify-button">Verify Email Address</a>
+            </div>
+            
+            <p style="text-align: center; font-size: 0.9em; color: #999; margin: 10px 0;">
+                This link will expire in <strong style="color: #f82900;">24 hours</strong>
+            </p>
+            
+            <div class="url-box">
+                <strong>Button not working?</strong><br>
+                Copy and paste this URL into your browser:<br>
+                ' . htmlspecialchars($verifyUrl) . '
+            </div>
+            
+            <div class="security-note">
+                🔒 <strong>Security Note:</strong> If you did not create an account with AutoCare, please ignore this email or contact our support team.
+            </div>
+            
+            <div class="footer">
+                <p><strong>Thank you for choosing AutoCare!</strong></p>
+                <p>
+                    Best Regards,<br>
+                    <strong>Ashif Rahman</strong><br>
+                    Creator, AutoCare
+                </p>
+                <p style="margin-top: 20px; font-size: 0.85em;">
+                    Need help? Contact us at <a href="mailto:autocare.service.app@gmail.com" style="color: #f82900; text-decoration: none;">autocare.service.app@gmail.com</a>
+                </p>
+            </div>
+        </div>
+    </body>
+    </html>
+            ';
 
             $mail->send();
         } catch (Exception $e) {

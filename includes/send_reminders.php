@@ -47,7 +47,7 @@ while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
     $fullName = trim($row['first_name'] . ' ' . $row['last_name']);
     $vehicleName = htmlspecialchars($row['vehicle_name'] ?? 'Your Vehicle');
     $messageHTML = nl2br(htmlspecialchars($row['message'] ?? ''));
-    
+
     echo "\n--- Sending reminder ID {$row['id']} to {$row['user_email']} ({$fullName}) ---\n";
 
     $mail = new PHPMailer(true);
@@ -55,18 +55,15 @@ while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
     try {
         // SMTP Configuration
         $mail->isSMTP();
-        $mail->Host       = getenv('MAIL_HOST');
         $mail->SMTPAuth   = true;
-        $mail->Username   = getenv('MAIL_USERNAME');
-        $mail->Password   = getenv('MAIL_PASSWORD');
-        $mail->SMTPSecure = getenv('MAIL_ENCRYPTION');
-        $mail->Port       = getenv('MAIL_PORT');
+        $mail->Host       = $_ENV['MAIL_HOST'];
+        $mail->Username   = $_ENV['MAIL_USERNAME'];
+        $mail->Password   = $_ENV['MAIL_PASSWORD'];
+        $mail->SMTPSecure = $_ENV['MAIL_ENCRYPTION'];
+        $mail->Port       = $_ENV['MAIL_PORT'];
 
-        // Sender
-        $mail->setFrom(
-            getenv('MAIL_FROM_ADDRESS'),
-            getenv('MAIL_FROM_NAME')
-        );
+        $mail->setFrom($_ENV['MAIL_FROM_ADDRESS'], $_ENV['MAIL_FROM_NAME']);
+
 
         // Recipient
         $mail->addAddress($row['user_email'], $fullName);
