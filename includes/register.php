@@ -20,8 +20,8 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     $confirm_password = trim($_POST['confirm_password']);
 
     if ($password !== $confirm_password) {
-        echo "<script>alert('Buddy, passwords do not match!');</script>";
-        exit;
+        echo "<script>alert('Buddy, passwords do not match!');
+        window.location='register.php';</script>";
     }
 
     // Check if email exists
@@ -40,15 +40,18 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
     // Insert user
     $insert = $conn->prepare("
-        INSERT INTO users (first_name, last_name, email, password, verify_token)
-        VALUES (:first_name, :last_name, :email, :password, :verify_token)
-    ");
+    INSERT INTO users 
+    (first_name, last_name, email, password, verify_token, is_verified) 
+    VALUES 
+    (:first_name, :last_name, :email, :password, :verify_token, 0)
+");
+
 
     $insert->bindParam(':first_name', $first_name);
     $insert->bindParam(':last_name',  $last_name);
     $insert->bindParam(':email',      $email);
     $insert->bindParam(':password',   $hashed);
-    $insert->bindParam(':veri fy_token', $token);
+    $insert->bindParam(':verify_token', $token);
 
     if ($insert->execute()) {
 
@@ -152,5 +155,5 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
             </form>
         </div>
     </section>
-<?php include __DIR__ . "/spinner.php"; ?>
-<?php include __DIR__ . "/footer.php"; ?>
+    <?php include __DIR__ . "/spinner.php"; ?>
+    <?php include __DIR__ . "/footer.php"; ?>
