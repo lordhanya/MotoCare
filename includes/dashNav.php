@@ -6,7 +6,7 @@
             <a class="btn sidebarToggle-btn" data-bs-toggle="offcanvas" href="#offcanvasExample" role="button" aria-controls="offcanvasExample">
                 <i class="bi bi-list"></i>
             </a>
-            <a class="navbar-brand" href="dashboard.php">Auto<span>Care</span></a>
+            <a class="navbar-brand" href="dashboard.php">Moto<span>Care</span></a>
         </div>
 
         <!-- Right Section: Profile + Logout -->

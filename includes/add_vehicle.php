@@ -4,6 +4,8 @@ session_start();
 
 include "../db/connection.php";
 
+$pageTitle = "Add Vehicle | MotoCare";
+
 if (isset($_SESSION['login_success'])) {
     echo "<script>alert('Login Successful!');</script>";
     unset($_SESSION['login_success']);

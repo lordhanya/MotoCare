@@ -2,7 +2,7 @@
 
 <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasExample">
     <div class="offcanvas-header px-5">
-        <h5 class="offcanvas-title">AUTO<span>CARE</span></h5>
+        <h5 class="offcanvas-title">Moto<span>Care</span></h5>
         <button type="button" class="btn-close d-flex align-items-center justify-content-center border-0" data-bs-dismiss="offcanvas" aria-label="Close"><i class="bi bi-x fs-2 text-white"></i></button>
     </div>
     <div class="offcanvas-body">

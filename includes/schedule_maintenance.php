@@ -2,6 +2,8 @@
 session_start();
 include "../db/connection.php";
 
+$pageTitle = "Schedule Maintenance | MotoCare";
+
 if (!isset($_SESSION['user_id'])) {
     header("Location: login.php");
     exit();

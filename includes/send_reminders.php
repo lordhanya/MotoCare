@@ -21,7 +21,7 @@ use PHPMailer\PHPMailer\Exception;
 require __DIR__ . '/../db/connection.php';
 
 $today = date("Y-m-d");
-echo "=== AutoCare Cron Started at " . date("H:i:s") . " ===\n";
+echo "=== MotoCare Cron Started at " . date("H:i:s") . " ===\n";
 echo "Checking reminders for date: $today\n";
 
 // Fetch pending reminders
@@ -55,8 +55,8 @@ while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
     try {
         // SMTP Configuration
         $mail->isSMTP();
-        $mail->SMTPAuth   = true;
         $mail->Host       = $_ENV['MAIL_HOST'];
+        $mail->SMTPAuth   = true;
         $mail->Username   = $_ENV['MAIL_USERNAME'];
         $mail->Password   = $_ENV['MAIL_PASSWORD'];
         $mail->SMTPSecure = $_ENV['MAIL_ENCRYPTION'];
@@ -69,7 +69,7 @@ while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
         $mail->addAddress($row['user_email'], $fullName);
 
         $mail->isHTML(true);
-        $mail->Subject = "AutoCare Reminder - {$vehicleName}";
+        $mail->Subject = "MotoCare Reminder - {$vehicleName}";
 
         $mail->Body = '
         <html>
@@ -85,7 +85,7 @@ while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
                 }
                 .container { 
                     max-width: 600px; 
-                    margin: 0 auto; 
+                    margin: 0 Moto; 
                     padding: 0; 
                     background: white; 
                     border-radius: 12px; 
@@ -193,7 +193,7 @@ while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
                 <div class="accent-bar"></div>
 
                 <div class="header">
-                    <h1>Auto<span>Care</span></h1>
+                    <h1>Moto<span>Care</span></h1>
                 </div>
 
                 <div class="content">
@@ -206,16 +206,16 @@ while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
                     </div>
 
                     <p class="thank-you">
-                        ✨ <strong>Thank you for using AutoCare!</strong>
+                        ✨ <strong>Thank you for using MotoCare!</strong>
                     </p>
                 </div>
 
                 <div class="footer">
                     <p><strong>Best Regards,</strong></p>
-                    <p>Ashif Rahman<br>Creator, AutoCare</p>
+                    <p>Ashif Rahman<br>Creator, MotoCare</p>
 
                     <div class="footer-branding">
-                        Powered by <span>AutoCare</span> | Vehicle Maintenance Made Simple
+                        Powered by <span>MotoCare</span> | Vehicle Maintenance Made Simple
                     </div>
                 </div>
             </div>
@@ -223,7 +223,7 @@ while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
         </html>
         ';
 
-        $mail->AltBody = "Hello {$fullName},\n\nVehicle: {$vehicleName}\n\n{$row['message']}\n\n— AutoCare";
+        $mail->AltBody = "Hello {$fullName},\n\nVehicle: {$vehicleName}\n\n{$row['message']}\n\n— MotoCare";
 
         // Send email
         $mail->send();
@@ -244,4 +244,4 @@ while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
     $mail->clearAttachments();
 }
 
-echo "\n=== AutoCare Cron Finished at " . date("H:i:s") . " ===\n";
+echo "\n=== MotoCare Cron Finished at " . date("H:i:s") . " ===\n";

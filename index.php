@@ -1,11 +1,12 @@
 <?php
+$pageTitle = "MotoCare - Your Ultimate Vehicle Maintenance App";
 include __DIR__ . "/includes/header.php";
 ?>
 <!-- Navbar -->
 <header>
     <nav class="navbar navbar-expand-lg fixed-top px-5 py-3" data-aos="slide-down" data-aos-duration="1000">
         <div class="container-fluid">
-            <a class="navbar-brand" href="index.php">Auto<span>Care</span></a>
+            <a class="navbar-brand" href="index.php">Moto<span>Care</span></a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>

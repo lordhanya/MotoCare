@@ -12,7 +12,7 @@
         </div>
     </div>
     <div class="footer-bottom text-center mt-3">
-        <p>© 2025 AutoCare | All rights reserved.</p>
+        <p>© 2025 MotoCare | All rights reserved.</p>
         <p>Developed and hosted by <a href="https://arcode.netlify.app/">Md. Ashif Rahman</a></p>
     </div>
 </footer>

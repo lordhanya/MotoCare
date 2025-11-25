@@ -2,6 +2,8 @@
 session_start();
 include __DIR__ . "/../db/connection.php";
 
+$pageTitle = "Dashboard | MotoCare";
+
 if (!isset($_SESSION['user_id'])) {
     header("Location: login.php");
     exit();

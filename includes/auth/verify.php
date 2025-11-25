@@ -1,33 +1,196 @@
 <?php
-session_start();
 require __DIR__ . '/../../db/connection.php';
+require __DIR__ . '/email_helpers.php';
 
-if (!isset($_GET['token']) || empty($_GET['token'])) {
-    die("Invalid verification link.");
+try {
+    if (!isset($_GET['token']) || !isset($_GET['uid'])) {
+        throw new Exception("Invalid verification link.");
+    }
+
+    $token = $_GET['token'];
+    $uid = (int) $_GET['uid'];
+
+    // Fetch user
+    $stmt = $conn->prepare("SELECT id, email, verify_token, is_verified FROM users WHERE id = :id LIMIT 1");
+    $stmt->execute([':id' => $uid]);
+    $user = $stmt->fetch(PDO::FETCH_ASSOC);
+
+    if (!$user) {
+        throw new Exception("User not found.");
+    }
+
+    // Already verified
+    if ((int)$user['is_verified'] === 1) {
+        header("Location: /?verified=already");
+        exit;
+    }
+
+    // Token mismatch or missing
+    if (!$user['verify_token'] || !hash_equals($user['verify_token'], $token)) {
+        throw new Exception("Invalid or expired token.");
+    }
+
+    // Mark as verified and clear token
+    $stmt = $conn->prepare("UPDATE users SET is_verified = 1, verify_token = NULL WHERE id = :id");
+    $stmt->execute([':id' => $uid]);
+
+    // Send welcome email
+    try {
+        $mailer = getMailer();
+        $to = $user['email'];
+        $subject = "Welcome to MotoCare!";
+        $html = '
+    <html>
+    <head>
+        <style>
+            body { 
+                font-family: Arial, sans-serif; 
+                line-height: 1.6; 
+                color: #333; 
+                background: #f5f5f5; 
+                margin: 0; 
+                padding: 20px; 
+            }
+            .container { 
+                max-width: 600px; 
+                margin: 0 auto; 
+                padding: 0; 
+                background: white; 
+                border-radius: 12px; 
+                box-shadow: 0 2px 10px rgba(0,0,0,0.08); 
+                overflow: hidden; 
+            }
+            .accent-bar { 
+                height: 4px; 
+                background: linear-gradient(90deg, #f82900 0%, #ff4520 100%); 
+            }
+            .header { 
+                padding: 30px 30px 20px 30px; 
+                background: #fafafa; 
+                border-bottom: 1px solid #eee; 
+                text-align: center; 
+            }
+            .header h1 { 
+                color: #383838; 
+                margin: 0; 
+                font-size: 2em; 
+                font-weight: bold; 
+            }
+            .header h1 span { 
+                color: #f82900; 
+                border-bottom: 2px solid #f82900; 
+                padding-bottom: 2px; 
+            }
+            .content {
+                display: flex;
+                flex-direction: column;
+                align-items: center;   
+                justify-content: center;
+                padding: 40px 30px;
+                text-align: center; 
 }
+            .success-icon { 
+                width: 80px; 
+                height: 80px; 
+                margin: 0 auto 25px auto; 
+                background: linear-gradient(135deg, #f82900, #ff4520); 
+                border-radius: 50%; 
+                display: flex; 
+                align-items: center; 
+                justify-content: center; 
+                font-size: 40px; 
+                box-shadow: 0 4px 15px rgba(248, 41, 0, 0.3); 
+            }
+            .content h2 { 
+                color: #383838; 
+                font-size: 1.8em; 
+                margin: 0 0 15px 0; 
+                font-weight: bold; 
+            }
+            .content h2 span { 
+                color: #f82900; 
+            }
+            .content p { 
+                font-size: 1.05em; 
+                color: #666; 
+                line-height: 1.8; 
+                margin: 0 0 30px 0; 
+            }
+            .cta-button { 
+                display: inline-block; 
+                padding: 15px 40px; 
+                background: #f82900; 
+                color: white; 
+                text-decoration: none; 
+                border-radius: 8px; 
+                font-weight: bold; 
+                font-size: 1em; 
+                letter-spacing: 0.5px; 
+                transition: all 0.3s ease; 
+            }
+            .cta-button:hover { 
+                background: #ff4520; 
+            }
+            .footer { 
+                padding: 25px 30px; 
+                background: #fafafa; 
+                border-top: 1px solid #eee; 
+                text-align: center; 
+                font-size: 0.9em; 
+                color: #999; 
+            }
+            .footer span { 
+                color: #f82900; 
+                font-weight: bold; 
+            }
+        </style>
+    </head>
+    <body>
+        <div class="container">
+            <div class="accent-bar"></div>
+            
+            <div class="header">
+                <h1>Moto<span>Care</span></h1>
+            </div>
+            
+            <div class="content">
+                <div class="success-icon">
+                    <svg width="40" height="40" viewBox="0 0 40 40">
+                      <circle cx="20" cy="20" r="18" fill="white"/>
+                      <path d="M12 20l6 6 10-14" stroke="#f82900" stroke-width="2" fill="none"/>
+                    </svg>
+                </div>
 
-$token = $_GET['token'];
+                
+                <h2>Welcome to Moto<span>Care</span></h2>
+                
+                <p>
+                    🎉 Your account has been successfully verified!<br>
+                    You can now log in and start managing your vehicle maintenance with ease.
+                </p>
+                
+                <a href="https://autocare.onrender.com/includes/login.php" class="cta-button">
+                    Login to Your Account
+                </a>
+            </div>
+            
+            <div class="footer">
+                Powered by Moto<span>Care</span> | Vehicle Maintenance Made Simple
+            </div>
+        </div>
+    </body>
+    </html>
+';
+        $mailer->send($to, $subject, $html, "Welcome to MotoCare. Your account is verified.");
+    } catch (Exception $e) {
+        log_error("Welcome email failed for user {$uid}: " . $e->getMessage());
+    }
 
-$stmt = $conn->prepare("SELECT id, is_verified FROM users WHERE verify_token = :token LIMIT 1");
-$stmt->bindParam(':token', $token);
-$stmt->execute();
-
-$user = $stmt->fetch(PDO::FETCH_ASSOC);
-
-if (!$user) {
-    die("Invalid or expired token.");
-}
-
-if ($user['is_verified'] == 1) {
-    echo "<script>alert('Your email is already verified.'); 
-          window.location='../login.php';</script>";
+    // Redirect to success
+    header("Location: ../login.php?verified=success");
+    exit;
+} catch (Exception $ex) {
+    log_error("verify.php error: " . $ex->getMessage());
+    header("Location: resend_verificaton.php/?verified=error&message=" . urlencode($ex->getMessage()));
     exit;
 }
-
-$update = $conn->prepare("UPDATE users SET is_verified = 1, verify_token = NULL WHERE id = :id");
-$update->bindParam(':id', $user['id']);
-$update->execute();
-
-echo "<script>alert('Email verified successfully! You can now log in.'); 
-      window.location='../login.php';</script>";
-exit;

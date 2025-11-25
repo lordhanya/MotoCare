@@ -2,6 +2,22 @@
 session_start();
 include __DIR__ . "/../db/connection.php";
 
+$pageTitle = "Login | MotoCare";
+
+$verifiedMessage = '';
+$alertType = '';
+
+if (isset($_GET['verified'])) {
+    if ($_GET['verified'] === 'success') {
+        $verifiedMessage = "Your email has been successfully verified!";
+        $alertType = 'success';
+    } elseif ($_GET['verified'] === 'error') {
+        $verifiedMessage = "Your email verification failed!";
+        $alertType = 'danger';
+    }
+}
+
+
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
     $_email = trim($_POST['email']);
     $_password = trim($_POST['password']);
@@ -59,33 +75,27 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 }
 
 ?>
-
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login | AutoCare</title>
-    <link rel="icon" type="image/png" href="../assets/images/AutoCare_logo.png">
-    <link rel="stylesheet" href="../assets/style.css">
-    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
-</head>
-
-<body></body>
-
 <section class="loginForm-section d-flex align-items-center justify-content-center">
     <div class="loginForm-container d-flex align-items-center justify-content-center">
         <form class="loginForm" action="login.php" method="POST">
             <p class="title">Log in </p>
             <p class="message">Login now and get full access to our app. </p>
+            <div class="info-box">
+                <i class="bi bi-info-circle-fill"></i>
+                <div class="info-box-text">
+                    Check your spam folder if you don't receive the email within a few minutes.
+                </div>
+            </div>
+            <?php if ($alertType === 'success'): ?>
+                <div class="alert bg-dark alert-success text-success border-success" style="margin-bottom:2rem;">
+                    <i class="bi bi-patch-check"></i> <?php echo htmlspecialchars($verifiedMessage); ?>
+                </div>
+            <?php elseif ($alertType === 'danger'): ?>
+                <div class="alert bg-dark alert-danger text-danger border-danger" style="margin-bottom:2rem;">
+                    <i class="bi bi-exclamation-triangle-fill"></i> <?php echo htmlspecialchars($verifiedMessage); ?>
+                </div>
+            <?php endif; ?>
+
             <label>
                 <input class="input" name="email" type="email" placeholder="" required>
                 <span>Email</span>
