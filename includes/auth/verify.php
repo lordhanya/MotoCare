@@ -46,8 +46,8 @@ try {
             body { 
                 font-family: Arial, sans-serif; 
                 line-height: 1.6; 
-                color: #333; 
-                background: #f5f5f5; 
+                color: #ffffff; 
+                background: #000000; 
                 margin: 0; 
                 padding: 20px; 
             }
@@ -66,12 +66,12 @@ try {
             }
             .header { 
                 padding: 30px 30px 20px 30px; 
-                background: #fafafa; 
-                border-bottom: 1px solid #eee; 
+                background: #2a2828; 
+                border-bottom: 1px solid #2b2b2b; 
                 text-align: center; 
             }
             .header h1 { 
-                color: #383838; 
+                color: #ffffff; 
                 margin: 0; 
                 font-size: 2em; 
                 font-weight: bold; 
@@ -79,27 +79,10 @@ try {
             .header h1 span { 
                 color: #f82900; 
                 border-bottom: 2px solid #f82900; 
-                padding-bottom: 2px; 
             }
             .content {
-                display: flex;
-                flex-direction: column;
-                align-items: center;   
-                justify-content: center;
                 padding: 40px 30px;
                 text-align: center; 
-}
-            .success-icon { 
-                width: 80px; 
-                height: 80px; 
-                margin: 0 auto 25px auto; 
-                background: linear-gradient(135deg, #f82900, #ff4520); 
-                border-radius: 50%; 
-                display: flex; 
-                align-items: center; 
-                justify-content: center; 
-                font-size: 40px; 
-                box-shadow: 0 4px 15px rgba(248, 41, 0, 0.3); 
             }
             .content h2 { 
                 color: #383838; 
@@ -112,7 +95,7 @@ try {
             }
             .content p { 
                 font-size: 1.05em; 
-                color: #666; 
+                color: #b0b0b0; 
                 line-height: 1.8; 
                 margin: 0 0 30px 0; 
             }
@@ -133,11 +116,11 @@ try {
             }
             .footer { 
                 padding: 25px 30px; 
-                background: #fafafa; 
+                background: #2a2828; 
                 border-top: 1px solid #eee; 
                 text-align: center; 
                 font-size: 0.9em; 
-                color: #999; 
+                color: #b0b0b0; 
             }
             .footer span { 
                 color: #f82900; 
@@ -154,13 +137,6 @@ try {
             </div>
             
             <div class="content">
-                <div class="success-icon">
-                    <svg width="40" height="40" viewBox="0 0 40 40">
-                      <circle cx="20" cy="20" r="18" fill="white"/>
-                      <path d="M12 20l6 6 10-14" stroke="#f82900" stroke-width="2" fill="none"/>
-                    </svg>
-                </div>
-
                 
                 <h2>Welcome to Moto<span>Care</span></h2>
                 
@@ -175,7 +151,12 @@ try {
             </div>
             
             <div class="footer">
-                Powered by Moto<span>Care</span> | Vehicle Maintenance Made Simple
+                <p style="margin: 0; font-size: 13px; color: #b0b0b0;">
+                    © 2025 MotoCare. All rights reserved.
+                </p>
+                 <p style="margin: 0; font-size: 13px; color: #b0b0b0;">
+                    Powered by Moto<span>Care</span> | Vehicle Maintenance Made Simple
+                 </p>
             </div>
         </div>
     </body>

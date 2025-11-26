@@ -1275,7 +1275,7 @@ textarea.form-control {
   display: flex;
   flex-direction: column;
   gap: 1em;
-  max-width: 50vh;
+  max-width: 60vh;
   padding: 2em;
   border-radius: 20px;
   position: relative;
@@ -1316,6 +1316,10 @@ textarea.form-control {
   border-radius: 50%;
   left: 0px;
   background-color: var(--accent-color);
+}
+
+.loginForm .input-wrapper{
+  position: relative;
 }
 
 .info-box {
@@ -1391,7 +1395,7 @@ textarea.form-control {
 }
 
 .loginForm label .input:placeholder-shown + span {
-  top: 12.5px;
+  top: 15px;
   font-size: 0.9em;
 }
 
@@ -1422,8 +1426,10 @@ textarea.form-control {
   background: var(--accent-hover);
 }
 
+
+
 /* ========================================
-   ADD VEHICLE - MODERN REDESIGN
+   ADD VEHICLE 
    ======================================== */
 
 /* ========================================

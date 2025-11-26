@@ -74,6 +74,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     }
 }
 
+include __DIR__ . '/header.php';
 ?>
 <section class="loginForm-section d-flex align-items-center justify-content-center">
     <div class="loginForm-container d-flex align-items-center justify-content-center">
@@ -102,10 +103,11 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
             </label>
 
             <label>
-                <input class="input" name="password" type="password" placeholder="" required>
+                <input class="input" name="password" type="password" id="password" placeholder="" required>
                 <span>Password</span>
             </label>
             <button class="submit" type="submit">Submit</button>
+            <a href="/includes/auth/forgot_password.php" class="text-danger text-center">Forgot Password?</a>
             <p class="signup">Don't have an account? <a href="register.php">Create one now!</a></p>
             <p class="resend_verification mb-3">
                 Didn't receive verification email?
@@ -114,5 +116,6 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         </form>
     </div>
 </section>
+
 <?php include __DIR__ . "/spinner.php"; ?>
 <?php include __DIR__ . "/footer.php"; ?>

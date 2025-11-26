@@ -159,6 +159,9 @@ try {
                             <p style='margin: 0; font-size: 13px; color: #b0b0b0;'>
                                 © 2025 MotoCare. All rights reserved.
                             </p>
+                            <p style='margin: 0; font-size: 13px; color: #999;'>
+                                Powered by <span style='color: #f82900; font-weight: bold;'>MotoCare</span> | Vehicle Maintenance Made Simple
+                            </p>
                         </td>
                     </tr>
                     
