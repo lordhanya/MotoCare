@@ -1,6 +1,5 @@
 <?php
 session_start();
-include __DIR__ . "/header.php";
 include __DIR__ . "/../db/connection.php";
 
 function safeHtml($value) {
@@ -97,7 +96,7 @@ $stmt = $conn->prepare("SELECT * FROM vehicles WHERE user_id = :user_id");
 $stmt->bindParam(':user_id', $user_id, PDO::PARAM_INT);
 $stmt->execute();
 $vehicles = $stmt->fetchAll(PDO::FETCH_ASSOC);
-
+include __DIR__ . "/header.php";
 include __DIR__ . "/sidebar.php";
 include __DIR__ . "/dashNav.php";
 ?>

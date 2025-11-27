@@ -20,7 +20,7 @@ try {
     if (!$rawToken || !$uid) throw new Exception("Invalid link.");
 
     // Fetch stored token hash
-    $stmt = $conn->prepare("SELECT id, email, reset_token, reset_token_created_at FROM users WHERE id = :id LIMIT 1");
+    $stmt = $conn->prepare("SELECT id, email, first_name, reset_token, reset_token_created_at FROM users WHERE id = :id LIMIT 1");
     $stmt->execute([':id' => $uid]);
     $user = $stmt->fetch(PDO::FETCH_ASSOC);
     if (!$user) throw new Exception("User not found.");
@@ -108,7 +108,7 @@ try {
                                 </div>
                                 
                                 <p style="margin: 0 0 20px 0; font-size: 18px; font-weight: 600; color: #ffffff;">
-                                    Hello <span style="color: #f82900;">' . htmlspecialchars($user['first_name']) . '</span>,
+                                    Hello <span style="color: #f82900;">' . htmlspecialchars($user['first_name'] ?? 'User') . '</span>,
                                 </p>
                                 
                                 <h2 style="margin: 0 0 20px 0; font-size: 1.8em; font-weight: bold; color: #ffffff;">
