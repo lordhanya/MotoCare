@@ -84,8 +84,8 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
             $insert_reminder->bindParam(':user_email', $email, PDO::PARAM_STR);
             $insert_reminder->bindParam(':vehicle_id', $vehicle_id, PDO::PARAM_INT);
             $insert_reminder->bindParam(':vehicle_name', $vehicle_name, PDO::PARAM_STR);
-            $insert_reminder->bindParam(':first_name', $user['first_name'], PDO::PARAM_STR);
-            $insert_reminder->bindParam(':last_name', $user['last_name'], PDO::PARAM_STR);
+            $insert_reminder->bindParam(':first_name', $first_name, PDO::PARAM_STR);
+            $insert_reminder->bindParam(':last_name', $last_name, PDO::PARAM_STR);
             $insert_reminder->bindParam(':reminder_date', $reminder_date, PDO::PARAM_STR);
             $insert_reminder->bindParam(':message', $msg, PDO::PARAM_STR);
             $insert_reminder->execute();

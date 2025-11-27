@@ -3,6 +3,10 @@ session_start();
 include __DIR__ . "/header.php";
 include __DIR__ . "/../db/connection.php";
 
+function safeHtml($value) {
+    return $value === null ? '' : htmlspecialchars($value);
+}
+
 $pageTitle = "Your Vehicles | MotoCare";
 
 if (!isset($_SESSION['user_id'])) {
@@ -18,8 +22,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['vehicle_id'])) {
     $vehicle_id = (int)$_POST['vehicle_id'];
     $action = $_POST['action'] ?? 'update';
 
-    if (isset($_POST['vehicle_id']) && isset($_POST['vehicle_name']) && !empty($_POST['vehicle_name'])) {
-
+    if ($action === 'update' && isset($_POST['vehicle_name']) && !empty($_POST['vehicle_name'])) {
 
         $vehicle_id = (int)$_POST['vehicle_id'];
         $vehicle_name = trim($_POST['vehicle_name']);
@@ -139,7 +142,7 @@ include __DIR__ . "/dashNav.php";
                                 <p>Model: <?php echo htmlspecialchars($vehicle['model']); ?></p>
                                 <p>Type: <?php echo htmlspecialchars($vehicle['vehicle_type']); ?></p>
                                 <p>Registration No: <?php echo htmlspecialchars($vehicle['registration_no']); ?></p>
-                                <p>Current KM: <?php echo htmlspecialchars($vehicle['current_km']); ?></p>
+                                <p>Current KM: <?php echo $vehicle['current_km']; ?></p>
 
                                 <div class="d-flex align-items-center justify-content-center gap-5 mt-3">
                                     <button type="button" class="btn detailsBtn d-flex align-items-center justify-content-center gap-2" data-bs-toggle="modal" data-bs-target="#detailsModal<?php echo $vehicle['id']; ?>">
@@ -173,7 +176,10 @@ include __DIR__ . "/dashNav.php";
                                         <li><strong>Registration No:</strong> <?php echo htmlspecialchars($vehicle['registration_no']); ?></li>
                                         <li><strong>Current KM:</strong> <?php echo htmlspecialchars($vehicle['current_km']); ?></li>
                                         <li><strong>Purchase Date:</strong> <?php echo htmlspecialchars($vehicle['purchase_date']); ?></li>
-                                        <li><strong>Last Service Date:</strong> <?php echo htmlspecialchars($vehicle['last_service_date']); ?></li>
+                                        <?php $last_service_date = $vehicle['last_service_date'] ?? null;
+                                        echo '<li><strong>Last Service Date:</strong> ' . ($last_service_date === null ? 'NULL' : htmlspecialchars($last_service_date)) . '</li>'; ?>
+                                        <?php $last_service_km = $vehicle['last_service_km'] ?? null;
+                                        echo '<li><strong>Last Service KM:</strong> ' . ($last_service_km === null ? 'NULL' : htmlspecialchars($last_service_km)) . '</li>'; ?>
                                         <li><strong>Next Service Date:</strong> <?php echo htmlspecialchars($vehicle['next_service_date']); ?></li>
                                         <li><strong>Next Service KM:</strong> <?php echo htmlspecialchars($vehicle['next_service_km']); ?></li>
                                     </ul>
@@ -232,12 +238,12 @@ include __DIR__ . "/dashNav.php";
 
                                         <div class="form-group mb-3">
                                             <label for="last_service_date<?php echo $vehicle['id']; ?>" class="form-label">Last Service Date (if any)</label>
-                                            <input type="date" class="form-control" id="last_service_date<?php echo $vehicle['id']; ?>" name="last_service_date" value="<?php echo htmlspecialchars($vehicle['last_service_date']); ?>">
+                                            <input type="date" class="form-control" id="last_service_date<?php echo $vehicle['id']; ?>" name="last_service_date" value="<?php echo safeHtml($vehicle['last_service_date']); ?>">
                                         </div>
 
                                         <div class="form-group mb-3">
                                             <label for="last_service_km<?php echo $vehicle['id']; ?>" class="form-label">Odometer at Last Service, if any (KM)</label>
-                                            <input type="number" class="form-control" id="last_service_km<?php echo $vehicle['id']; ?>" name="last_service_km" value="<?php echo htmlspecialchars($vehicle['last_service_km']); ?>">
+                                            <input type="number" class="form-control" id="last_service_km<?php echo $vehicle['id']; ?>" name="last_service_km" value="<?php echo safeHtml($vehicle['last_service_km']); ?>">
                                         </div>
 
                                         <div class="form-group mb-3">
