@@ -51,7 +51,7 @@ foreach ($reminders as $row) {
 
     // Build HTML body
 
-    $html = '
+    $html = <<<HTML
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -145,7 +145,8 @@ foreach ($reminders as $row) {
         </tr>
     </table>
 </body>
-</html>';
+</html>
+HTML;
 
     try {
         // Send through Resend
