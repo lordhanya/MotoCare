@@ -3,6 +3,8 @@
 require __DIR__ . '/../../db/connection.php';
 require __DIR__ . '/email_helpers.php';
 
+date_default_timezone_set('Asia/Kolkata');
+
 $error = null;
 $success = null;
 $showForm = false;
@@ -67,7 +69,8 @@ try {
         // Optionally: send a confirmation email
         try {
             $mailer = getMailer();
-            $html = '
+            $html =
+            '
     <!DOCTYPE html>
     <html lang="en">
     <head>
@@ -108,7 +111,7 @@ try {
                                 </div>
                                 
                                 <p style="margin: 0 0 20px 0; font-size: 18px; font-weight: 600; color: #ffffff;">
-                                    Hello <span style="color: #f82900;">' . htmlspecialchars($user['first_name'] ?? 'User') . '</span>,
+                                    Hello <span style="color: #f82900;">'. htmlspecialchars($user['first_name'] ?? 'User') .'</span>,
                                 </p>
                                 
                                 <h2 style="margin: 0 0 20px 0; font-size: 1.8em; font-weight: bold; color: #ffffff;">
@@ -187,7 +190,7 @@ try {
         
     </body>
     </html>
-            ';
+    ';
             $mailer->send($user['email'], "MotoCare: Password changed", $html, "Your MotoCare password was changed.");
         } catch (Exception $e) {
             log_error("Reset password: confirmation email failed for {$uid}: " . $e->getMessage());
