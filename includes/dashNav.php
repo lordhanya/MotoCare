@@ -1,13 +1,5 @@
 <?php
-session_start();
-
 include __DIR__ . "/../db/connection.php";
-
-
-if (!isset($_SESSION['user_id'])) {
-    header("Location: login.php");
-    exit();
-}
 
 $stmt = $conn->prepare("SELECT * from users WHERE id=:user_id");
 $stmt->bindParam(':user_id', $_SESSION['user_id'], PDO::PARAM_INT);
