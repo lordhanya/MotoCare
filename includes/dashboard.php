@@ -20,6 +20,14 @@ $stmt->bindParam(':user_id', $user_id, PDO::PARAM_INT);
 $stmt->execute();
 $user = $stmt->fetch(PDO::FETCH_ASSOC);
 
+$imgSrc = $user['profile_image'];
+
+if (empty($imgSrc)) {
+    $imgSrc = '../assets/images/default.jpg';
+} else {
+    $imgSrc = '../assets/images/' . $imgSrc; // e.g. p1.jpg
+}
+
 if ($user) {
     $_SESSION['first_name'] = $user['first_name'];
     $_SESSION['last_name'] = $user['last_name'];
@@ -64,7 +72,7 @@ include __DIR__ . "/sidebar.php";
             <div class="row align-items-center">
                 <div class="col-auto">
                     <div class="user-avatar">
-                        <i class="bi bi-person-fill"></i>
+                        <img src="<?php echo htmlspecialchars($imgSrc); ?>" alt="Profile picture" class="rounded-circle" width="120">
                     </div>
                 </div>
                 <div class="col">
@@ -81,7 +89,7 @@ include __DIR__ . "/sidebar.php";
                             <?= isset($_SESSION['email']) ? htmlspecialchars($_SESSION['email']) : 'Guest'; ?>
                         </div>
                         <a class="profile-link" href="profile.php">
-                            View Profile <i class="bi bi-arrow-right"></i>
+                            View/Edit Profile <i class="bi bi-arrow-right"></i>
                         </a>
                     </div>
                 </div>

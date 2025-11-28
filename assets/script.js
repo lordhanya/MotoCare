@@ -315,5 +315,217 @@ function debounce(func, wait) {
   };
 }
 
+// ========================================
+// PROFILE PICTURE SELECTION - JAVASCRIPT
+// ========================================
 
+document.addEventListener("DOMContentLoaded", function () {
+  // ========================================
+  // ELEMENTS
+  // ========================================
+  const fileInput = document.getElementById("fileInput");
+  const fileName = document.getElementById("fileName");
+  const clearBtn = document.getElementById("clearBtn");
+  const profileForm = document.getElementById("profileForm");
+  const previewContainer = document.getElementById("previewContainer");
+  const imagePreview = document.getElementById("imagePreview");
+  const removePreview = document.getElementById("removePreview");
+  const avatarOptions = document.querySelectorAll(
+    '.avatar-option input[type="radio"]'
+  );
+  const avatarGrid = document.getElementById("avatarGrid");
 
+  // ========================================
+  // FILE INPUT HANDLER
+  // ========================================
+  fileInput.addEventListener("change", function (e) {
+    const file = e.target.files[0];
+
+    if (file) {
+      // Update file name display
+      fileName.textContent = file.name;
+
+      // Show image preview
+      const reader = new FileReader();
+      reader.onload = function (e) {
+        imagePreview.src = e.target.result;
+        previewContainer.style.display = "block";
+      };
+      reader.readAsDataURL(file);
+
+      // Deselect all avatars when file is uploaded
+      avatarOptions.forEach((radio) => {
+        radio.checked = false;
+      });
+    }
+  });
+
+  // ========================================
+  // CLEAR BUTTON HANDLER
+  // ========================================
+  clearBtn.addEventListener("click", function () {
+    // Reset form
+    profileForm.reset();
+
+    // Reset file name
+    fileName.textContent = "Choose an image file";
+
+    // Hide preview
+    previewContainer.style.display = "none";
+    imagePreview.src = "";
+  });
+
+  // ========================================
+  // REMOVE PREVIEW BUTTON
+  // ========================================
+  removePreview.addEventListener("click", function () {
+    // Clear file input
+    fileInput.value = "";
+
+    // Reset file name
+    fileName.textContent = "Choose an image file";
+
+    // Hide preview
+    previewContainer.style.display = "none";
+    imagePreview.src = "";
+  });
+
+  // ========================================
+  // AVATAR SELECTION HANDLER
+  // ========================================
+  avatarOptions.forEach((radio) => {
+    radio.addEventListener("change", function () {
+      if (this.checked) {
+        // Clear file input when avatar is selected
+        fileInput.value = "";
+        fileName.textContent = "Choose an image file";
+
+        // Hide preview
+        previewContainer.style.display = "none";
+        imagePreview.src = "";
+      }
+    });
+  });
+
+  // ========================================
+  // AVATAR CLICK ANIMATION
+  // ========================================
+  avatarGrid.addEventListener("click", function (e) {
+    const avatarOption = e.target.closest(".avatar-option");
+    if (avatarOption) {
+      const radio = avatarOption.querySelector('input[type="radio"]');
+      if (radio) {
+        // Trigger radio button
+        radio.checked = true;
+
+        // Dispatch change event
+        const event = new Event("change", { bubbles: true });
+        radio.dispatchEvent(event);
+
+        // Add animation
+        const wrapper = avatarOption.querySelector(".avatar-wrapper");
+        wrapper.style.animation = "none";
+        setTimeout(() => {
+          wrapper.style.animation = "selectPulse 0.3s ease";
+        }, 10);
+      }
+    }
+  });
+
+  // ========================================
+  // FORM VALIDATION
+  // ========================================
+  profileForm.addEventListener("submit", function (e) {
+    const fileSelected = fileInput.files.length > 0;
+    const avatarSelected = Array.from(avatarOptions).some(
+      (radio) => radio.checked
+    );
+
+    if (!fileSelected && !avatarSelected) {
+      e.preventDefault();
+      alert("Please select a profile picture or choose a default avatar.");
+      return false;
+    }
+  });
+
+  // ========================================
+  // DRAG AND DROP SUPPORT
+  // ========================================
+  const fileLabel = document.querySelector(".file-label");
+
+  fileLabel.addEventListener("dragover", function (e) {
+    e.preventDefault();
+    this.style.borderColor = "var(--accent-color)";
+    this.style.background = "var(--bg-card-hover)";
+  });
+
+  fileLabel.addEventListener("dragleave", function (e) {
+    e.preventDefault();
+    this.style.borderColor = "var(--border-color)";
+    this.style.background = "var(--bg-secondary)";
+  });
+
+  fileLabel.addEventListener("drop", function (e) {
+    e.preventDefault();
+    this.style.borderColor = "var(--border-color)";
+    this.style.background = "var(--bg-secondary)";
+
+    const files = e.dataTransfer.files;
+    if (files.length > 0) {
+      fileInput.files = files;
+
+      // Trigger change event
+      const event = new Event("change", { bubbles: true });
+      fileInput.dispatchEvent(event);
+    }
+  });
+
+  // ========================================
+  // FILE TYPE VALIDATION
+  // ========================================
+  fileInput.addEventListener("change", function (e) {
+    const file = e.target.files[0];
+
+    if (file) {
+      // Check file type
+      const validTypes = [
+        "image/jpeg",
+        "image/jpg",
+        "image/png",
+        "image/gif",
+        "image/webp",
+      ];
+      if (!validTypes.includes(file.type)) {
+        alert("Please select a valid image file (JPEG, PNG, GIF, or WebP)");
+        fileInput.value = "";
+        fileName.textContent = "Choose an image file";
+        return;
+      }
+
+      // Check file size (max 5MB)
+      const maxSize = 5 * 1024 * 1024; // 5MB in bytes
+      if (file.size > maxSize) {
+        alert("File size must be less than 5MB");
+        fileInput.value = "";
+        fileName.textContent = "Choose an image file";
+        return;
+      }
+    }
+  });
+});
+
+// ========================================
+// CSS ANIMATION (Add to style if needed)
+// ========================================
+const style = document.createElement("style");
+style.textContent = `
+    @keyframes selectPulse {
+        0%, 100% {
+            transform: scale(1);
+        }
+        50% {
+            transform: scale(1.05);
+        }
+    }
+`;
+document.head.appendChild(style);
