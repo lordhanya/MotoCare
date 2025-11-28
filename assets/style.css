@@ -1318,7 +1318,7 @@ textarea.form-control {
   background-color: var(--accent-color);
 }
 
-.loginForm .input-wrapper{
+.loginForm .input-wrapper {
   position: relative;
 }
 
@@ -1425,8 +1425,6 @@ textarea.form-control {
 .loginForm .submit:hover {
   background: var(--accent-hover);
 }
-
-
 
 /* ========================================
    ADD VEHICLE 
@@ -2421,7 +2419,7 @@ textarea.form-control {
     margin-top: 3rem;
   }
 
-  .user-avatar{
+  .user-avatar {
     margin-bottom: 1em;
   }
 
@@ -6577,7 +6575,7 @@ textarea.form-control {
    PROFILE FORM MODAL
    ======================================== */
 
-#phpModal .profile-form-container {
+#pfpModal .profile-form-container {
   width: 100%;
   max-width: 800px;
   background: var(--bg-card);
@@ -6587,11 +6585,11 @@ textarea.form-control {
   box-shadow: 0 10px 40px rgba(0, 0, 0, 0.8);
 }
 
-#phpModal .profile-form-container .form-section {
+#pfpModal .profile-form-container .form-section {
   margin-bottom: 2rem;
 }
 
-#phpModal .profile-form-container .form-label {
+#pfpModal .profile-form-container .form-label {
   display: flex;
   align-items: center;
   gap: 0.5rem;
@@ -6603,7 +6601,7 @@ textarea.form-control {
   letter-spacing: 0.5px;
 }
 
-#phpModal .profile-form-container .form-label i {
+#pfpModal .profile-form-container .form-label i {
   color: var(--accent-color);
   font-size: 1.2rem;
 }
@@ -6612,18 +6610,18 @@ textarea.form-control {
    FILE UPLOAD
    ======================================== */
 
-.upload-wrapper {
+#pfpModal .upload-wrapper {
   display: flex;
   gap: 1rem;
   align-items: stretch;
 }
 
-.file-input-wrapper {
+#pfpModal .file-input-wrapper {
   flex: 1;
   position: relative;
 }
 
-.file-input-wrapper input[type="file"] {
+#pfpModal .file-input-wrapper input[type="file"] {
   position: absolute;
   width: 0.1px;
   height: 0.1px;
@@ -6632,7 +6630,7 @@ textarea.form-control {
   z-index: -1;
 }
 
-.file-label {
+#pfpModal .file-label {
   display: flex;
   align-items: center;
   gap: 0.75rem;
@@ -6647,18 +6645,18 @@ textarea.form-control {
   font-weight: 500;
 }
 
-.file-label:hover {
+#pfpModal .file-label:hover {
   border-color: var(--accent-color);
   background: var(--bg-card-hover);
   color: var(--text-primary);
 }
 
-.file-label i {
+#pfpModal .file-label i {
   color: var(--accent-color);
   font-size: 1.5rem;
 }
 
-.btn-clear {
+#pfpModal .btn-clear {
   background: transparent;
   border: 2px solid var(--border-color);
   color: var(--text-secondary);
@@ -6673,13 +6671,13 @@ textarea.form-control {
   white-space: nowrap;
 }
 
-.btn-clear:hover {
+#pfpModal .btn-clear:hover {
   border-color: var(--accent-color);
   color: var(--text-primary);
   background: rgba(248, 41, 0, 0.05);
 }
 
-.btn-clear i {
+#pfpModal .btn-clear i {
   font-size: 1.2rem;
 }
 
@@ -6687,7 +6685,7 @@ textarea.form-control {
    IMAGE PREVIEW
    ======================================== */
 
-.preview-container {
+#pfpModal .preview-container {
   margin-top: 1rem;
   position: relative;
   width: 150px;
@@ -6698,13 +6696,13 @@ textarea.form-control {
   background: var(--bg-secondary);
 }
 
-.preview-container img {
+#pfpModal .preview-container img {
   width: 100%;
   height: 100%;
   object-fit: cover;
 }
 
-.btn-remove-preview {
+#pfpModal .btn-remove-preview {
   position: absolute;
   top: 0.5rem;
   right: 0.5rem;
@@ -6722,12 +6720,12 @@ textarea.form-control {
   box-shadow: 0 2px 8px rgba(248, 41, 0, 0.4);
 }
 
-.btn-remove-preview:hover {
+#pfpModal .btn-remove-preview:hover {
   background: var(--accent-hover);
   transform: scale(1.1);
 }
 
-.btn-remove-preview i {
+#pfpModal .btn-remove-preview i {
   font-size: 1rem;
 }
 
@@ -6735,7 +6733,7 @@ textarea.form-control {
    DIVIDER
    ======================================== */
 
-.divider {
+#pfpModal .divider {
   display: flex;
   align-items: center;
   text-align: center;
@@ -6743,14 +6741,14 @@ textarea.form-control {
   position: relative;
 }
 
-.divider::before,
-.divider::after {
-  content: '';
+#pfpModal .divider::before,
+#pfpModal .divider::after {
+  content: "";
   flex: 1;
   border-bottom: 2px solid var(--border-color);
 }
 
-.divider span {
+#pfpModal .divider span {
   padding: 0 1rem;
   color: var(--text-secondary);
   font-weight: 600;
@@ -6762,24 +6760,24 @@ textarea.form-control {
    AVATAR GRID
    ======================================== */
 
-.avatar-grid {
+#pfpModal .avatar-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
   gap: 1rem;
 }
 
-.avatar-option {
+#pfpModal .avatar-option {
   cursor: pointer;
   position: relative;
 }
 
-.avatar-option input[type="radio"] {
+#pfpModal .avatar-option input[type="radio"] {
   position: absolute;
   opacity: 0;
   pointer-events: none;
 }
 
-.avatar-wrapper {
+#pfpModal .avatar-wrapper {
   position: relative;
   width: 100%;
   aspect-ratio: 1;
@@ -6790,14 +6788,14 @@ textarea.form-control {
   background: var(--bg-secondary);
 }
 
-.avatar-wrapper img {
+#pfpModal .avatar-wrapper img {
   width: 100%;
   height: 100%;
   object-fit: cover;
   display: block;
 }
 
-.avatar-check {
+#pfpModal .avatar-check {
   position: absolute;
   top: 0;
   right: 0;
@@ -6811,23 +6809,27 @@ textarea.form-control {
   transition: opacity 0.3s ease;
 }
 
-.avatar-check i {
+#pfpModal .avatar-check i {
   color: white;
   font-size: 2rem;
 }
 
-.avatar-option:hover .avatar-wrapper {
+#pfpModal .avatar-option:hover .avatar-wrapper {
   border-color: var(--accent-color);
   transform: scale(1.05);
   box-shadow: 0 4px 15px rgba(248, 41, 0, 0.3);
 }
 
-.avatar-option input[type="radio"]:checked + .avatar-wrapper {
+#pfpModal .avatar-option input[type="radio"]:checked + .avatar-wrapper {
   border-color: var(--accent-color);
   box-shadow: 0 0 0 3px rgba(248, 41, 0, 0.2);
 }
 
-.avatar-option input[type="radio"]:checked + .avatar-wrapper .avatar-check {
+#pfpModal
+  .avatar-option
+  input[type="radio"]:checked
+  + .avatar-wrapper
+  .avatar-check {
   opacity: 1;
 }
 
@@ -6835,13 +6837,13 @@ textarea.form-control {
    FORM ACTIONS
    ======================================== */
 
-.form-actions {
+#pfpModal .form-actions {
   margin-top: 2rem;
   padding-top: 2rem;
   border-top: 2px solid var(--border-color);
 }
 
-.btn-submit {
+#pfpModal .btn-submit {
   width: 100%;
   background: var(--accent-color);
   color: white;
@@ -6876,59 +6878,54 @@ textarea.form-control {
   font-size: 1.2rem;
 }
 
-/* #pfpModal .pfpClose i{
-  font-size: 1.2rem;
-  padding: 0;
-} */
 /* ========================================
    RESPONSIVE
    ======================================== */
 
 @media (max-width: 768px) {
-  .profile-form-container {
+  #pfpModal .profile-form-container {
     padding: 2rem 1.5rem;
   }
 
-  .upload-wrapper {
+  #pfpModal .upload-wrapper {
     flex-direction: column;
   }
 
-  .avatar-grid {
+  #pfpModal .avatar-grid {
     grid-template-columns: repeat(auto-fill, minmax(70px, 1fr));
     gap: 0.75rem;
   }
 }
 
 @media (max-width: 576px) {
-
-  .profile-form-container {
+  #pfpModal .profile-form-container {
     padding: 1.5rem 1rem;
     border-radius: 16px;
   }
 
-  .form-label {
+  #pfpModal .form-label {
     font-size: 0.9rem;
   }
 
-  .file-label {
+  #pfpModal .file-label {
     padding: 0.875rem 1rem;
     font-size: 0.85rem;
   }
 
-  .btn-clear {
+  #pfpModal .btn-clear {
     padding: 0.875rem 1rem;
   }
 
-  .avatar-grid {
+  #pfpModal .avatar-grid {
     grid-template-columns: repeat(auto-fill, minmax(60px, 1fr));
     gap: 0.5rem;
   }
 
-  .avatar-check i {
+  #pfpModal .avatar-check i {
     font-size: 1.5rem;
   }
 
-  .btn-submit {
+  #pfpModal .btn-submit {
     padding: 0.875rem 1.5rem;
     font-size: 0.95rem;
   }
