@@ -9,6 +9,8 @@ if (!isset($_SESSION['user_id'])) {
     exit();
 }
 
+$user_id = $_SESSION['user_id'];
+
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Edit profile info
     if (isset($_POST['action']) && $_POST['action'] === 'edit') {
@@ -50,7 +52,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 }
 
-$user_id = $_SESSION['user_id'];
 $stmt = $conn->prepare("SELECT * FROM users WHERE id = :user_id");
 $stmt->bindParam(':user_id', $user_id, PDO::PARAM_INT);
 $stmt->execute();
@@ -104,7 +105,7 @@ include __DIR__ . "/sidebar.php";
 
                     <!-- Modal -->
                     <div class="modal fade" id="pfpModal" tabindex="-1" aria-labelledby="pfpModalLabel" aria-hidden="true">
-                        <div class="modal-dialog">
+                        <div class="modal-dialog modal-lg">
                             <div class="modal-content">
                                 <div class="modal-header">
                                     <h1 class="modal-title fs-5" id="pfpModalLabel">Profile Picture Selection</h1>
@@ -326,7 +327,6 @@ include __DIR__ . "/sidebar.php";
                 </div>
             </div>
         </div>
-    </div>
     </div>
 </section>
 

@@ -76,7 +76,7 @@ include __DIR__ . "/sidebar.php";
                     </div>
                 </div>
                 <div class="col">
-                    <div class="welcome-content">
+                    <div class="welcome-content ms-3">
                         <h2>Welcome back,</h2>
                         <div class="user-name">
                             <?php

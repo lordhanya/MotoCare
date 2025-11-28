@@ -6577,11 +6577,9 @@ textarea.form-control {
 
 #pfpModal .profile-form-container {
   width: 100%;
-  max-width: 800px;
+  max-width: 70vw;
   background: var(--bg-card);
-  border: 2px solid var(--border-color);
-  border-radius: 20px;
-  padding: 2.5rem;
+  padding: 2rem;
   box-shadow: 0 10px 40px rgba(0, 0, 0, 0.8);
 }
 
@@ -6610,7 +6608,7 @@ textarea.form-control {
    FILE UPLOAD
    ======================================== */
 
-.profile-form-container #pfpModal .upload-wrapper {
+#pfpModal .profile-form-container .upload-wrapper {
   display: flex;
   gap: 1rem;
   align-items: stretch;
@@ -7199,22 +7197,5 @@ textarea.form-control {
   }
   to {
     opacity: 1;
-  }
-}
-
-/* Extra Small Phones (< 375px) */
-@media (max-width: 374px) {
-  .page-header h2 {
-    font-size: 1.5rem !important;
-  }
-
-  .btn {
-    font-size: 0.8rem;
-    padding: 0.65rem 1rem;
-  }
-
-  .form-control,
-  .form-select {
-    font-size: 0.85rem;
   }
 }
