@@ -1,6 +1,6 @@
 <?php
 session_start();
-include "../db/connection.php";
+include __DIR__ . "/../db/connection.php";
 
 $pageTitle = "Add Maintenance | MotoCare"; 
 

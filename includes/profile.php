@@ -360,6 +360,4 @@ include __DIR__ . "/sidebar.php";
         </form>
     </div>
 </div>
-
-
 <?php include __DIR__ . "/footer.php"; ?>

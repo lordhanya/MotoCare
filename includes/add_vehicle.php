@@ -2,7 +2,7 @@
 
 session_start();
 
-include "../db/connection.php";
+include __DIR__ . "/../db/connection.php";
 
 $pageTitle = "Add Vehicle | MotoCare";
 
@@ -98,7 +98,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         echo "<script>alert('Vehicle addition failed. Please try again.');</script>";
     }
 }
-include "header.php";
+include __DIR__ . "/header.php";
 ?>
 
 <section class="add_vehicle">

@@ -16,7 +16,7 @@ if (empty($imgSrc)) {
 }
 ?>
 <!-- Dashboard Navbar -->
-<nav class="navbar no-print navbar-expand-lg border-body fixed-top px-4 py-3 dashNav">
+<nav class="navbar no-print navbar-expand-lg border-body fixed-top px-4 py-2 dashNav">
     <div class="container-fluid">
         <!-- Left Section: Sidebar Toggle + Logo -->
         <div class="d-flex align-items-center gap-3">
@@ -28,7 +28,7 @@ if (empty($imgSrc)) {
 
         <!-- Right Section: Profile + Logout -->
         <div class="d-flex align-items-center gap-3 ms-auto">
-            <div class="dashNavProfile-section">
+            <div class="dashNavProfile-section gap-4">
                 <div class="profile-icon">
                     <img src="<?php echo htmlspecialchars($imgSrc); ?>"
                         alt="Profile picture"

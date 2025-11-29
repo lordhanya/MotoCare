@@ -1,6 +1,7 @@
 # Sensitive folder/files
 /vendor/
 .env
+AGENTS.md
 
 # VS Code workspace settings
 .vscode/

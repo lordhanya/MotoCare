@@ -24,9 +24,6 @@ $today = date('Y-m-d');
 $upcoming_services = 0;
 $total_health = 0;
 ?>
-
-
-
 <section class="report-section">
     <div class="container">
         <!-- Page Header -->
@@ -243,4 +240,4 @@ $total_health = 0;
 </section>
 
 <?php include __DIR__ . "/spinner.php"; ?>
-<?php include "footer.php"; ?>
+<?php include __DIR__ . "/footer.php"; ?>
