@@ -126,7 +126,7 @@ include __DIR__ . "/header.php";
                         <!-- Vehicle Type -->
                         <label for="vehicle_type">
                             <input class="input" id="vehicle_type" name="vehicle_type" type="text" placeholder="" required>
-                            <span>Vehicle Type</span>
+                            <span>Vehicle Type (car/bike/scooter)</span>
                         </label>
 
                         <!-- Registration Number -->
