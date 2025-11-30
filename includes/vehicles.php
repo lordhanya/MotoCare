@@ -129,7 +129,7 @@ include __DIR__ . "/dashNav.php";
                             $image = "../assets/images/scooter_model.png";
                             break;
                         default:
-                            $image = "../assets/images/default.png";
+                            $image = "../assets/images/car_default.png";
                     }
                 ?>
                     <div class="col-md-4">
