@@ -1,6 +1,6 @@
-MotoCare
-Proprietary Vehicle Maintenance Management System  
-A smart vehicle maintenance tracker that predicts service dates, manages history, shows total expenses on vehicle maintenance, and sends automated service reminders.
+**MotoCare**
+**Proprietary Vehicle Maintenance Management System**
+A smart, automated vehicle maintenance tracker designed to predict upcoming service dates, maintain detailed service history, track expenses, and send automated reminders for all essential vehicle maintenance activities.
 ---
 🚗 **Overview**
 MotoCare is a comprehensive, private vehicle maintenance management system designed to help users efficiently track, schedule, and manage their vehicle's health and maintenance records. The system features automated reminders, expense tracking, and predictive maintenance scheduling.
@@ -24,7 +24,7 @@ MotoCare is a comprehensive, private vehicle maintenance management system desig
 - Git: Version control
   
 📁 **Project Structure**
-MotoCare/
+**MotoCare/
 ├── 📄 index.php                    # Main landing page
 ├── 📄 .gitignore                   # Git ignore rules
 ├── 📄 composer.json                # PHP dependencies
@@ -75,7 +75,7 @@ MotoCare/
 │
 └── 📁 cron/                        # Scheduled tasks
     ├── 📄 run_reminders.php        # Reminder execution
-    └── 📄 send_reminders.php       # Email reminder dispatch
+    └── 📄 send_reminders.php       # Email reminder dispatch**
   
 🎯 **Core Features**
 Vehicle Management
