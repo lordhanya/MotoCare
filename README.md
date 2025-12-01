@@ -1,7 +1,7 @@
 **MotoCare** -
 **Vehicle Maintenance Management System**
 ---
-🚗 **Overview**
+🚗 **Overview -**
 MotoCare is a comprehensive, vehicle maintenance management system designed to help users efficiently track, schedule, and manage their vehicle's health and maintenance records. The system features automated reminders, expense tracking, and predictive maintenance scheduling.
 
 🛠️ **Technology Stack**
