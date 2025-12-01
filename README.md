@@ -250,6 +250,6 @@ docker run -p 80:80 motocare
 
 ---
 © 2025 MotoCare - All Rights Reserved  
-Private Vehicle Maintenance Management System  
+Vehicle Maintenance Management System  
 Developed by: Ashif (lordhanya)  
 Contact: ashifrahman8638471722@gmail.com
