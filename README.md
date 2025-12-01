@@ -1,9 +1,8 @@
-**MotoCare**
-**Private Vehicle Maintenance Management System**
-A smart, automated vehicle maintenance tracker designed to predict upcoming service dates, maintain detailed service history, track expenses, and send automated reminders for all essential vehicle maintenance activities.
+**MotoCare** -
+**Vehicle Maintenance Management System**
 ---
 🚗 **Overview**
-MotoCare is a comprehensive, private vehicle maintenance management system designed to help users efficiently track, schedule, and manage their vehicle's health and maintenance records. The system features automated reminders, expense tracking, and predictive maintenance scheduling.
+MotoCare is a comprehensive, vehicle maintenance management system designed to help users efficiently track, schedule, and manage their vehicle's health and maintenance records. The system features automated reminders, expense tracking, and predictive maintenance scheduling.
 
 🛠️ **Technology Stack**
 **Backend**
@@ -25,7 +24,8 @@ MotoCare is a comprehensive, private vehicle maintenance management system desig
 - Git: Version control
 
 📁 **Project Structure**
-**MotoCare/
+
+MotoCare/
 ├── 📄 index.php                    
 ├── 📄 .gitignore                   
 ├── 📄 composer.json                
@@ -39,8 +39,8 @@ MotoCare is a comprehensive, private vehicle maintenance management system desig
 │   │   ├── car_model.png           
 │   │   ├── scooter_model.png       
 │   │   ├── default.jpg             
-│   │   ├── wp12487135-*.jpg       
 │   │   └── p1.jpg - p14.jpg       
+│   │         
 │   ├── 📄 style.css                
 │   └── 📄 script.js                
 │
@@ -50,7 +50,8 @@ MotoCare is a comprehensive, private vehicle maintenance management system desig
 │   │   ├── 📄 forgot_password.php  
 │   │   ├── 📄 resend_verification.php 
 │   │   ├── 📄 reset_password.php   
-│   │   └── 📄 verify.php           
+│   │   └── 📄 verify.php  
+|   |      
 │   ├── 📄 add_maintenance.php      
 │   ├── 📄 add_vehicle.php          
 │   ├── 📄 dashNav.php              
