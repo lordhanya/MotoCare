@@ -13,7 +13,7 @@ $dbUser = $_ENV['DB_USER'] ?? getenv('DB_USER');
 $dbPass = $_ENV['DB_PASS'] ?? getenv('DB_PASS');
 $dbPort = $_ENV['DB_PORT'] ?? getenv('DB_PORT');
 
-$db_SSL_CA = '/etc/secrets/ca.pem';
+$db_SSL_CA = $_ENV['DB_SSL_CA_PATH'] ?? '/etc/secrets/ca.pem';
 
 $dsn = "mysql:host=$dbHost;port=$dbPort;dbname=$dbName;charset=utf8mb4";
 

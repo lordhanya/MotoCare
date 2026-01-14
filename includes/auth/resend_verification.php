@@ -154,7 +154,7 @@ try {
                     <tr>
                         <td style='padding: 30px; background-color: #2a2828; text-align: center; border-top: 1px solid #2b2b2b;'>
                             <p style='margin: 0 0 16px 0; font-size: 14px; color: #b0b0b0;'>
-                                Need help? <a href='mailto:support@Motocare.com' style='color: #f82900; text-decoration: none; font-weight: 600;'>Contact Support</a>
+                                Need help? <a href=\"mailto:" . ($_ENV['SUPPORT_EMAIL'] ?? 'support@Motocare.com') . "\" style=\"color: #f82900; text-decoration: none; font-weight: 600;\">Contact Support</a>
                             </p>
                             <p style='margin: 0; font-size: 13px; color: #b0b0b0;'>
                                 © 2025 MotoCare. All rights reserved.

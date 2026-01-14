@@ -2,12 +2,12 @@
 <footer class="footer no-print bg-dark d-grid align-items-center justify-content-center text-white py-3">
     <div class="footer-container d-flex align-items-center justify-content-center mt-5">
         <div class="footer-col text-center social">
-            <h4>Follow <span>Me</span></h4>
+            <h4>Follow <span>MotoCare</span></h4>
             <div class="social-links d-flex gap-4 fs-3">
-                <a href="https://github.com/lordhanya/lordhanya" aria-label="Github"><i class="bi bi-github"></i></a>
-                <a href="https://x.com/md_ashif0622" aria-label="Twitter"><i class="bi bi-twitter-x"></i></a>
-                <a href="https://www.instagram.com/06__ashif__22/" aria-label="Instagram"><i class="bi bi-instagram"></i></a>
-                <a href="https://www.linkedin.com/in/ashif-rahman-69911a354/" aria-label="LinkedIn"><i class="bi bi-linkedin"></i></a>
+                <a href="https://github.com/motocare" aria-label="Github"><i class="bi bi-github"></i></a>
+                <a href="https://x.com/motocare" aria-label="Twitter"><i class="bi bi-twitter-x"></i></a>
+                <a href="https://www.instagram.com/motocare" aria-label="Instagram"><i class="bi bi-instagram"></i></a>
+                <a href="https://www.linkedin.com/company/motocare" aria-label="LinkedIn"><i class="bi bi-linkedin"></i></a>
             </div>
         </div>
     </div>

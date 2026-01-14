@@ -8,7 +8,7 @@ require __DIR__ . '/../vendor/autoload.php';
 
 // Load .env in local dev
 if (file_exists(__DIR__ . '/../.env')) {
-    $dotenv = Dotenv\Dotenv::createUnsafeImmutable(__DIR__ . '/../');
+    $dotenv = Dotenv\Dotenv::createImmutable(__DIR__ . '/../');
     $dotenv->load();
 }
 

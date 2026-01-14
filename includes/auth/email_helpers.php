@@ -4,7 +4,7 @@ require_once __DIR__ . '/../ResendMailer.php';
 function getMailer()
 {
     $apiKey = getenv('RESEND_API_KEY') ?: ($_ENV['RESEND_API_KEY'] ?? null);
-    $from = getenv('FROM_EMAIL') ?: ($_ENV['FROM_EMAIL'] ?? 'MotoCare <autocare.service.app@gmail.com>');
+    $from = getenv('FROM_EMAIL') ?: ($_ENV['FROM_EMAIL'] ?? 'MotoCare <' . ($_ENV['FALLBACK_EMAIL'] ?? 'noreply@motocare.store') . '>');
 
     if (!$apiKey) {
         throw new Exception("RESEND_API_KEY not set in environment.");

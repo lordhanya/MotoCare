@@ -139,7 +139,7 @@ try {
                                 </table>
                                 
                                 <!-- Login Button -->
-                                <a href="https://autocare.onrender.com/includes/login.php" style="display: inline-block; padding: 15px 40px; background: linear-gradient(135deg, #f82900, #ff4520); color: #ffffff; text-decoration: none; border-radius: 12px; font-size: 16px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; box-shadow: 0 4px 15px rgba(248, 41, 0, 0.4);">
+                                <a href="' . ($_ENV['PRODUCTION_URL'] ?? 'https://motocare.store') . '/includes/login.php" style="display: inline-block; padding: 15px 40px; background: linear-gradient(135deg, #f82900, #ff4520); color: #ffffff; text-decoration: none; border-radius: 12px; font-size: 16px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; box-shadow: 0 4px 15px rgba(248, 41, 0, 0.4);">
                                     Login to Your Account
                                 </a>
                                 
@@ -171,7 +171,7 @@ try {
                         <tr>
                             <td style="padding: 30px; background-color: #2a2828; text-align: center; border-top: 1px solid #2b2b2b;">
                                 <p style="margin: 0 0 16px 0; font-size: 14px; color: #b0b0b0;">
-                                    Need help? <a href="mailto:autocare.service.app@gmail.com" style="color: #f82900; text-decoration: none; font-weight: 600;">Contact Support</a>
+                                    Need help? <a href="mailto:' . ($_ENV['SUPPORT_EMAIL'] ?? 'support@motocare.com') . '" style="color: #f82900; text-decoration: none; font-weight: 600;">Contact Support</a>
                                 </p>
                                 <p style="margin: 0 0 8px 0; font-size: 13px; color: #b0b0b0;">
                                     © 2025 MotoCare. All rights reserved.

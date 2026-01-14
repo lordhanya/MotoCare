@@ -1,4 +1,10 @@
 <?php
+require __DIR__ . '/vendor/autoload.php';
+if (file_exists(__DIR__ . '/.env')) {
+    $dotenv = Dotenv\Dotenv::createImmutable(__DIR__ . '/');
+    $dotenv->load();
+}
+
 $pageTitle = "MotoCare - Your Ultimate Vehicle Maintenance App";
 include __DIR__ . "/includes/header.php";
 ?>
@@ -150,7 +156,7 @@ include __DIR__ . "/includes/header.php";
                         <p id="reachOut" class="mt-3"></p>
                     </div>
                     <div class="form-container">
-                        <form action="https://formspree.io/f/xrbozyly" method="POST">
+                        <form action="<?php echo htmlspecialchars($_ENV['FORMSPREE_ENDPOINT'] ?? 'https://formspree.io/f/xrbozyly'); ?>" method="POST">
                             <div class="mb-3">
                                 <label for="name" class="col-form-label">Name:</label>
                                 <input type="text" class="form-control" name="name" id="name" required>

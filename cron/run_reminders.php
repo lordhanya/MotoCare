@@ -1,8 +1,15 @@
 <?php
-// Security secret key
-$secret = "8078LrQxJPeqtMpsaRPcNvmoS2AxEJQh2ugLdRdJUcwHSuj4drwxlNjDSj1I";
+// Load environment variables
+require __DIR__ . '/../vendor/autoload.php';
+if (file_exists(__DIR__ . '/../.env')) {
+    $dotenv = Dotenv\Dotenv::createImmutable(__DIR__ . '/../');
+    $dotenv->load();
+}
 
-if (!isset($_GET['secret']) || $_GET['secret'] !== $secret) {
+// Security secret key from environment
+$secret = $_ENV['CRON_SECRET_KEY'] ?? null;
+
+if (!$secret || !isset($_GET['secret']) || $_GET['secret'] !== $secret) {
     http_response_code(403);
     echo "Forbidden";
     exit;
