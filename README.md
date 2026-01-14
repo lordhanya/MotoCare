@@ -251,4 +251,8 @@ docker run -p 80:80 motocare
 ---
 © 2025 MotoCare - All Rights Reserved  
 Vehicle Maintenance Management System | A project by Ashif (lordhanya) 
+<<<<<<< HEAD
 Contact: support@motocare.com
+=======
+Contact: support@motocare.com
+>>>>>>> ccceb3b8aa9f9ba2b052642a78f7616a2813d6ce
