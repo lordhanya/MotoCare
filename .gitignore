@@ -2,7 +2,6 @@
 /vendor/
 .env
 AGENTS.md
-README.md
 # VS Code workspace settings
 .vscode/
 
