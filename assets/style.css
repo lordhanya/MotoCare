@@ -39,7 +39,11 @@ body {
   width: 100%;
   max-width: 100vw;
   position: relative;
-  font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI",
+  font-family:
+    "Inter",
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
     sans-serif;
 }
 .container,
@@ -302,10 +306,10 @@ header .navbar-toggler-icon {
   background: rgba(255, 255, 255, 0.05);
   border-color: rgba(248, 41, 0, 0.499);
 }
-.dashNavProfile-section .profile-text{
-    display: flex;
-    flex-direction: column;
-    font-weight: 700;
+.dashNavProfile-section .profile-text {
+  display: flex;
+  flex-direction: column;
+  font-weight: 700;
 }
 .profile-icon {
   width: 40px;
@@ -470,7 +474,8 @@ header .navbar-toggler-icon {
   left: 0;
   width: 100%;
   height: 100vh;
-  background: radial-gradient(
+  background:
+    radial-gradient(
       ellipse 100% 80% at 85% 15%,
       rgba(248, 41, 0, 0.2) 0%,
       rgba(248, 41, 0, 0.12) 20%,
@@ -570,13 +575,12 @@ header .navbar-toggler-icon {
    FEATURES SECTION
    ======================================== */
 .features {
-  width: 100%;
-  max-width: 100vw;
   background: var(--bg-card);
   padding: 5rem 0;
   overflow-x: hidden;
 }
 .features .container {
+  width: 100%;
   max-width: 100vw;
   padding: 0 1rem;
 }
@@ -601,7 +605,6 @@ header .navbar-toggler-icon {
   border-radius: 20px;
   transition: all 0.4s ease;
   overflow: hidden;
-  height: 100%;
 }
 .features .feature-content .card:hover {
   transform: scale(1.1);
@@ -832,7 +835,9 @@ textarea.form-control {
   background-color: #090909;
   color: var(--text-primary);
   border: none;
-  box-shadow: 15px 15px 30px rgb(25, 25, 25), -15px -15px 30px rgb(60, 60, 60);
+  box-shadow:
+    15px 15px 30px rgb(25, 25, 25),
+    -15px -15px 30px rgb(60, 60, 60);
 }
 .registerForm .title,
 .loginForm .title {
@@ -1084,7 +1089,8 @@ textarea.form-control {
   padding: 3rem;
   border-radius: 24px;
   border: 2px solid var(--border-color);
-  box-shadow: 0 10px 50px rgba(0, 0, 0, 0.5),
+  box-shadow:
+    0 10px 50px rgba(0, 0, 0, 0.5),
     0 0 0 1px var(--border-light) inset;
 }
 .vehicleForm label {
@@ -2141,461 +2147,478 @@ section.profileSection .profileContainer {
 
 /* Reset Password Styles */
 .reset-container {
-    width: 100%;
-    max-width: 450px;
-    background: var(--bg-card);
-    border: 2px solid var(--border-color);
-    border-radius: 24px;
-    padding: 2.5rem 2rem;
-    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.8),
-                0 0 0 1px var(--border-light) inset;
-    position: relative;
-    overflow: hidden;
+  width: 100%;
+  max-width: 450px;
+  background: var(--bg-card);
+  border: 2px solid var(--border-color);
+  border-radius: 24px;
+  padding: 2.5rem 2rem;
+  box-shadow:
+    0 10px 40px rgba(0, 0, 0, 0.8),
+    0 0 0 1px var(--border-light) inset;
+  position: relative;
+  overflow: hidden;
 }
 
 .reset-container::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    height: 4px;
-    background: linear-gradient(90deg, var(--accent-color), var(--accent-hover), var(--accent-color));
-    background-size: 200% 100%;
-    animation: gradientMove 3s ease infinite;
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: linear-gradient(
+    90deg,
+    var(--accent-color),
+    var(--accent-hover),
+    var(--accent-color)
+  );
+  background-size: 200% 100%;
+  animation: gradientMove 3s ease infinite;
 }
 
 @keyframes gradientMove {
-    0%, 100% { background-position: 0% 50%; }
-    50% { background-position: 100% 50%; }
+  0%,
+  100% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
 }
 
 .reset-header {
-    text-align: center;
-    margin-bottom: 2rem;
+  text-align: center;
+  margin-bottom: 2rem;
 }
 
 .reset-header h2 {
-    font-size: 1.75rem;
-    font-weight: 700;
-    color: var(--text-primary);
-    margin-bottom: 0.5rem;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 0.5rem;
+  font-size: 1.75rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: 0.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
 }
 
 .reset-header h2 i {
-    color: var(--accent-color);
-    font-size: 1.5rem;
+  color: var(--accent-color);
+  font-size: 1.5rem;
 }
 
 .reset-form {
-    display: flex;
-    flex-direction: column;
-    gap: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
 }
 
 .form-group {
-    position: relative;
+  position: relative;
 }
 
 .form-group label {
-    display: block;
-    color: var(--text-primary);
-    font-weight: 600;
-    font-size: 0.9rem;
-    margin-bottom: 0.5rem;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
+  display: block;
+  color: var(--text-primary);
+  font-weight: 600;
+  font-size: 0.9rem;
+  margin-bottom: 0.5rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
 }
 
 .form-group label i {
-    color: var(--accent-color);
-    font-size: 1rem;
+  color: var(--accent-color);
+  font-size: 1rem;
 }
 
 .input-wrapper {
-    position: relative;
+  position: relative;
 }
 
 .form-group input {
-    width: 100%;
-    background: var(--bg-secondary);
-    border: 2px solid var(--border-color);
-    color: var(--text-primary);
-    padding: 0.875rem 3rem 0.875rem 1rem;
-    border-radius: 12px;
-    font-size: 1rem;
-    transition: all 0.3s ease;
-    outline: none;
+  width: 100%;
+  background: var(--bg-secondary);
+  border: 2px solid var(--border-color);
+  color: var(--text-primary);
+  padding: 0.875rem 3rem 0.875rem 1rem;
+  border-radius: 12px;
+  font-size: 1rem;
+  transition: all 0.3s ease;
+  outline: none;
 }
 
 .form-group input:focus {
-    border-color: var(--accent-color);
-    background: var(--bg-card-hover);
-    box-shadow: 0 0 0 4px rgba(248, 41, 0, 0.1);
+  border-color: var(--accent-color);
+  background: var(--bg-card-hover);
+  box-shadow: 0 0 0 4px rgba(248, 41, 0, 0.1);
 }
 
 .form-group input:hover {
-    border-color: var(--accent-hover);
+  border-color: var(--accent-hover);
 }
 
 .toggle-password {
-    position: absolute;
-    right: 1rem;
-    top: 50%;
-    transform: translateY(-50%);
-    background: none;
-    border: none;
-    color: var(--text-secondary);
-    cursor: pointer;
-    font-size: 1.1rem;
-    transition: color 0.3s ease;
-    padding: 0.25rem;
+  position: absolute;
+  right: 1rem;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  color: var(--text-secondary);
+  cursor: pointer;
+  font-size: 1.1rem;
+  transition: color 0.3s ease;
+  padding: 0.25rem;
 }
 
 .toggle-password:hover {
-    color: var(--accent-color);
+  color: var(--accent-color);
 }
 
 .password-strength {
-    margin-top: 0.5rem;
-    font-size: 0.8rem;
-    color: var(--text-secondary);
+  margin-top: 0.5rem;
+  font-size: 0.8rem;
+  color: var(--text-secondary);
 }
 
 .strength-bar {
-    height: 4px;
-    background: var(--bg-secondary);
-    border-radius: 10px;
-    margin-top: 0.5rem;
-    overflow: hidden;
+  height: 4px;
+  background: var(--bg-secondary);
+  border-radius: 10px;
+  margin-top: 0.5rem;
+  overflow: hidden;
 }
 
 .strength-fill {
-    height: 100%;
-    width: 0;
-    transition: width 0.3s ease, background 0.3s ease;
-    border-radius: 10px;
+  height: 100%;
+  width: 0;
+  transition:
+    width 0.3s ease,
+    background 0.3s ease;
+  border-radius: 10px;
 }
 
-.strength-weak { 
-    width: 33%; 
-    background: var(--danger-color); 
+.strength-weak {
+  width: 33%;
+  background: var(--danger-color);
 }
 
-.strength-medium { 
-    width: 66%; 
-    background: var(--warning-color); 
+.strength-medium {
+  width: 66%;
+  background: var(--warning-color);
 }
 
-.strength-strong { 
-    width: 100%; 
-    background: var(--success-color); 
+.strength-strong {
+  width: 100%;
+  background: var(--success-color);
 }
 
 .success-message {
-    text-align: center;
-    padding: 2rem 0;
+  text-align: center;
+  padding: 2rem 0;
 }
 
 .success-icon {
-    width: 80px;
-    height: 80px;
-    background: linear-gradient(135deg, var(--accent-color), var(--accent-hover));
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin: 0 auto 1.5rem;
-    animation: scaleIn 0.5s ease;
+  width: 80px;
+  height: 80px;
+  background: linear-gradient(135deg, var(--accent-color), var(--accent-hover));
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 1.5rem;
+  animation: scaleIn 0.5s ease;
 }
 
 @keyframes scaleIn {
-    from {
-        transform: scale(0);
-        opacity: 0;
-    }
-    to {
-        transform: scale(1);
-        opacity: 1;
-    }
+  from {
+    transform: scale(0);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
 }
 
 .success-icon i {
-    font-size: 2.5rem;
-    color: white;
+  font-size: 2.5rem;
+  color: white;
 }
 
 /* Forgot Password Styles */
 .forgotPass-section {
-    width: 100%;
-    min-height: 100vh;
-    background: #1a1919;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 2em 0;
+  width: 100%;
+  min-height: 100vh;
+  background: #1a1919;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2em 0;
 }
 
 .forgotPass-card {
-    display: flex;
-    flex-direction: column;
-    gap: 1em;
-    width: 100%;
-    padding: 2em 2.25em;
-    border-radius: 20px;
-    background-color: #090909;
-    color: var(--text-primary);
-    box-shadow:
-        15px 15px 30px rgb(25, 25, 25),
-        -15px -15px 30px rgb(60, 60, 60);
-    border: none;
-    position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 1em;
+  width: 100%;
+  padding: 2em 2.25em;
+  border-radius: 20px;
+  background-color: #090909;
+  color: var(--text-primary);
+  box-shadow:
+    15px 15px 30px rgb(25, 25, 25),
+    -15px -15px 30px rgb(60, 60, 60);
+  border: none;
+  position: relative;
 }
 
 .forgotPass-card .title {
-    font-size: 28px;
-    font-weight: 600;
-    letter-spacing: -1px;
-    position: relative;
-    display: flex;
-    align-items: center;
-    padding-left: 30px;
-    color: var(--accent-color);
+  font-size: 28px;
+  font-weight: 600;
+  letter-spacing: -1px;
+  position: relative;
+  display: flex;
+  align-items: center;
+  padding-left: 30px;
+  color: var(--accent-color);
 }
 
 .forgotPass-card .title::before,
 .forgotPass-card .title::after {
-    content: "";
-    position: absolute;
-    left: 0;
-    height: 16px;
-    width: 16px;
-    border-radius: 50%;
-    background-color: var(--accent-color);
+  content: "";
+  position: absolute;
+  left: 0;
+  height: 16px;
+  width: 16px;
+  border-radius: 50%;
+  background-color: var(--accent-color);
 }
 
 .forgotPass-card .title::after {
-    animation: pulse 1s linear infinite;
+  animation: pulse 1s linear infinite;
 }
 
 .forgotPass-card .subtitle {
-    font-size: 0.9rem;
-    color: var(--text-secondary);
-    margin-bottom: 1rem;
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+  margin-bottom: 1rem;
 }
 
 .forgotPass-card label {
-    position: relative;
-    width: 100%;
-    display: block;
-    margin-bottom: 1em;
+  position: relative;
+  width: 100%;
+  display: block;
+  margin-bottom: 1em;
 }
 
 .forgotPass-card .input {
-    background-color: #333;
-    color: var(--text-primary);
-    width: 100%;
-    padding: 20px 8px 6px 10px;
-    border-radius: 10px;
-    outline: none;
-    border: 1px solid rgba(105, 105, 105, 0.4);
-    font-size: medium;
+  background-color: #333;
+  color: var(--text-primary);
+  width: 100%;
+  padding: 20px 8px 6px 10px;
+  border-radius: 10px;
+  outline: none;
+  border: 1px solid rgba(105, 105, 105, 0.4);
+  font-size: medium;
 }
 
-.forgotPass-card label .input+span {
-    color: rgba(255, 255, 255, 0.5);
-    position: absolute;
-    left: 10px;
-    top: 0px;
-    font-size: 0.9em;
-    cursor: text;
-    transition: 0.3s ease;
+.forgotPass-card label .input + span {
+  color: rgba(255, 255, 255, 0.5);
+  position: absolute;
+  left: 10px;
+  top: 0px;
+  font-size: 0.9em;
+  cursor: text;
+  transition: 0.3s ease;
 }
 
-.forgotPass-card label .input:placeholder-shown+span {
-    top: 15px;
-    font-size: 0.9em;
+.forgotPass-card label .input:placeholder-shown + span {
+  top: 15px;
+  font-size: 0.9em;
 }
 
-.forgotPass-card label .input:focus+span,
-.forgotPass-card label .input:valid+span {
-    color: var(--accent-color);
-    top: 2px;
-    font-size: 0.7em;
-    font-weight: 600;
+.forgotPass-card label .input:focus + span,
+.forgotPass-card label .input:valid + span {
+  color: var(--accent-color);
+  top: 2px;
+  font-size: 0.7em;
+  font-weight: 600;
 }
 
 .forgotPass-card .submit {
-    border: none;
-    outline: none;
-    padding: 10px;
-    border-radius: 10px;
-    font-size: 16px;
-    color: var(--text-primary);
-    background-color: var(--accent-color);
-    cursor: pointer;
-    transition: background 0.3s ease;
-    width: 100%;
+  border: none;
+  outline: none;
+  padding: 10px;
+  border-radius: 10px;
+  font-size: 16px;
+  color: var(--text-primary);
+  background-color: var(--accent-color);
+  cursor: pointer;
+  transition: background 0.3s ease;
+  width: 100%;
 }
 
 .forgotPass-card .submit:hover {
-    background-color: var(--accent-hover);
+  background-color: var(--accent-hover);
 }
 
 .forgotPass-card .back-login {
-    text-align: center;
-    margin-top: 10px;
-    font-size: 0.9rem;
+  text-align: center;
+  margin-top: 10px;
+  font-size: 0.9rem;
 }
 
 .forgotPass-card .back-login a {
-    color: var(--accent-color);
-    text-decoration: none;
+  color: var(--accent-color);
+  text-decoration: none;
 }
 
 .forgotPass-card .back-login a:hover {
-    text-decoration: underline var(--accent-color);
+  text-decoration: underline var(--accent-color);
 }
 
 /* Email Verification Resend Styles */
 .verification-container {
-    width: 100%;
-    max-width: 480px;
-    background: var(--bg-card);
-    border: 2px solid var(--border-color);
-    border-radius: 24px;
-    padding: 3rem;
-    box-shadow: 0 10px 50px rgba(0, 0, 0, 0.5), 0 0 0 1px var(--border-light) inset;
-    position: relative;
-    z-index: 1;
-    transition: all 0.3s ease;
+  width: 100%;
+  max-width: 480px;
+  background: var(--bg-card);
+  border: 2px solid var(--border-color);
+  border-radius: 24px;
+  padding: 3rem;
+  box-shadow:
+    0 10px 50px rgba(0, 0, 0, 0.5),
+    0 0 0 1px var(--border-light) inset;
+  position: relative;
+  z-index: 1;
+  transition: all 0.3s ease;
 }
 
 .verification-container:hover {
-    border-color: var(--accent-color);
-    box-shadow: 0 15px 60px rgba(248, 41, 0, 0.2), 0 0 0 1px var(--accent-color) inset;
+  border-color: var(--accent-color);
+  box-shadow:
+    0 15px 60px rgba(248, 41, 0, 0.2),
+    0 0 0 1px var(--accent-color) inset;
 }
 
 .verification-header {
-    text-align: center;
-    margin-bottom: 2.5rem;
+  text-align: center;
+  margin-bottom: 2.5rem;
 }
 
 .verification-icon {
-    width: 70px;
-    height: 70px;
-    background: linear-gradient(135deg, var(--accent-color), var(--accent-hover));
-    border-radius: 16px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin: 0 auto 1.5rem;
-    box-shadow: 0 8px 20px rgba(248, 41, 0, 0.3);
+  width: 70px;
+  height: 70px;
+  background: linear-gradient(135deg, var(--accent-color), var(--accent-hover));
+  border-radius: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 1.5rem;
+  box-shadow: 0 8px 20px rgba(248, 41, 0, 0.3);
 }
 
 .verification-icon i {
-    font-size: 2rem;
-    color: white;
+  font-size: 2rem;
+  color: white;
 }
 
 .verification-form {
-    margin-top: 2rem;
+  margin-top: 2rem;
 }
 
 .form-label {
-    display: block;
-    color: var(--text-primary);
-    font-weight: 600;
-    font-size: 0.9rem;
-    margin-bottom: 0.75rem;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
+  display: block;
+  color: var(--text-primary);
+  font-weight: 600;
+  font-size: 0.9rem;
+  margin-bottom: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
 }
 
 .form-input {
-    width: 100%;
-    background: var(--bg-secondary);
-    border: 2px solid var(--border-color);
-    color: var(--text-primary);
-    padding: 1rem 1.25rem;
-    border-radius: 12px;
-    font-size: 1rem;
-    font-weight: 500;
-    transition: all 0.3s ease;
-    outline: none;
+  width: 100%;
+  background: var(--bg-secondary);
+  border: 2px solid var(--border-color);
+  color: var(--text-primary);
+  padding: 1rem 1.25rem;
+  border-radius: 12px;
+  font-size: 1rem;
+  font-weight: 500;
+  transition: all 0.3s ease;
+  outline: none;
 }
 
 .form-input:hover {
-    border-color: var(--accent-hover);
-    background: var(--bg-card-hover);
+  border-color: var(--accent-hover);
+  background: var(--bg-card-hover);
 }
 
 .form-input:focus {
-    border-color: var(--accent-color);
-    background: var(--bg-card-hover);
-    box-shadow: 0 0 0 4px rgba(248, 41, 0, 0.1);
+  border-color: var(--accent-color);
+  background: var(--bg-card-hover);
+  box-shadow: 0 0 0 4px rgba(248, 41, 0, 0.1);
 }
 
 .form-input::placeholder {
-    color: var(--text-secondary);
-    opacity: 0.6;
+  color: var(--text-secondary);
+  opacity: 0.6;
 }
 
 .verification-footer {
-    margin-top: 2rem;
-    padding-top: 2rem;
-    border-top: 1px solid var(--border-color);
-    text-align: center;
+  margin-top: 2rem;
+  padding-top: 2rem;
+  border-top: 1px solid var(--border-color);
+  text-align: center;
 }
 
 .footer-links {
-    display: flex;
-    justify-content: center;
-    gap: 1.5rem;
-    flex-wrap: wrap;
+  display: flex;
+  justify-content: center;
+  gap: 1.5rem;
+  flex-wrap: wrap;
 }
 
 .footer-link {
-    color: var(--text-secondary);
-    text-decoration: none;
-    font-size: 0.9rem;
-    font-weight: 500;
-    transition: all 0.3s ease;
-    display: inline-flex;
-    align-items: center;
-    gap: 0.5rem;
+  color: var(--text-secondary);
+  text-decoration: none;
+  font-size: 0.9rem;
+  font-weight: 500;
+  transition: all 0.3s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
 }
 
 .footer-link:hover {
-    color: var(--accent-color);
+  color: var(--accent-color);
 }
 
 .footer-link i {
-    font-size: 1rem;
+  font-size: 1rem;
 }
 
 /* Loading State */
 .submit-btn.loading {
-    pointer-events: none;
-    opacity: 0.7;
+  pointer-events: none;
+  opacity: 0.7;
 }
 
 .submit-btn.loading::after {
-    content: '';
-    width: 16px;
-    height: 16px;
-    border: 2px solid rgba(255, 255, 255, 0.3);
-    border-top-color: white;
-    border-radius: 50%;
-    animation: spin 0.6s linear infinite;
-    margin-left: 0.5rem;
+  content: "";
+  width: 16px;
+  height: 16px;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  border-top-color: white;
+  border-radius: 50%;
+  animation: spin 0.6s linear infinite;
+  margin-left: 0.5rem;
 }
 
 .page-header p {
@@ -2855,7 +2878,8 @@ section.profileSection .profileContainer {
   border: 2px solid var(--border-color);
   border-radius: 24px;
   padding: 3rem;
-  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5),
+  box-shadow:
+    0 10px 40px rgba(0, 0, 0, 0.5),
     0 0 0 1px var(--border-light) inset;
   position: relative;
   overflow: hidden;
@@ -2884,7 +2908,8 @@ section.profileSection .profileContainer {
 .add-maintenance-section .form-container:hover,
 .schedule-maintenance-section .form-container:hover {
   border-color: var(--accent-color);
-  box-shadow: 0 15px 50px rgba(248, 41, 0, 0.2),
+  box-shadow:
+    0 15px 50px rgba(248, 41, 0, 0.2),
     0 0 0 1px var(--accent-color) inset;
   transform: translateY(-5px);
 }
@@ -2945,7 +2970,9 @@ section.profileSection .profileContainer {
   outline: none;
   background: var(--bg-card-hover);
   border-color: var(--accent-color);
-  box-shadow: 0 0 0 4px rgba(248, 41, 0, 0.1), 0 5px 20px rgba(248, 41, 0, 0.2);
+  box-shadow:
+    0 0 0 4px rgba(248, 41, 0, 0.1),
+    0 5px 20px rgba(248, 41, 0, 0.2);
   transform: translateY(-2px);
 }
 .add-maintenance-section .form-control::placeholder,
@@ -3635,7 +3662,9 @@ select.form-select:focus {
   outline: none;
   background: var(--bg-card-hover);
   border-color: var(--accent-color);
-  box-shadow: 0 0 0 4px rgba(248, 41, 0, 0.1), 0 5px 20px rgba(248, 41, 0, 0.2);
+  box-shadow:
+    0 0 0 4px rgba(248, 41, 0, 0.1),
+    0 5px 20px rgba(248, 41, 0, 0.2);
   transform: translateY(-2px);
 }
 input.form-control::placeholder {
@@ -4391,6 +4420,22 @@ textarea.form-control {
   .contact h1 {
     font-size: 2.5rem;
   }
+  .features .feature-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 2rem;
+  }
+  .features .feature-content .card {
+    max-width: 450px;
+    width: 80vw;
+    flex: none; 
+  }
+  .features .feature-content .card:hover {
+    transform: scale(1.05); 
+  
+  }
   .info {
     flex-direction: column;
   }
@@ -5019,7 +5064,8 @@ textarea.form-control {
 @media (prefers-color-scheme: dark) {
   .add-maintenance-section .form-container,
   .schedule-maintenance-section .form-container {
-    box-shadow: 0 15px 50px rgba(0, 0, 0, 0.8),
+    box-shadow:
+      0 15px 50px rgba(0, 0, 0, 0.8),
       0 0 0 1px var(--border-light) inset;
   }
 }
