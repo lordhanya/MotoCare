@@ -2,7 +2,8 @@
 session_start();
 include __DIR__ . "/../db/connection.php";
 
-function safeHtml($value) {
+function safeHtml($value)
+{
     return $value === null ? '' : htmlspecialchars($value);
 }
 
@@ -104,14 +105,12 @@ include __DIR__ . "/dashNav.php";
 <section class="vehicles text-white py-5 px-3">
     <div class="container">
         <h2>Your <span>Vehicles</span></h2>
-
+        
         <?php if (isset($_SESSION['message'])): ?>
-            <div class="alert text-center my-3 ms-auto me-auto d-flex align-items-center justify-content-center gap-2">
-                <i class="bi bi-bell"></i>
-                <?php
-                echo htmlspecialchars($_SESSION['message']);
-                unset($_SESSION['message']);
-                ?>
+            <div class="alert fade show text-center my-3 mx-auto py-3 position-relative" role="alert">
+                <i class="bi bi-bell me-2"></i>
+                <?php echo htmlspecialchars($_SESSION['message']);
+                unset($_SESSION['message']); ?>
             </div>
         <?php endif; ?>
 

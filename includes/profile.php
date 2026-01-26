@@ -42,6 +42,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $delete->bindParam(':user_id', $user_id, PDO::PARAM_INT);
         if ($delete->execute()) {
             session_destroy();
+            session_unset();
             header("Location: register.php");
             exit();
         } else {
@@ -62,7 +63,7 @@ $imgSrc = $user['profile_image'];
 if (empty($imgSrc)) {
     $imgSrc = '../assets/images/default.jpg';
 } else {
-    $imgSrc = '../assets/images/' . $imgSrc; // e.g. p1.jpg
+    $imgSrc = '../assets/images/' . $imgSrc;
 }
 
 include __DIR__ . "/header.php";
@@ -77,6 +78,15 @@ include __DIR__ . "/sidebar.php";
                 <h2>Account <span>Settings</span></h2>
             </div>
         </div>
+
+        <?php if (isset($_SESSION['message'])): ?>
+            <div class="alert alert-danger alert-dismissible fade show text-center my-3 ms-auto me-auto d-flex align-items-center justify-content-center gap-2" role="alert">
+                <i class="bi bi-bell"></i> <?php echo htmlspecialchars($_SESSION['message']);
+                                            unset($_SESSION['message']); ?>
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        <?php endif; ?>
+
         <div class="row mt-3">
             <div class="profileContainer mt-3">
                 <h3>My Profile</h3>
@@ -87,13 +97,8 @@ include __DIR__ . "/sidebar.php";
                             class="rounded-circle"
                             width="120">
                         <div class="userData text-center mt-2">
-                            <p class="user-name mb-1">
-                                <?php echo isset($_SESSION['first_name']) ? $_SESSION['first_name'] : ''; ?>
-                                <?php echo isset($_SESSION['last_name']) ? $_SESSION['last_name'] : ''; ?>
-                            </p>
-                            <p class="email mb-0">
-                                <?= isset($_SESSION['email']) ? htmlspecialchars($_SESSION['email']) : 'Guest'; ?>
-                            </p>
+                            <p class="user-name mb-1"><?php echo htmlspecialchars($user['first_name'] ?? '') . ' ' . htmlspecialchars($user['last_name'] ?? ''); ?></p>
+                            <p class="email mb-0"><?php echo htmlspecialchars($user['email'] ?? 'Guest'); ?></p>
                         </div>
                     </div>
                 </div>
@@ -305,15 +310,15 @@ include __DIR__ . "/sidebar.php";
                     <div class="userInfo d-flex align-items-center gap-5 mt-3">
                         <div class="infoGroup d-grid align-items-center gap-2">
                             <label class="mb-0" for="firstName">First Name</label>
-                            <p class="first-name fw-medium mb-2"><?php echo isset($_SESSION['first_name']) ? $_SESSION['first_name'] : ''; ?></p>
+                            <p class="first-name fw-medium mb-2"><?php echo isset($user['first_name']) ? $user['first_name'] : ''; ?></p>
                         </div>
                         <div class="infoGroup d-grid align-items-center gap-2">
                             <label class="mb-0" for="lastName">Last Name</label>
-                            <p class="last-name fw-medium mb-2"><?php echo isset($_SESSION['last_name']) ? $_SESSION['last_name'] : ''; ?></p>
+                            <p class="last-name fw-medium mb-2"><?php echo isset($user['last_name']) ? $user['last_name'] : ''; ?></p>
                         </div>
                         <div class="infoGroup d-grid align-items-center gap-2">
                             <label class="mb-0" for="email">Email Address</label>
-                            <p class="email text-break mb-2"><?= isset($_SESSION['email']) ? htmlspecialchars($_SESSION['email']) : 'Guest'; ?></p>
+                            <p class="email text-break mb-2"><?= isset($user['email']) ? htmlspecialchars($user['email']) : 'Guest'; ?></p>
                         </div>
                     </div>
                 </div>
@@ -321,9 +326,13 @@ include __DIR__ . "/sidebar.php";
                     <button type="button" class="d-flex editBtn px-4 py-2 align-items-center justify-content-center gap-2" data-bs-toggle="modal" data-bs-target="#editProfileModal">
                         <i class="bi bi-pencil-square"></i> Edit
                     </button>
-                    <button type="button" class="d-flex deleteBtn px-4 py-2 align-items-center justify-content-center gap-2" onclick="if(confirm('Are you sure you want to delete your account? This cannot be undone!')) alert('Account deleted')">
-                        <i class="bi bi-trash"></i> Delete
-                    </button>
+                    <form method="POST" class="d-inline">
+                        <input type="hidden" name="action" value="delete">
+                        <button type="submit" class="d-flex deleteBtn px-4 py-2 align-items-center justify-content-center gap-2"
+                            onclick="return confirm('Are you sure you want to delete your account? This cannot be undone!')">
+                            <i class="bi bi-trash"></i> Delete
+                        </button>
+                    </form>
                 </div>
             </div>
         </div>
@@ -342,15 +351,15 @@ include __DIR__ . "/sidebar.php";
             <div class="modal-body">
                 <div class="mb-3">
                     <label for="first_name" class="form-label">First Name</label>
-                    <input id="first_name" name="first_name" class="form-control" value="<?= htmlspecialchars($_SESSION['first_name']) ?>">
+                    <input id="first_name" name="first_name" class="form-control" value="<?= htmlspecialchars($user['first_name']) ?>">
                 </div>
                 <div class="mb-3">
                     <label for="last_name" class="form-label">Last Name</label>
-                    <input id="last_name" name="last_name" class="form-control" value="<?= htmlspecialchars($_SESSION['last_name']) ?>">
+                    <input id="last_name" name="last_name" class="form-control" value="<?= htmlspecialchars($user['last_name']) ?>">
                 </div>
                 <div class="mb-3">
                     <label for="email" class="form-label">Email</label>
-                    <input id="email" name="email" type="email" class="form-control" value="<?= htmlspecialchars($_SESSION['email']) ?>">
+                    <input id="email" name="email" type="email" class="form-control" value="<?= htmlspecialchars($user['email']) ?>">
                 </div>
             </div>
             <div class="modal-footer gap-3">
